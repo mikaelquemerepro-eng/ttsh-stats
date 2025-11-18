@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ST HERBLAIN T.T - Résultats</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏓 ST HERBLAIN T.T</h1>
+            <p>Résultats des matchs de tennis de table</p>
+        </header>
+        
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showMainSection('journees', this)">
+                📅 Journées
+            </button>
+            <button class="nav-tab" onclick="showMainSection('stats-joueurs', this)">
+                👥 Stats Joueurs
+            </button>
+            <button class="nav-tab" onclick="showMainSection('stats-club', this)">
+                🏆 Stats Club
+            </button>
+        </div>
+        
+        <div class="content">
+            <!-- Section Journées avec sidebar -->
+            <div id="journees" class="main-section active">
+                <div class="content-with-sidebar">
+                    <div class="sidebar-tabs">
+                        <button class="sidebar-tab active" onclick="showJournee('J3_20251012', this)">
+                            J3 - 12/10/2025
+                        </button>
+                        <button class="sidebar-tab" onclick="showJournee('J4_20251116', this)">
+                            J4 - 16/11/2025
+                        </button>
+                    </div>
+                    <div class="sub-content">
+                        <div id="J3_20251012" class="journee-section active">
+                            <div class="stats-grid">
+                                <div class="stat-card">
+                                    <div class="number" id="stats-j3-matches">-</div>
+                                    <div class="label">Matchs</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="number" id="stats-j3-victoires">-</div>
+                                    <div class="label">Victoires</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="number" id="stats-j3-nuls">-</div>
+                                    <div class="label">Nuls</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="number" id="stats-j3-defaites">-</div>
+                                    <div class="label">Défaites</div>
+                                </div>
+                            </div>
+                            <div id="matches-j3" class="matches-grid"></div>
+                            <div class="chart-container">
+                                <h3>📊 Taux de réussite par nombre de sets joués</h3>
+                                <div class="chart-layout">
+                                    <div class="chart-ratio" id="ratio-j3">
+                                        <div class="ratio-label">Ratio global</div>
+                                        <div class="ratio-value">-</div>
+                                        <div class="ratio-details">
+                                            <div class="ratio-item">
+                                                <div class="ratio-item-value" id="wins-j3">-</div>
+                                                <div class="ratio-item-label">Victoires</div>
+                                            </div>
+                                            <div class="ratio-item">
+                                                <div class="ratio-item-value" id="losses-j3">-</div>
+                                                <div class="ratio-item-label">Défaites</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="chart-wrapper" style="flex: 1;">
+                                        <canvas id="chart-j3"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div id="J4_20251116" class="journee-section">
+                            <div class="stats-grid">
+                                <div class="stat-card">
+                                    <div class="number" id="stats-j4-matches">-</div>
+                                    <div class="label">Matchs</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="number" id="stats-j4-victoires">-</div>
+                                    <div class="label">Victoires</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="number" id="stats-j4-nuls">-</div>
+                                    <div class="label">Nuls</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="number" id="stats-j4-defaites">-</div>
+                                    <div class="label">Défaites</div>
+                                </div>
+                            </div>
+                            <div id="matches-j4" class="matches-grid"></div>
+                            <div class="chart-container">
+                                <h3>📊 Taux de réussite par nombre de sets joués</h3>
+                                <div class="chart-layout">
+                                    <div class="chart-ratio" id="ratio-j4">
+                                        <div class="ratio-label">Ratio global</div>
+                                        <div class="ratio-value">-</div>
+                                        <div class="ratio-details">
+                                            <div class="ratio-item">
+                                                <div class="ratio-item-value" id="wins-j4">-</div>
+                                                <div class="ratio-item-label">Victoires</div>
+                                            </div>
+                                            <div class="ratio-item">
+                                                <div class="ratio-item-value" id="losses-j4">-</div>
+                                                <div class="ratio-item-label">Défaites</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="chart-wrapper" style="flex: 1;">
+                                        <canvas id="chart-j4"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Section Stats Joueurs -->
+            <div id="stats-joueurs" class="main-section">
+                <h2 class="section-title">👥 Statistiques des joueurs ST HERBLAIN T.T</h2>
+                <div id="stats-content">
+                    <p style="text-align: center; color: #999; padding: 40px;">Chargement des statistiques...</p>
+                </div>
+            </div>
+            
+            <!-- Section Stats Club -->
+            <div id="stats-club" class="main-section">
+                <h2 class="section-title">🏆 Statistiques du club ST HERBLAIN T.T</h2>
+                <div id="stats-club-content">
+                    <p style="text-align: center; color: #999; padding: 40px;">Chargement des statistiques...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="matchModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Détails du match</h2>
+                <button class="close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Contenu dynamique -->
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
