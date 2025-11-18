@@ -144,6 +144,17 @@
             <!-- Section Stats Joueurs -->
             <div id="stats-joueurs" class="main-section">
                 <h2 class="section-title">👥 Statistiques des joueurs ST HERBLAIN T.T</h2>
+                <div class="nav-tabs" style="margin-bottom: 20px;">
+                    <button class="nav-tab active" onclick="showStatsJournee('all', this)">
+                        🌐 Toutes journées
+                    </button>
+                    <button class="nav-tab" onclick="showStatsJournee('J3_20251012', this)">
+                        J3 - 12/10/2025
+                    </button>
+                    <button class="nav-tab" onclick="showStatsJournee('J4_20251116', this)">
+                        J4 - 16/11/2025
+                    </button>
+                </div>
                 <div id="stats-content">
                     <p style="text-align: center; color: #999; padding: 40px;">Chargement des statistiques...</p>
                 </div>
@@ -202,5 +213,7 @@
         });
     </script>
     <script src="script.js"></script>
+    <script data-goatcounter="https://mikaelquemere.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>

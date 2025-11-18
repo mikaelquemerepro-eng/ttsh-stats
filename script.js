@@ -1,5 +1,6 @@
 console.log('Script chargé - v2');
 let allData = {};
+let currentStatsJournee = 'all';
 
 async function loadData() {
     try {
@@ -18,13 +19,25 @@ async function loadData() {
         
         displayMatches('J3_20251012');
         displayMatches('J4_20251116');
-        displayStatistics();
+        displayStatistics('all');
         displayClubStatistics();
         createGlobalSetDistributionChart();
     } catch (error) {
         console.error('Erreur de chargement des données:', error);
         alert('Erreur: ' + error.message);
     }
+}
+
+function showStatsJournee(journeeId, element) {
+    // Update tabs
+    const parent = element.parentElement;
+    parent.querySelectorAll('.nav-tab').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    element.classList.add('active');
+    
+    currentStatsJournee = journeeId;
+    displayStatistics(journeeId);
 }
 
 function showMainSection(sectionId, element) {
@@ -59,14 +72,135 @@ function showJournee(journeeId, element) {
     document.getElementById(journeeId).classList.add('active');
 }
 
-function displayStatistics() {
+function calculateJourneeStats(journeeId, countDoublesAsOne = true) {
+    const matches = allData[journeeId];
+    if (!matches) return {};
+    
+    const joueurs = {};
+    
+    matches.forEach(match => {
+        const equipeA = match.equipes.equipe_a;
+        const equipeX = match.equipes.equipe_x;
+        const isSTH_A = equipeA.nom.includes('ST HERBLAIN') || equipeA.nom.includes('TTSH');
+        const isSTH_X = equipeX.nom.includes('ST HERBLAIN') || equipeX.nom.includes('TTSH');
+        
+        if (!isSTH_A && !isSTH_X) return;
+        
+        const equipeSTH = isSTH_A ? equipeA : equipeX;
+        const scoreSTH = isSTH_A ? match.resultat_global.equipe_a : match.resultat_global.equipe_x;
+        const scoreAdv = isSTH_A ? match.resultat_global.equipe_x : match.resultat_global.equipe_a;
+        
+        // Traiter les rencontres
+        if (match.rencontres) {
+            match.rencontres.forEach(rencontre => {
+                const joueurA = rencontre.joueur_a;
+                const joueurX = rencontre.joueur_x;
+                
+                const processPlayer = (joueur, isTeamA, isFromJoueur2 = false) => {
+                    // Pour les doubles, chercher avec la lettre composée (ex: "D/E")
+                    let joueurData;
+                    if (rencontre.type === 'double') {
+                        joueurData = isTeamA ? 
+                            equipeA.joueurs.find(j => rencontre.joueur_a.lettre.includes(j.lettre)) :
+                            equipeX.joueurs.find(j => rencontre.joueur_x.lettre.includes(j.lettre));
+                        // Pour le second joueur du double
+                        if (isFromJoueur2) {
+                            const lettre2 = isTeamA ? 
+                                rencontre.joueur_a.lettre.split('/')[1] :
+                                rencontre.joueur_x.lettre.split('/')[1];
+                            joueurData = isTeamA ?
+                                equipeA.joueurs.find(j => j.lettre === lettre2) :
+                                equipeX.joueurs.find(j => j.lettre === lettre2);
+                        }
+                    } else {
+                        joueurData = isTeamA ? 
+                            equipeA.joueurs.find(j => j.lettre === joueur.lettre) :
+                            equipeX.joueurs.find(j => j.lettre === joueur.lettre);
+                    }
+                    
+                    if (!joueurData) return;
+                    
+                    const isTTSH = isTeamA ? isSTH_A : isSTH_X;
+                    if (!isTTSH) return;
+                    
+                    const nomComplet = `${joueur.prenom.charAt(0).toUpperCase()}${joueur.prenom.slice(1).toLowerCase()} ${joueur.nom.toUpperCase()}`;
+                    
+                    if (!joueurs[nomComplet]) {
+                        joueurs[nomComplet] = {
+                            points_officiels: joueurData.points,
+                            matches: { total: 0, victoires: 0, defaites: 0, taux_victoire: 0 },
+                            sets: { gagnes: 0, perdus: 0, total: 0, ratio: 0 },
+                            performance_classement: { score: 0 }
+                        };
+                    }
+                    
+                    const stats = joueurs[nomComplet];
+                    // Pour les doubles, compter 0.5 ou 1 selon le paramètre
+                    const matchValue = (rencontre.type === 'double' && !countDoublesAsOne) ? 0.5 : 1;
+                    stats.matches.total += matchValue;
+                    
+                    // Calculer le résultat
+                    let setsGagnes = 0;
+                    let setsPerdus = 0;
+                    if (rencontre.sets) {
+                        rencontre.sets.forEach(set => {
+                            if ((isTeamA && set.gagnant === 'A') || (!isTeamA && set.gagnant === 'X')) {
+                                setsGagnes++;
+                            } else {
+                                setsPerdus++;
+                            }
+                        });
+                    }
+                    
+                    if (setsGagnes > setsPerdus) {
+                        stats.matches.victoires += matchValue;
+                    } else {
+                        stats.matches.defaites += matchValue;
+                    }
+                    
+                    stats.sets.gagnes += setsGagnes;
+                    stats.sets.perdus += setsPerdus;
+                    stats.sets.total = stats.sets.gagnes + stats.sets.perdus;
+                    stats.sets.ratio = stats.sets.total > 0 ? stats.sets.gagnes / stats.sets.total : 0;
+                    stats.matches.taux_victoire = stats.matches.total > 0 ? 
+                        Math.round((stats.matches.victoires / stats.matches.total) * 100) : 0;
+                };
+
+                
+                // Traiter les joueurs simples
+                processPlayer(joueurA, true);
+                processPlayer(joueurX, false);
+                
+                // Traiter les joueurs en double si présents
+                if (rencontre.type === 'double') {
+                    if (rencontre.joueur_a.joueur2) {
+                        processPlayer(rencontre.joueur_a.joueur2, true, true);
+                    }
+                    if (rencontre.joueur_x.joueur2) {
+                        processPlayer(rencontre.joueur_x.joueur2, false, true);
+                    }
+                }
+            });
+        }
+    });
+    
+    return joueurs;
+}
+
+function displayStatistics(journeeFilter = 'all') {
     if (!allData['statistiques']) {
         console.error('Pas de statistiques disponibles');
         return;
     }
     
     const stats = allData['statistiques'];
-    const joueurs = stats.joueurs;
+    let joueurs = stats.joueurs;
+    
+    // Si filtre par journée, calculer les stats pour cette journée uniquement
+    // IMPORTANT: ici on garde doubles=0.5 pour les tableaux
+    if (journeeFilter !== 'all' && allData[journeeFilter]) {
+        joueurs = calculateJourneeStats(journeeFilter, false); // false = doubles comptent 0.5
+    }
     
     // Convertir en tableau et trier par taux de victoire
     let joueursArray = Object.entries(joueurs).map(([nom, data]) => ({
@@ -74,21 +208,27 @@ function displayStatistics() {
         ...data
     }));
     
-    // Filtrer les joueurs avec au moins 3 matches
-    joueursArray = joueursArray.filter(j => j.matches.total >= 3);
+    // Filtrer les joueurs avec au moins 3 matches (ou 1 si journée spécifique)
+    const minMatches = journeeFilter === 'all' ? 3 : 1;
+    joueursArray = joueursArray.filter(j => j.matches.total >= minMatches);
     
-    // Trier par taux de victoire puis victoires
+    // Trier par victoires, puis par ratio de sets en cas d'égalité
     joueursArray.sort((a, b) => {
-        if (b.matches.taux_victoire !== a.matches.taux_victoire) {
-            return b.matches.taux_victoire - a.matches.taux_victoire;
+        if (b.matches.victoires !== a.matches.victoires) {
+            return b.matches.victoires - a.matches.victoires;
         }
-        return b.matches.victoires - a.matches.victoires;
+        return b.sets.ratio - a.sets.ratio;
     });
     
     const container = document.getElementById('stats-content');
     
+    const journeeTitle = journeeFilter === 'all' ? 'Toutes journées confondues' : 
+                        journeeFilter === 'J3_20251012' ? 'Journée 3 - 12/10/2025' :
+                        'Journée 4 - 16/11/2025';
+    const minMatchesText = journeeFilter === 'all' ? '(minimum 3 matches)' : '';
+    
     let html = `
-        <h3 style="color: #667eea; margin-bottom: 20px;">🏆 Classement des joueurs (minimum 3 matches)</h3>
+        <h3 style="color: #667eea; margin-bottom: 20px;">🏆 Classement des joueurs - ${journeeTitle} ${minMatchesText}</h3>
         <table class="stats-table" id="stats-table">
             <thead>
                 <tr>
@@ -115,7 +255,7 @@ function displayStatistics() {
         const perfSign = perfScore > 0 ? '+' : '';
         
         html += `
-            <tr>
+            <tr onclick="showPlayerDetail('${joueur.nom.replace(/'/g, "\\'")}');" style="cursor: pointer;">
                 <td class="rank">${index + 1}</td>
                 <td class="player-name-cell">${joueur.nom}</td>
                 <td><span class="stats-badge badge-info">${joueur.points_officiels} pts</span></td>
@@ -467,7 +607,7 @@ function updateTableRows(joueursArray) {
         const perfSign = perfScore > 0 ? '+' : '';
         
         html += `
-            <tr>
+            <tr onclick="showPlayerDetail('${joueur.nom.replace(/'/g, "\\'")}');" style="cursor: pointer;">
                 <td class="rank">${index + 1}</td>
                 <td class="player-name-cell">${joueur.nom}</td>
                 <td><span class="stats-badge badge-info">${joueur.points_officiels} pts</span></td>
@@ -1088,6 +1228,381 @@ function createMatchChart(match, isHerblainA, isHerblainX) {
 
 function closeModal() {
     document.getElementById('matchModal').classList.remove('active');
+}
+
+// Fonction helper pour normaliser les noms de joueurs
+function normalizePlayerName(joueur) {
+    const nom = joueur.nom.toUpperCase();
+    const prenom = joueur.prenom.charAt(0).toUpperCase() + joueur.prenom.slice(1).toLowerCase();
+    return `${prenom} ${nom}`;
+}
+
+function showPlayerDetail(playerName) {
+    // Récupérer les stats en fonction de la journée sélectionnée
+    let joueur;
+    if (currentStatsJournee === 'all') {
+        // Pour "all", calculer les stats depuis les matchs bruts pour compter les doubles comme 1
+        const allJourneesStats = {};
+        
+        // Calculer pour chaque journée
+        ['J3_20251012', 'J4_20251116'].forEach(journeeId => {
+            if (allData[journeeId]) {
+                const journeeStats = calculateJourneeStats(journeeId);
+                Object.entries(journeeStats).forEach(([nom, stats]) => {
+                    if (!allJourneesStats[nom]) {
+                        allJourneesStats[nom] = {
+                            points_officiels: stats.points_officiels,
+                            matches: { total: 0, victoires: 0, defaites: 0, taux_victoire: 0 },
+                            sets: { gagnes: 0, perdus: 0, total: 0, ratio: 0 },
+                            performance_classement: { score: 0 }
+                        };
+                    }
+                    allJourneesStats[nom].matches.total += stats.matches.total;
+                    allJourneesStats[nom].matches.victoires += stats.matches.victoires;
+                    allJourneesStats[nom].matches.defaites += stats.matches.defaites;
+                    allJourneesStats[nom].sets.gagnes += stats.sets.gagnes;
+                    allJourneesStats[nom].sets.perdus += stats.sets.perdus;
+                });
+            }
+        });
+        
+        // Recalculer les ratios
+        Object.values(allJourneesStats).forEach(stats => {
+            stats.sets.total = stats.sets.gagnes + stats.sets.perdus;
+            stats.sets.ratio = stats.sets.total > 0 ? stats.sets.gagnes / stats.sets.total : 0;
+            stats.matches.taux_victoire = stats.matches.total > 0 ? 
+                Math.round((stats.matches.victoires / stats.matches.total) * 100) : 0;
+        });
+        
+        joueur = allJourneesStats[playerName];
+    } else {
+        // Calculer les stats pour la journée spécifique
+        const journeeStats = calculateJourneeStats(currentStatsJournee);
+        joueur = journeeStats[playerName];
+    }
+    
+    if (!joueur) {
+        console.error('Joueur non trouvé:', playerName);
+        return;
+    }
+    
+    const modal = document.getElementById('matchModal');
+    const modalBody = document.getElementById('modal-body');
+    
+    const journeeTitle = currentStatsJournee === 'all' ? '' : 
+                        currentStatsJournee === 'J3_20251012' ? ' - Journée 3' : ' - Journée 4';
+    
+    document.getElementById('modal-title').innerHTML = 
+        `<span style="background: #667eea; color: white; padding: 5px 12px; border-radius: 5px; margin-right: 15px;">👤</span>${playerName}${journeeTitle}`;
+    
+    // Statistiques générales
+    const winRate = joueur.matches.taux_victoire;
+    const setsRatio = (joueur.sets.ratio * 100).toFixed(0);
+    const perfScore = joueur.performance_classement?.score || 0;
+    const perfSign = perfScore > 0 ? '+' : '';
+    
+    let html = `
+        <div style="margin-bottom: 25px; padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 10px; color: white;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; text-align: center;">
+                <div>
+                    <div style="font-size: 12px; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px;">Points</div>
+                    <div style="font-size: 32px; font-weight: bold; margin: 5px 0;">${joueur.points_officiels}</div>
+                </div>
+                <div>
+                    <div style="font-size: 12px; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px;">Matches</div>
+                    <div style="font-size: 32px; font-weight: bold; margin: 5px 0;">${joueur.matches.victoires}/${joueur.matches.total}</div>
+                    <div style="font-size: 13px; opacity: 0.9;">${winRate}% victoires</div>
+                </div>
+                <div>
+                    <div style="font-size: 12px; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px;">Sets</div>
+                    <div style="font-size: 32px; font-weight: bold; margin: 5px 0;">${joueur.sets.gagnes}/${joueur.sets.gagnes + joueur.sets.perdus}</div>
+                    <div style="font-size: 13px; opacity: 0.9;">${setsRatio}% ratio</div>
+                </div>
+                <div>
+                    <div style="font-size: 12px; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px;">Performance</div>
+                    <div style="font-size: 32px; font-weight: bold; margin: 5px 0;">${perfSign}${perfScore}</div>
+                    <div style="font-size: 13px; opacity: 0.9;">vs classement</div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Historique des matches - filtrer par journée si nécessaire
+    const allMatches = [];
+    Object.entries(allData).forEach(([journeeId, matches]) => {
+        if (journeeId === 'statistiques') return;
+        
+        // Si on est sur une journée spécifique, filtrer uniquement cette journée
+        if (currentStatsJournee !== 'all' && journeeId !== currentStatsJournee) return;
+        
+        matches.forEach((match, matchIndex) => {
+            const equipeA = match.equipes.equipe_a;
+            const equipeX = match.equipes.equipe_x;
+            
+            // Vérifier si le joueur a participé - normaliser les noms pour la comparaison
+            const normalizePlayerName = (j) => {
+                // Normaliser en "Prenom NOM" pour correspondre au format des stats
+                const nom = j.nom.toUpperCase();
+                const prenom = j.prenom.charAt(0).toUpperCase() + j.prenom.slice(1).toLowerCase();
+                return `${prenom} ${nom}`;
+            };
+            
+            const playerInA = equipeA.joueurs.some(j => normalizePlayerName(j) === playerName);
+            const playerInX = equipeX.joueurs.some(j => normalizePlayerName(j) === playerName);
+            
+            if (playerInA || playerInX) {
+                const playerTeam = playerInA ? 'A' : 'X';
+                const scoreA = match.resultat_global.equipe_a;
+                const scoreX = match.resultat_global.equipe_x;
+                const isVictory = (playerTeam === 'A' && scoreA > scoreX) || (playerTeam === 'X' && scoreX > scoreA);
+                
+                // Récupérer les détails des rencontres du joueur (si disponibles)
+                const playerMatches = match.rencontres ? match.rencontres.filter(rencontre => {
+                    const joueurA = normalizePlayerName(rencontre.joueur_a);
+                    const joueurX = normalizePlayerName(rencontre.joueur_x);
+                    
+                    // Pour les simples
+                    if (rencontre.type === 'simple') {
+                        return joueurA === playerName || joueurX === playerName;
+                    }
+                    
+                    // Pour les doubles
+                    if (rencontre.type === 'double') {
+                        const joueurA2 = rencontre.joueur_a.joueur2 ? normalizePlayerName({
+                            nom: rencontre.joueur_a.joueur2.nom,
+                            prenom: rencontre.joueur_a.joueur2.prenom
+                        }) : null;
+                        const joueurX2 = rencontre.joueur_x.joueur2 ? normalizePlayerName({
+                            nom: rencontre.joueur_x.joueur2.nom,
+                            prenom: rencontre.joueur_x.joueur2.prenom
+                        }) : null;
+                        return joueurA === playerName || joueurX === playerName || 
+                               joueurA2 === playerName || joueurX2 === playerName;
+                    }
+                    
+                    return false;
+                }).map(rencontre => {
+                    // Enrichir avec les points des joueurs
+                    const joueurAData = equipeA.joueurs.find(j => j.lettre === rencontre.joueur_a.lettre || rencontre.joueur_a.lettre.includes(j.lettre));
+                    const joueurXData = equipeX.joueurs.find(j => j.lettre === rencontre.joueur_x.lettre || rencontre.joueur_x.lettre.includes(j.lettre));
+                    
+                    let enrichedRencontre = {
+                        ...rencontre,
+                        joueur_a: { ...rencontre.joueur_a, points: joueurAData?.points || 0 },
+                        joueur_x: { ...rencontre.joueur_x, points: joueurXData?.points || 0 }
+                    };
+                    
+                    // Pour les doubles, pas besoin d'enrichir les partenaires (ils sont dans joueur2)
+                    // Les données sont déjà dans rencontre.joueur_a.joueur2 et rencontre.joueur_x.joueur2
+                    
+                    return enrichedRencontre;
+                }) : [];
+                
+                allMatches.push({
+                    journeeId,
+                    matchIndex,
+                    date: match.informations?.date || journeeId,
+                    equipeA: equipeA.nom,
+                    equipeX: equipeX.nom,
+                    scoreA,
+                    scoreX,
+                    isVictory,
+                    playerTeam,
+                    equipeTTSH: match.equipe_ttsh || '',
+                    playerMatches
+                });
+            }
+        });
+    });
+    
+    // Afficher l'historique
+    html += `
+        <div>
+            <h3 style="color: #667eea; margin-bottom: 15px; font-size: 18px;">📋 Historique des matchs individuels</h3>
+    `;
+    
+    if (allMatches.length === 0) {
+        html += '<p style="color: #999; text-align: center; padding: 20px;">Aucun match trouvé pour ce joueur</p>';
+    } else {
+        // Compter le total de parties jouées
+        let totalParties = 0;
+        allMatches.forEach(match => {
+            if (match.playerMatches && match.playerMatches.length > 0) {
+                totalParties += match.playerMatches.length;
+            }
+        });
+        
+        if (totalParties === 0) {
+            html += '<p style="color: #999; text-align: center; padding: 20px;">Détails des matchs individuels non disponibles</p>';
+        } else {
+            html += `<div style="color: #666; margin-bottom: 15px; font-size: 14px;">${totalParties} match(s) individuel(s) dans ${allMatches.length} rencontre(s)</div>`;
+            
+            allMatches.forEach(match => {
+                // N'afficher que si le joueur a joué des parties
+                if (!match.playerMatches || match.playerMatches.length === 0) return;
+                
+                const resultClass = match.isVictory ? 'badge-success' : 'badge-warning';
+                const resultText = match.isVictory ? '✓ Équipe Victoire' : '✗ Équipe Défaite';
+                
+                // Statistiques du joueur pour ce match
+                let playerWins = 0;
+                let playerLosses = 0;
+                let setsWon = 0;
+                let setsLost = 0;
+                
+                match.playerMatches.forEach(partie => {
+                    const joueurA = normalizePlayerName(partie.joueur_a);
+                    const isPlayerA = joueurA === playerName;
+                    
+                    // Calculer le score en sets depuis les sets
+                    let scoreA = 0;
+                    let scoreX = 0;
+                    if (partie.sets && Array.isArray(partie.sets)) {
+                        partie.sets.forEach(set => {
+                            if (set.gagnant === 'A') scoreA++;
+                            else if (set.gagnant === 'X') scoreX++;
+                        });
+                    }
+                    
+                    if ((isPlayerA && scoreA > scoreX) || (!isPlayerA && scoreX > scoreA)) {
+                        playerWins++;
+                        setsWon += isPlayerA ? scoreA : scoreX;
+                        setsLost += isPlayerA ? scoreX : scoreA;
+                    } else {
+                        playerLosses++;
+                        setsWon += isPlayerA ? scoreA : scoreX;
+                        setsLost += isPlayerA ? scoreX : scoreA;
+                    }
+                });
+                
+                const playerWinRate = playerWins > 0 ? ((playerWins / (playerWins + playerLosses)) * 100).toFixed(0) : 0;
+                
+                html += `
+                    <div class="match-card" style="margin-bottom: 15px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid ${playerWins > playerLosses ? '#28a745' : playerWins < playerLosses ? '#dc3545' : '#ffc107'};">
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 12px; flex-wrap: wrap; gap: 10px;">
+                            <div>
+                                ${match.equipeTTSH ? `<div style="background: #667eea; color: white; padding: 4px 10px; border-radius: 4px; font-size: 13px; display: inline-block; margin-bottom: 5px;">${match.equipeTTSH}</div>` : ''}
+                                <div style="color: #666; font-size: 13px; margin-top: 3px;">📅 ${match.date}</div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="font-size: 14px; color: #999; margin-bottom: 3px;">Résultat équipe</div>
+                                <div style="font-size: 16px;">
+                                    ${match.equipeA} <strong style="color: #667eea;">${match.scoreA}-${match.scoreX}</strong> ${match.equipeX}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="background: white; padding: 15px; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 2px solid #f0f0f0;">
+                                <div style="font-weight: bold; color: #333; font-size: 15px;">🎯 Performance individuelle</div>
+                                <div style="display: flex; gap: 15px; font-size: 14px;">
+                                    <div><strong>${playerWins}V</strong> - <strong>${playerLosses}D</strong> <span style="color: #999;">(${playerWinRate}%)</span></div>
+                                    <div style="color: #666;">Sets: <strong>${setsWon}-${setsLost}</strong></div>
+                                </div>
+                            </div>
+                            
+                            <div style="display: flex; flex-direction: column; gap: 8px;">
+                `;
+                
+                match.playerMatches.forEach(partie => {
+                    const joueurA = normalizePlayerName(partie.joueur_a);
+                    const joueurX = normalizePlayerName(partie.joueur_x);
+                    const isPlayerA = joueurA === playerName;
+                    
+                    // Gérer les simples et les doubles différemment
+                    let partenaire = '';
+                    let adversaires = '';
+                    let advPoints = 0;
+                    let isDouble = partie.type === 'double';
+                    let isPlayerInTeamA = false;
+                    
+                    if (isDouble) {
+                        // Pour les doubles - la structure est joueur_a.joueur2 et joueur_x.joueur2
+                        const joueurA2 = partie.joueur_a.joueur2 ? normalizePlayerName({
+                            nom: partie.joueur_a.joueur2.nom,
+                            prenom: partie.joueur_a.joueur2.prenom
+                        }) : '';
+                        const joueurX2 = partie.joueur_x.joueur2 ? normalizePlayerName({
+                            nom: partie.joueur_x.joueur2.nom,
+                            prenom: partie.joueur_x.joueur2.prenom
+                        }) : '';
+                        
+                        isPlayerInTeamA = joueurA === playerName || joueurA2 === playerName;
+                        
+                        if (isPlayerInTeamA) {
+                            partenaire = joueurA === playerName ? joueurA2 : joueurA;
+                            adversaires = `${joueurX} / ${joueurX2}`;
+                        } else {
+                            partenaire = joueurX === playerName ? joueurX2 : joueurX;
+                            adversaires = `${joueurA} / ${joueurA2}`;
+                        }
+                    } else {
+                        // Pour les simples
+                        adversaires = isPlayerA ? joueurX : joueurA;
+                        advPoints = isPlayerA ? partie.joueur_x.points : partie.joueur_a.points;
+                    }
+                    
+                    
+                    // Calculer le score en sets
+                    let scoreA = 0;
+                    let scoreX = 0;
+                    if (partie.sets && Array.isArray(partie.sets)) {
+                        partie.sets.forEach(set => {
+                            if (set.gagnant === 'A') scoreA++;
+                            else if (set.gagnant === 'X') scoreX++;
+                        });
+                    }
+                    
+                    const won = isDouble 
+                        ? (isPlayerInTeamA && scoreA > scoreX) || (!isPlayerInTeamA && scoreX > scoreA)
+                        : (isPlayerA && scoreA > scoreX) || (!isPlayerA && scoreX > scoreA);
+                    const playerScore = isDouble 
+                        ? (isPlayerInTeamA ? scoreA : scoreX)
+                        : (isPlayerA ? scoreA : scoreX);
+                    const advScore = isDouble 
+                        ? (isPlayerInTeamA ? scoreX : scoreA)
+                        : (isPlayerA ? scoreX : scoreA);
+                    
+                    // Couleur de fond différente pour les doubles
+                    const bgColor = isDouble 
+                        ? (won ? '#e3f2fd' : '#fff3e0')  // Bleu clair / Orange clair pour doubles
+                        : (won ? '#e8f5e9' : '#ffebee'); // Vert clair / Rouge clair pour simples
+                    const borderColor = isDouble
+                        ? (won ? '#2196f3' : '#ff9800')  // Bleu / Orange pour doubles
+                        : (won ? '#28a745' : '#dc3545'); // Vert / Rouge pour simples
+                    
+                    html += `
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: ${bgColor}; border-radius: 5px; border-left: 3px solid ${borderColor};">
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <span style="font-size: 18px;">${won ? '✓' : '✗'}</span>
+                                <div>
+                                    ${isDouble ? `<div style="font-weight: 500; color: #333;">🎾 Double avec ${partenaire}</div>` : ''}
+                                    <div style="font-weight: ${isDouble ? 'normal' : '500'}; color: #333;">vs ${adversaires}</div>
+                                    ${!isDouble ? `<div style="font-size: 12px; color: #666;">Classement: ${advPoints} pts</div>` : ''}
+                                </div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="font-size: 20px; font-weight: bold; color: ${borderColor};">
+                                    ${playerScore} - ${advScore}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                html += `
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+    }
+    
+    html += '</div>';
+    
+    modalBody.innerHTML = html;
+    modal.classList.add('active');
 }
 
 // Close modal on outside click
