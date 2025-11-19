@@ -624,6 +624,19 @@ header p {
     opacity: 0.9;
 }
 
+.mvp-card {
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.mvp-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
 @media (max-width: 768px) {
     .teams-section {
         grid-template-columns: 1fr;
@@ -651,3 +664,4 @@ header p {
         margin-top: 10px;
     }
 }
+

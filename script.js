@@ -164,6 +164,38 @@ function calculateJourneeStats(journeeId, countDoublesAsOne = true) {
                     stats.sets.ratio = stats.sets.total > 0 ? stats.sets.gagnes / stats.sets.total : 0;
                     stats.matches.taux_victoire = stats.matches.total > 0 ? 
                         Math.round((stats.matches.victoires / stats.matches.total) * 100) : 0;
+                    
+                    // Calculer la performance de classement
+                    const adversaireJoueur = isTeamA ? joueurX : joueurA;
+                    let adversaireData;
+                    if (rencontre.type === 'double') {
+                        adversaireData = isTeamA ? 
+                            equipeX.joueurs.find(j => rencontre.joueur_x.lettre.includes(j.lettre)) :
+                            equipeA.joueurs.find(j => rencontre.joueur_a.lettre.includes(j.lettre));
+                    } else {
+                        adversaireData = isTeamA ? 
+                            equipeX.joueurs.find(j => j.lettre === adversaireJoueur.lettre) :
+                            equipeA.joueurs.find(j => j.lettre === adversaireJoueur.lettre);
+                    }
+                    
+                    if (adversaireData && adversaireData.points) {
+                        const pointsJoueur = joueurData.points;
+                        const pointsAdversaire = adversaireData.points;
+                        
+                        if (setsGagnes > setsPerdus) {
+                            // Victoire
+                            if (pointsAdversaire > pointsJoueur) {
+                                // Victoire contre un mieux classé
+                                stats.performance_classement.score += pointsAdversaire - pointsJoueur;
+                            }
+                        } else {
+                            // Défaite
+                            if (pointsAdversaire < pointsJoueur) {
+                                // Défaite contre un moins bien classé
+                                stats.performance_classement.score -= pointsJoueur - pointsAdversaire;
+                            }
+                        }
+                    }
                 };
 
                 
@@ -184,7 +216,10 @@ function calculateJourneeStats(journeeId, countDoublesAsOne = true) {
         }
     });
     
-    return joueurs;
+    return Object.entries(joueurs).map(([nom, data]) => ({
+        nom: nom,
+        ...data
+    }));
 }
 
 function displayStatistics(journeeFilter = 'all') {
@@ -200,27 +235,31 @@ function displayStatistics(journeeFilter = 'all') {
     // IMPORTANT: ici on garde doubles=0.5 pour les tableaux
     if (journeeFilter !== 'all' && allData[journeeFilter]) {
         joueurs = calculateJourneeStats(journeeFilter, false); // false = doubles comptent 0.5
+    } else {
+        // Pour 'all', convertir l'objet statistiques en tableau avec nom
+        joueurs = Object.entries(joueurs).map(([nom, data]) => ({
+            nom: nom,
+            ...data
+        }));
     }
-    
-    // Convertir en tableau et trier par taux de victoire
-    let joueursArray = Object.entries(joueurs).map(([nom, data]) => ({
-        nom: nom,
-        ...data
-    }));
     
     // Filtrer les joueurs avec au moins 3 matches (ou 1 si journée spécifique)
     const minMatches = journeeFilter === 'all' ? 3 : 1;
-    joueursArray = joueursArray.filter(j => j.matches.total >= minMatches);
+    const joueursArray = joueurs.filter(j => j.matches.total >= minMatches);
     
-    // Trier par victoires, puis par ratio de sets en cas d'égalité
+    // Trier par victoires, puis par performance de classement en cas d'égalité
     joueursArray.sort((a, b) => {
         if (b.matches.victoires !== a.matches.victoires) {
             return b.matches.victoires - a.matches.victoires;
         }
-        return b.sets.ratio - a.sets.ratio;
+        return (b.performance_classement?.score || 0) - (a.performance_classement?.score || 0);
     });
     
     const container = document.getElementById('stats-content');
+    if (!container) {
+        console.error('Container stats-content non trouvé');
+        return;
+    }
     
     const journeeTitle = journeeFilter === 'all' ? 'Toutes journées confondues' : 
                         journeeFilter === 'J3_20251012' ? 'Journée 3 - 12/10/2025' :
@@ -295,27 +334,94 @@ function displayClubStatistics() {
     const stats = allData['statistiques'];
     const joueurs = stats.joueurs;
     
+    // Calculer les victoires/défaites/nuls sur les rencontres d'équipe
+    let matchsEquipe = { victoires: 0, nuls: 0, defaites: 0, total: 0 };
+    
+    ['J3_20251012', 'J4_20251116'].forEach(journeeId => {
+        if (allData[journeeId]) {
+            allData[journeeId].forEach(match => {
+                const equipeA = match.equipes.equipe_a;
+                const equipeX = match.equipes.equipe_x;
+                const isSTH_A = equipeA.nom.includes('ST HERBLAIN') || equipeA.nom.includes('TTSH');
+                const isSTH_X = equipeX.nom.includes('ST HERBLAIN') || equipeX.nom.includes('TTSH');
+                
+                if (isSTH_A || isSTH_X) {
+                    matchsEquipe.total++;
+                    const scoreSTH = isSTH_A ? match.resultat_global.equipe_a : match.resultat_global.equipe_x;
+                    const scoreAdv = isSTH_A ? match.resultat_global.equipe_x : match.resultat_global.equipe_a;
+                    
+                    if (scoreSTH > scoreAdv) {
+                        matchsEquipe.victoires++;
+                    } else if (scoreSTH < scoreAdv) {
+                        matchsEquipe.defaites++;
+                    } else {
+                        matchsEquipe.nuls++;
+                    }
+                }
+            });
+        }
+    });
+    
     const container = document.getElementById('stats-club-content');
+    if (!container) {
+        console.warn('Container stats-club-content non trouvé - skip displayClubStatistics');
+        return;
+    }
     
     let html = `
         <div style="margin-bottom: 30px;">
-            <div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));">
+            <div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); margin-bottom: 20px;">
                 <div class="stat-card">
                     <div class="number">${Object.keys(joueurs).length}</div>
                     <div class="label">Joueurs</div>
                 </div>
                 <div class="stat-card">
-                    <div class="number">${stats.totaux.nombre_matches}</div>
+                    <div class="number">${matchsEquipe.total}</div>
                     <div class="label">Matchs d'équipe</div>
                 </div>
                 <div class="stat-card">
                     <div class="number">${stats.totaux.nombre_rencontres}</div>
-                    <div class="label">Rencontres</div>
+                    <div class="label">Rencontres individuelles</div>
                 </div>
                 <div class="stat-card">
                     <div class="number">${stats.totaux.nombre_journees}</div>
                     <div class="label">Journées</div>
                 </div>
+            </div>
+            
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 15px; padding: 30px; margin: 0 auto; max-width: 800px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                <h3 style="color: white; text-align: center; margin: 0 0 25px 0; font-size: 1.3em;">🏆 Bilan des matchs d'équipe</h3>
+                <div style="display: flex; justify-content: space-around; align-items: stretch; gap: 15px;">
+                    <div style="flex: 1; background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border-radius: 12px; padding: 25px; text-align: center; border: 2px solid rgba(76, 175, 80, 0.5);">
+                        <div style="font-size: 3em; font-weight: bold; color: white; margin-bottom: 10px;">${matchsEquipe.victoires}</div>
+                        <div style="color: white; font-size: 1.1em; text-transform: uppercase; letter-spacing: 1px;">✅ Victoires</div>
+                        <div style="color: rgba(255,255,255,0.8); margin-top: 8px; font-size: 0.9em;">${matchsEquipe.total > 0 ? Math.round((matchsEquipe.victoires / matchsEquipe.total) * 100) : 0}%</div>
+                    </div>
+                    <div style="flex: 1; background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border-radius: 12px; padding: 25px; text-align: center; border: 2px solid rgba(255, 152, 0, 0.5);">
+                        <div style="font-size: 3em; font-weight: bold; color: white; margin-bottom: 10px;">${matchsEquipe.nuls}</div>
+                        <div style="color: white; font-size: 1.1em; text-transform: uppercase; letter-spacing: 1px;">⚖️ Nuls</div>
+                        <div style="color: rgba(255,255,255,0.8); margin-top: 8px; font-size: 0.9em;">${matchsEquipe.total > 0 ? Math.round((matchsEquipe.nuls / matchsEquipe.total) * 100) : 0}%</div>
+                    </div>
+                    <div style="flex: 1; background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border-radius: 12px; padding: 25px; text-align: center; border: 2px solid rgba(244, 67, 54, 0.5);">
+                        <div style="font-size: 3em; font-weight: bold; color: white; margin-bottom: 10px;">${matchsEquipe.defaites}</div>
+                        <div style="color: white; font-size: 1.1em; text-transform: uppercase; letter-spacing: 1px;">❌ Défaites</div>
+                        <div style="color: rgba(255,255,255,0.8); margin-top: 8px; font-size: 0.9em;">${matchsEquipe.total > 0 ? Math.round((matchsEquipe.defaites / matchsEquipe.total) * 100) : 0}%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 30px;">
+            <!-- Top 5 des joueurs -->
+            <div class="chart-container">
+                <h3>🏅 Top 5 des joueurs</h3>
+                <div id="top5-players"></div>
+            </div>
+            
+            <!-- Evolution par journée -->
+            <div class="chart-container">
+                <h3>📈 Evolution par journée</h3>
+                <canvas id="chart-evolution-journees"></canvas>
             </div>
         </div>
         
@@ -344,6 +450,153 @@ function displayClubStatistics() {
     `;
     
     container.innerHTML = html;
+    
+    // Afficher le Top 5
+    displayTop5Players();
+    
+    // Afficher le graphique d'évolution
+    displayEvolutionChart();
+}
+
+function displayTop5Players() {
+    if (!allData['statistiques']) return;
+    
+    const stats = allData['statistiques'];
+    const joueurs = stats.joueurs;
+    
+    // Convertir et trier par victoires puis performance classement
+    let joueursArray = Object.entries(joueurs).map(([nom, data]) => ({
+        nom: nom,
+        ...data
+    }))
+    .filter(j => j.matches.total >= 3)
+    .sort((a, b) => {
+        if (b.matches.victoires !== a.matches.victoires) {
+            return b.matches.victoires - a.matches.victoires;
+        }
+        return (b.performance_classement?.score || 0) - (a.performance_classement?.score || 0);
+    })
+    .slice(0, 5);
+    
+    const container = document.getElementById('top5-players');
+    if (!container) return;
+    
+    let html = '<div style="padding: 15px;">';
+    joueursArray.forEach((joueur, index) => {
+        const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : '🏅';
+        const bgColor = index === 0 ? 'rgba(255, 215, 0, 0.1)' : 
+                       index === 1 ? 'rgba(192, 192, 192, 0.1)' : 
+                       index === 2 ? 'rgba(205, 127, 50, 0.1)' : 
+                       'rgba(100, 100, 100, 0.05)';
+        
+        html += `
+            <div style="display: flex; align-items: center; padding: 12px; margin-bottom: 10px; background: ${bgColor}; border-radius: 8px; border-left: 4px solid #667eea; cursor: pointer;" onclick="showPlayerDetail('${joueur.nom.replace(/'/g, "\\'")}')">
+                <div style="font-size: 1.5em; margin-right: 15px;">${medal}</div>
+                <div style="flex: 1;">
+                    <div style="font-weight: bold; color: #333;">${joueur.nom}</div>
+                    <div style="font-size: 0.85em; color: #666;">
+                        ${joueur.matches.victoires} V - ${joueur.matches.defaites} D (${joueur.matches.taux_victoire}%) | Perf: ${joueur.performance_classement?.score > 0 ? '+' : ''}${joueur.performance_classement?.score || 0}
+                    </div>
+                </div>
+                <div style="text-align: right; color: #667eea; font-weight: bold;">${joueur.points_officiels} pts</div>
+            </div>
+        `;
+    });
+    html += '</div>';
+    
+    container.innerHTML = html;
+}
+
+function displayEvolutionChart() {
+    const journees = ['J3_20251012', 'J4_20251116'];
+    const journeesLabels = ['J3 (12/10)', 'J4 (16/11)'];
+    
+    const data = {
+        victoires: [],
+        nuls: [],
+        defaites: []
+    };
+    
+    journees.forEach(journeeId => {
+        if (allData[journeeId]) {
+            let stats = { victoires: 0, nuls: 0, defaites: 0 };
+            allData[journeeId].forEach(match => {
+                const equipeA = match.equipes.equipe_a;
+                const equipeX = match.equipes.equipe_x;
+                const isSTH_A = equipeA.nom.includes('ST HERBLAIN') || equipeA.nom.includes('TTSH');
+                const isSTH_X = equipeX.nom.includes('ST HERBLAIN') || equipeX.nom.includes('TTSH');
+                
+                if (isSTH_A || isSTH_X) {
+                    const scoreSTH = isSTH_A ? match.resultat_global.equipe_a : match.resultat_global.equipe_x;
+                    const scoreAdv = isSTH_A ? match.resultat_global.equipe_x : match.resultat_global.equipe_a;
+                    
+                    if (scoreSTH > scoreAdv) stats.victoires++;
+                    else if (scoreSTH < scoreAdv) stats.defaites++;
+                    else stats.nuls++;
+                }
+            });
+            data.victoires.push(stats.victoires);
+            data.nuls.push(stats.nuls);
+            data.defaites.push(stats.defaites);
+        }
+    });
+    
+    const ctx = document.getElementById('chart-evolution-journees');
+    if (!ctx) return;
+    
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: journeesLabels,
+            datasets: [
+                {
+                    label: 'Victoires',
+                    data: data.victoires,
+                    backgroundColor: 'rgba(76, 175, 80, 0.8)',
+                    borderColor: 'rgba(76, 175, 80, 1)',
+                    borderWidth: 2
+                },
+                {
+                    label: 'Nuls',
+                    data: data.nuls,
+                    backgroundColor: 'rgba(255, 152, 0, 0.8)',
+                    borderColor: 'rgba(255, 152, 0, 1)',
+                    borderWidth: 2
+                },
+                {
+                    label: 'Défaites',
+                    data: data.defaites,
+                    backgroundColor: 'rgba(244, 67, 54, 0.8)',
+                    borderColor: 'rgba(244, 67, 54, 1)',
+                    borderWidth: 2
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    position: 'top'
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return context.dataset.label + ': ' + context.parsed.y;
+                        }
+                    }
+                }
+            }
+        }
+    });
 }
 
 // Fonction de tri du tableau
@@ -488,9 +741,16 @@ function createGlobalSetDistributionChart() {
     const totalMatches = totalWins + totalLosses;
     const winPercentage = totalMatches > 0 ? ((totalWins / totalMatches) * 100).toFixed(0) : 0;
     
-    document.getElementById('wins-global').textContent = totalWins;
-    document.getElementById('losses-global').textContent = totalLosses;
-    document.getElementById('ratio-global').querySelector('.ratio-value').textContent = `${winPercentage}%`;
+    const winsElement = document.getElementById('wins-global');
+    const lossesElement = document.getElementById('losses-global');
+    const ratioElement = document.getElementById('ratio-global');
+    
+    if (winsElement) winsElement.textContent = totalWins;
+    if (lossesElement) lossesElement.textContent = totalLosses;
+    if (ratioElement) {
+        const ratioValue = ratioElement.querySelector('.ratio-value');
+        if (ratioValue) ratioValue.textContent = `${winPercentage}%`;
+    }
     
     const canvas = document.getElementById('chart-stats-global');
     if (!canvas) return;
@@ -630,6 +890,141 @@ function updateTableRows(joueursArray) {
     tbody.innerHTML = html;
 }
 
+function displayMVPForJournee(journeeId, journeePrefix) {
+    // Calculate stats for this journee with doubles = 1
+    const stats = calculateJourneeStats(journeeId, true);
+    if (!stats || !Array.isArray(stats) || stats.length === 0) return;
+    
+    // Filter players with at least 1 match
+    const eligiblePlayers = stats.filter(p => p.matches && p.matches.total >= 1);
+    if (eligiblePlayers.length === 0) return;
+    
+    // Sort by: victories DESC, then performance_classement.score DESC
+    eligiblePlayers.sort((a, b) => {
+        if (b.matches.victoires !== a.matches.victoires) {
+            return b.matches.victoires - a.matches.victoires;
+        }
+        return (b.performance_classement?.score || 0) - (a.performance_classement?.score || 0);
+    });
+    
+    // Get MVP (top player)
+    const mvp = eligiblePlayers[0];
+    const tauxVictoires = mvp.matches.total > 0 ? ((mvp.matches.victoires / mvp.matches.total) * 100).toFixed(0) : 0;
+    const perfScore = mvp.performance_classement?.score || 0;
+    const perfSign = perfScore >= 0 ? '+' : '';
+    
+    // Get container
+    const container = document.getElementById(`mvp-${journeePrefix}`);
+    if (!container) return;
+    
+    // Create MVP card
+    container.innerHTML = `
+        <div class="mvp-card" onclick="showPlayerDetail('${mvp.nom.replace(/'/g, "\\'")}')">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+                <div style="flex: 1;">
+                    <div style="font-size: 14px; color: rgba(255,255,255,0.8); margin-bottom: 5px;">
+                        🏆 MVP de la journée
+                    </div>
+                    <div style="font-size: 24px; font-weight: 700; color: white; margin-bottom: 10px;">
+                        ${mvp.nom}
+                    </div>
+                    <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                        <div>
+                            <div style="font-size: 12px; color: rgba(255,255,255,0.7);">Bilan</div>
+                            <div style="font-size: 18px; font-weight: 600; color: white;">
+                                ${mvp.matches.victoires}-${mvp.matches.defaites} <span style="font-size: 14px; color: rgba(255,255,255,0.8);">(${tauxVictoires}%)</span>
+                            </div>
+                        </div>
+                        <div>
+                            <div style="font-size: 12px; color: rgba(255,255,255,0.7);">Performance</div>
+                            <div style="font-size: 18px; font-weight: 600; color: ${perfScore >= 0 ? '#4ade80' : '#f87171'};">
+                                ${perfSign}${perfScore}
+                            </div>
+                        </div>
+                        <div>
+                            <div style="font-size: 12px; color: rgba(255,255,255,0.7);">Points off.</div>
+                            <div style="font-size: 18px; font-weight: 600; color: white;">
+                                ${mvp.points_officiels}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="font-size: 60px; opacity: 0.3; margin-left: 20px;">
+                    🏆
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function displayTop3ForJournee(journeeId, journeePrefix) {
+    // Calculate stats for this journee with doubles = 1
+    const stats = calculateJourneeStats(journeeId, true);
+    if (!stats || !Array.isArray(stats) || stats.length === 0) return;
+    
+    // Filter players with at least 1 match
+    const eligiblePlayers = stats.filter(p => p.matches && p.matches.total >= 1);
+    if (eligiblePlayers.length === 0) return;
+    
+    // Sort by: victories DESC, then performance_classement.score DESC
+    eligiblePlayers.sort((a, b) => {
+        if (b.matches.victoires !== a.matches.victoires) {
+            return b.matches.victoires - a.matches.victoires;
+        }
+        return (b.performance_classement?.score || 0) - (a.performance_classement?.score || 0);
+    });
+    
+    // Get Top 3
+    const top3 = eligiblePlayers.slice(0, 3);
+    
+    // Get container
+    const container = document.getElementById(`top3-${journeePrefix}`);
+    if (!container) return;
+    
+    // Create Top 3 cards
+    let html = '<h3 style="color: #667eea; margin-bottom: 15px;">🏅 Top 3 de la journée</h3>';
+    html += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">';
+    
+    top3.forEach((player, index) => {
+        const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : '🥉';
+        const bgColor = index === 0 ? 'linear-gradient(135deg, #ffd700 0%, #ffed4e 100%)' : 
+                       index === 1 ? 'linear-gradient(135deg, #c0c0c0 0%, #e8e8e8 100%)' : 
+                       'linear-gradient(135deg, #cd7f32 0%, #d4956a 100%)';
+        const tauxVictoires = player.matches.total > 0 ? ((player.matches.victoires / player.matches.total) * 100).toFixed(0) : 0;
+        const perfScore = player.performance_classement?.score || 0;
+        const perfSign = perfScore >= 0 ? '+' : '';
+        
+        html += `
+            <div onclick="showPlayerDetail('${player.nom.replace(/'/g, "\\'")}')">
+                <div style="background: ${bgColor}; border-radius: 12px; padding: 15px; cursor: pointer; transition: transform 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.1);" 
+                     onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 6px 12px rgba(0,0,0,0.15)';" 
+                     onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px rgba(0,0,0,0.1)';">
+                    <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                        <div style="font-size: 2em; margin-right: 10px;">${medal}</div>
+                        <div style="flex: 1;">
+                            <div style="font-weight: 700; font-size: 16px; color: #333;">${player.nom}</div>
+                            <div style="font-size: 12px; color: #666;">${player.points_officiels} pts</div>
+                        </div>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 13px;">
+                        <div style="background: rgba(255,255,255,0.5); padding: 6px; border-radius: 6px;">
+                            <div style="font-weight: 600; color: #333;">${player.matches.victoires}V-${player.matches.defaites}D</div>
+                            <div style="font-size: 11px; color: #666;">${tauxVictoires}%</div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.5); padding: 6px; border-radius: 6px;">
+                            <div style="font-weight: 600; color: ${perfScore >= 0 ? '#059669' : '#dc2626'};">${perfSign}${perfScore}</div>
+                            <div style="font-size: 11px; color: #666;">Perf</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+    
+    html += '</div>';
+    container.innerHTML = html;
+}
+
 function displayMatches(journeeId) {
     const matches = allData[journeeId];
     if (!matches) {
@@ -734,6 +1129,12 @@ function displayMatches(journeeId) {
     document.getElementById(`stats-${journeePrefix}-victoires`).textContent = victoires;
     document.getElementById(`stats-${journeePrefix}-nuls`).textContent = nuls;
     document.getElementById(`stats-${journeePrefix}-defaites`).textContent = defaites;
+    
+    // Display MVP for this journee
+    displayMVPForJournee(journeeId, journeePrefix);
+    
+    // Display Top 3 for this journee
+    displayTop3ForJournee(journeeId, journeePrefix);
     
     // Create pie chart for this journee
     createSetDistributionChart(journeeId, sortedMatches);
@@ -1247,8 +1648,9 @@ function showPlayerDetail(playerName) {
         // Calculer pour chaque journée
         ['J3_20251012', 'J4_20251116'].forEach(journeeId => {
             if (allData[journeeId]) {
-                const journeeStats = calculateJourneeStats(journeeId);
-                Object.entries(journeeStats).forEach(([nom, stats]) => {
+                const journeeStatsArray = calculateJourneeStats(journeeId);
+                journeeStatsArray.forEach(stats => {
+                    const nom = stats.nom;
                     if (!allJourneesStats[nom]) {
                         allJourneesStats[nom] = {
                             points_officiels: stats.points_officiels,
@@ -1262,6 +1664,7 @@ function showPlayerDetail(playerName) {
                     allJourneesStats[nom].matches.defaites += stats.matches.defaites;
                     allJourneesStats[nom].sets.gagnes += stats.sets.gagnes;
                     allJourneesStats[nom].sets.perdus += stats.sets.perdus;
+                    allJourneesStats[nom].performance_classement.score += (stats.performance_classement?.score || 0);
                 });
             }
         });
@@ -1277,8 +1680,8 @@ function showPlayerDetail(playerName) {
         joueur = allJourneesStats[playerName];
     } else {
         // Calculer les stats pour la journée spécifique
-        const journeeStats = calculateJourneeStats(currentStatsJournee);
-        joueur = journeeStats[playerName];
+        const journeeStatsArray = calculateJourneeStats(currentStatsJournee);
+        joueur = journeeStatsArray.find(p => p.nom === playerName);
     }
     
     if (!joueur) {
@@ -1612,6 +2015,16 @@ window.onclick = function(event) {
         closeModal();
     }
 }
+
+// Close modal on ESC key
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape' || event.key === 'Esc') {
+        const modal = document.getElementById('matchModal');
+        if (modal && modal.classList.contains('active')) {
+            closeModal();
+        }
+    }
+});
 
 // Load data on page load
 loadData();

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug MVP</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .debug-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        pre {
+            background: #f0f0f0;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="debug-container">
+        <h1>🐛 Debug MVP</h1>
+        
+        <h2>1. Test de chargement des données</h2>
+        <div id="data-status">⏳ Chargement...</div>
+        
+        <h2>2. Résultat calculateJourneeStats</h2>
+        <pre id="stats-result">En attente des données...</pre>
+        
+        <h2>3. MVP calculé</h2>
+        <pre id="mvp-data">En attente...</pre>
+        
+        <h2>4. Aperçu visuel MVP J3</h2>
+        <div id="mvp-j3" style="margin: 20px 0;"></div>
+        
+        <h2>5. Aperçu visuel MVP J4</h2>
+        <div id="mvp-j4" style="margin: 20px 0;"></div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+        function debugMVP() {
+            const statusDiv = document.getElementById('data-status');
+            
+            // Vérifier les données
+            if (typeof allData === 'undefined' || !allData) {
+                statusDiv.innerHTML = '❌ allData non chargé';
+                return;
+            }
+            
+            statusDiv.innerHTML = '✅ Données chargées: ' + Object.keys(allData).join(', ');
+            
+            // Tester calculateJourneeStats
+            try {
+                const statsJ3 = calculateJourneeStats('J3_20251012', true);
+                document.getElementById('stats-result').textContent = 
+                    'Type: ' + (Array.isArray(statsJ3) ? 'Array' : typeof statsJ3) + 
+                    '\nNombre de joueurs: ' + (statsJ3.length || 0) +
+                    '\n\nPremier joueur:\n' + JSON.stringify(statsJ3[0], null, 2);
+                
+                // Calculer le MVP
+                const eligiblePlayers = statsJ3.filter(p => p.matches && p.matches.total >= 1);
+                eligiblePlayers.sort((a, b) => {
+                    if (b.matches.victoires !== a.matches.victoires) {
+                        return b.matches.victoires - a.matches.victoires;
+                    }
+                    return (b.performance_classement?.score || 0) - (a.performance_classement?.score || 0);
+                });
+                
+                const mvp = eligiblePlayers[0];
+                document.getElementById('mvp-data').textContent = JSON.stringify(mvp, null, 2);
+                
+                // Afficher les MVP
+                displayMVPForJournee('J3_20251012', 'j3');
+                displayMVPForJournee('J4_20251116', 'j4');
+                
+            } catch (e) {
+                document.getElementById('stats-result').textContent = '❌ Erreur: ' + e.message + '\n\n' + e.stack;
+            }
+        }
+        
+        // Attendre le chargement
+        let attempts = 0;
+        const checkInterval = setInterval(() => {
+            attempts++;
+            if (typeof allData !== 'undefined' && allData && Object.keys(allData).length > 0) {
+                clearInterval(checkInterval);
+                debugMVP();
+            } else if (attempts > 50) {
+                clearInterval(checkInterval);
+                document.getElementById('data-status').innerHTML = '❌ Timeout - Données non chargées après 5s';
+            }
+        }, 100);
+    </script>
+</body>
+</html>
