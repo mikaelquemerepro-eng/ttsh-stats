@@ -8,18 +8,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Protection par mot de passe -->
-    <div id="auth-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 9999; display: flex; align-items: center; justify-content: center;">
-        <div style="background: white; padding: 40px; border-radius: 10px; text-align: center; max-width: 400px;">
-            <h2>🔒 Accès sécurisé</h2>
-            <p>Entrez le mot de passe pour accéder aux statistiques TTSH</p>
-            <input type="password" id="password-input" placeholder="Mot de passe" style="width: 100%; padding: 10px; margin: 20px 0; font-size: 16px; border: 2px solid #ddd; border-radius: 5px;">
-            <button onclick="checkPassword()" style="width: 100%; padding: 12px; background: #4CAF50; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">Valider</button>
-            <p id="error-message" style="color: red; margin-top: 10px; display: none;">Mot de passe incorrect</p>
-        </div>
-    </div>
-    
-    <div class="container" id="main-content" style="display: none;">
+    <div class="container" id="main-content">
         <header>
             <h1>🏓 ST HERBLAIN T.T</h1>
             <p>Résultats des matchs de tennis de table</p>
@@ -186,38 +175,8 @@
         </div>
     </div>
     
-    <script>
-        // Protection par mot de passe
-        const correctPassword = "ttsh2025"; // CHANGEZ CE MOT DE PASSE !
-        
-        // Vérifier si déjà authentifié (session)
-        if (sessionStorage.getItem('ttsh_authenticated') === 'true') {
-            document.getElementById('main-content').style.display = 'block';
-        } else {
-            document.getElementById('auth-modal').style.display = 'flex';
-        }
-        
-        function checkPassword() {
-            const input = document.getElementById('password-input').value;
-            const errorMsg = document.getElementById('error-message');
-            
-            if (input === correctPassword) {
-                sessionStorage.setItem('ttsh_authenticated', 'true');
-                document.getElementById('auth-modal').style.display = 'none';
-                document.getElementById('main-content').style.display = 'block';
-                errorMsg.style.display = 'none';
-            } else {
-                errorMsg.style.display = 'block';
-            }
-        }
-        
-        // Permettre validation avec Entrée
-        document.getElementById('password-input')?.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') checkPassword();
-        });
-    </script>
     <script src="script.js"></script>
     <script data-goatcounter="https://mikaelquemere.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
+        async src="https://gc.zgo.at/count.js"></script>
 </body>
 </html>

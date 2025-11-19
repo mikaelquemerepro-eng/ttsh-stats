@@ -1,21 +1,51 @@
-console.log('Script chargé - v2');
 let allData = {};
 let currentStatsJournee = 'all';
 
+// Fonction de validation des données
+function validateMatchData(data) {
+    if (!Array.isArray(data)) return false;
+    return data.every(match => 
+        match && 
+        match.equipes && 
+        match.equipes.equipe_a && 
+        match.equipes.equipe_x &&
+        match.resultat_global
+    );
+}
+
+function validateStatsData(data) {
+    return data && data.joueurs && typeof data.joueurs === 'object';
+}
+
+// Fonction de sanitization pour innerHTML
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
 async function loadData() {
     try {
-        console.log('Chargement des données...');
         const j3Response = await fetch('J3_20251012/tous_les_matchs.json');
         const j4Response = await fetch('J4_20251116/tous_les_matchs.json');
         const statsResponse = await fetch('statistiques.json');
         
-        allData['J3_20251012'] = await j3Response.json();
-        allData['J4_20251116'] = await j4Response.json();
-        allData['statistiques'] = await statsResponse.json();
+        if (!j3Response.ok || !j4Response.ok || !statsResponse.ok) {
+            throw new Error('Erreur lors du chargement des données');
+        }
         
-        console.log('Données J3:', allData['J3_20251012'].length, 'matchs');
-        console.log('Données J4:', allData['J4_20251116'].length, 'matchs');
-        console.log('Statistiques:', Object.keys(allData['statistiques'].joueurs).length, 'joueurs');
+        const j3Data = await j3Response.json();
+        const j4Data = await j4Response.json();
+        const statsData = await statsResponse.json();
+        
+        // Validation des données
+        if (!validateMatchData(j3Data) || !validateMatchData(j4Data) || !validateStatsData(statsData)) {
+            throw new Error('Données invalides détectées');
+        }
+        
+        allData['J3_20251012'] = j3Data;
+        allData['J4_20251116'] = j4Data;
+        allData['statistiques'] = statsData;
         
         displayMatches('J3_20251012');
         displayMatches('J4_20251116');
@@ -23,8 +53,7 @@ async function loadData() {
         displayClubStatistics();
         createGlobalSetDistributionChart();
     } catch (error) {
-        console.error('Erreur de chargement des données:', error);
-        alert('Erreur: ' + error.message);
+        alert('Erreur de chargement des données. Veuillez réessayer plus tard.');
     }
 }
 
@@ -224,7 +253,6 @@ function calculateJourneeStats(journeeId, countDoublesAsOne = true) {
 
 function displayStatistics(journeeFilter = 'all') {
     if (!allData['statistiques']) {
-        console.error('Pas de statistiques disponibles');
         return;
     }
     
@@ -257,7 +285,6 @@ function displayStatistics(journeeFilter = 'all') {
     
     const container = document.getElementById('stats-content');
     if (!container) {
-        console.error('Container stats-content non trouvé');
         return;
     }
     
@@ -327,7 +354,6 @@ function displayStatistics(journeeFilter = 'all') {
 
 function displayClubStatistics() {
     if (!allData['statistiques']) {
-        console.error('Pas de statistiques disponibles');
         return;
     }
     
@@ -364,7 +390,6 @@ function displayClubStatistics() {
     
     const container = document.getElementById('stats-club-content');
     if (!container) {
-        console.warn('Container stats-club-content non trouvé - skip displayClubStatistics');
         return;
     }
     
@@ -1028,7 +1053,6 @@ function displayTop3ForJournee(journeeId, journeePrefix) {
 function displayMatches(journeeId) {
     const matches = allData[journeeId];
     if (!matches) {
-        console.error('Pas de données pour', journeeId);
         return;
     }
     
@@ -1036,11 +1060,9 @@ function displayMatches(journeeId) {
     const matchesContainer = document.getElementById(`matches-${journeePrefix}`);
     
     if (!matchesContainer) {
-        console.error('Container non trouvé:', `matches-${journeePrefix}`);
         return;
     }
     
-    console.log(`Affichage de ${matches.length} matchs pour ${journeeId}`);
     matchesContainer.innerHTML = ''; // Clear existing content
     
     // Trier par numéro d'équipe TTSH
@@ -1356,7 +1378,6 @@ function showMatchDetail(journeeId, matchIndex) {
     const isHerblainX = equipeX.nom && equipeX.nom.includes('HERBLAIN');
     
     const rencontres = match.rencontres.map(r => {
-        console.log('Traitement rencontre:', r.numero, 'sets:', r.sets);
         // Handle joueur_a and joueur_x which can be objects or strings
         // For doubles, concatenate both players (only names for doubles)
         let joueurAName = '';
@@ -1685,7 +1706,6 @@ function showPlayerDetail(playerName) {
     }
     
     if (!joueur) {
-        console.error('Joueur non trouvé:', playerName);
         return;
     }
     
