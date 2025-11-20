@@ -226,6 +226,8 @@ function showMainSection(sectionId, element) {
     // Charger les données spécifiques à chaque section
     if (sectionId === 'stats-joueurs') {
         displayStatistics('all');
+    } else if (sectionId === 'stats-equipes') {
+        displayTeamStatistics();
     } else if (sectionId === 'stats-club') {
         displayClubStatistics();
         createGlobalSetDistributionChart();
@@ -479,7 +481,7 @@ function displayStatistics(journeeFilter = 'all') {
         html += `
             <tr onclick="showPlayerDetail('${joueur.nom.replace(/'/g, "\\'")}');" style="cursor: pointer;">
                 <td class="rank">${index + 1}</td>
-                <td class="player-name-cell">${joueur.nom}</td>
+                <td class="player-name-cell">${escapeHtml(joueur.nom)}</td>
                 <td><span class="stats-badge badge-info">${joueur.points_officiels} pts</span></td>
                 <td>${joueur.matches.total}</td>
                 <td><span class="stats-badge badge-success">${joueur.matches.victoires}</span></td>
@@ -506,6 +508,367 @@ function displayStatistics(journeeFilter = 'all') {
     
     // Ajouter les événements de tri
     initSortableTable(joueursArray);
+}
+
+// Variable globale pour stocker les stats d'équipes
+let cachedTeamStats = null;
+
+function collectTeamStatistics() {
+    // Si déjà calculé, retourner le cache
+    if (cachedTeamStats) return cachedTeamStats;
+    
+    const teamStats = {};
+    
+    // Parcourir toutes les journées
+    Object.keys(allData).forEach(journeeId => {
+        if (journeeId !== 'statistiques' && allData[journeeId]) {
+            allData[journeeId].forEach(match => {
+                // Utiliser directement le champ equipe_ttsh
+                if (!match.equipe_ttsh) return;
+                
+                const teamKey = match.equipe_ttsh;
+                const equipeA = match.equipes.equipe_a;
+                const equipeX = match.equipes.equipe_x;
+                
+                if (!equipeA.nom || !equipeX.nom) return;
+                
+                // Déterminer si ST HERBLAIN est équipe A ou X
+                const isSTH_A = equipeA.nom.includes('ST HERBLAIN') || equipeA.nom.includes('TTSH');
+                const isSTH_X = equipeX.nom.includes('ST HERBLAIN') || equipeX.nom.includes('TTSH');
+                
+                if (!isSTH_A && !isSTH_X) return;
+                
+                const equipeSTH = isSTH_A ? equipeA.nom : equipeX.nom;
+                const equipeAdv = isSTH_A ? equipeX.nom : equipeA.nom;
+                const scoreSTH = isSTH_A ? match.resultat_global.equipe_a : match.resultat_global.equipe_x;
+                const scoreAdv = isSTH_A ? match.resultat_global.equipe_x : match.resultat_global.equipe_a;
+                
+                // Initialiser les stats pour cette équipe si nécessaire
+                if (!teamStats[teamKey]) {
+                    teamStats[teamKey] = {
+                        name: teamKey,
+                        fullName: equipeSTH,
+                        division: match.division || 'N/A',
+                        matches: { total: 0, victoires: 0, nuls: 0, defaites: 0 },
+                        rencontres: { victoires: 0, defaites: 0, total: 0 },
+                        sets: { gagnes: 0, perdus: 0 },
+                        opponents: [],
+                        matchDetails: []
+                    };
+                }
+                
+                // Compter le match
+                teamStats[teamKey].matches.total++;
+                if (scoreSTH > scoreAdv) {
+                    teamStats[teamKey].matches.victoires++;
+                } else if (scoreSTH < scoreAdv) {
+                    teamStats[teamKey].matches.defaites++;
+                } else {
+                    teamStats[teamKey].matches.nuls++;
+                }
+                
+                // Compter les rencontres individuelles
+                if (match.rencontres) {
+                    match.rencontres.forEach(rencontre => {
+                        if (rencontre.vainqueur) {
+                            teamStats[teamKey].rencontres.total++;
+                            const sthWins = (isSTH_A && rencontre.vainqueur === 'A') || 
+                                           (isSTH_X && rencontre.vainqueur === 'X');
+                            if (sthWins) {
+                                teamStats[teamKey].rencontres.victoires++;
+                            } else {
+                                teamStats[teamKey].rencontres.defaites++;
+                            }
+                            
+                            // Compter les sets
+                            if (rencontre.sets && Array.isArray(rencontre.sets)) {
+                                rencontre.sets.forEach(set => {
+                                    const setWinnerSTH = (isSTH_A && set.gagnant === 'A') || 
+                                                       (isSTH_X && set.gagnant === 'X');
+                                    if (setWinnerSTH) {
+                                        teamStats[teamKey].sets.gagnes++;
+                                    } else {
+                                        teamStats[teamKey].sets.perdus++;
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }
+                
+                // Ajouter l'adversaire
+                teamStats[teamKey].opponents.push({
+                    opponent: equipeAdv,
+                    score: `${scoreSTH}-${scoreAdv}`,
+                    result: scoreSTH > scoreAdv ? 'V' : (scoreSTH < scoreAdv ? 'D' : 'N'),
+                    journee: journeeId
+                });
+                
+                // Stocker les détails complets du match
+                teamStats[teamKey].matchDetails.push({
+                    journee: journeeId,
+                    opponent: equipeAdv,
+                    equipeA_nom: equipeA.nom,
+                    equipeX_nom: equipeX.nom,
+                    scoreA: match.resultat_global.equipe_a,
+                    scoreX: match.resultat_global.equipe_x,
+                    score: `${scoreSTH}-${scoreAdv}`,
+                    result: scoreSTH > scoreAdv ? 'V' : (scoreSTH < scoreAdv ? 'D' : 'N'),
+                    rencontres: match.rencontres,
+                    isSTH_A: isSTH_A
+                });
+            });
+        }
+    });
+    
+    cachedTeamStats = teamStats;
+    return teamStats;
+}
+
+function displayTeamStatistics() {
+    const teamStats = collectTeamStatistics();
+    const container = document.getElementById('stats-equipes-content');
+    
+    if (Object.keys(teamStats).length === 0) {
+        container.innerHTML = '<p style="text-align: center; padding: 40px;">Aucune donnée disponible</p>';
+        return;
+    }
+    
+    // Trier les équipes par numéro
+    const sortedTeams = Object.values(teamStats).sort((a, b) => {
+        const numA = parseInt(a.name.replace('TTSH', ''));
+        const numB = parseInt(b.name.replace('TTSH', ''));
+        return numA - numB;
+    });
+    
+    // Afficher la grille de cartes cliquables
+    showTeamOverview(sortedTeams);
+}
+
+function showTeamOverview(sortedTeams) {
+    const container = document.getElementById('stats-equipes-content');
+    
+    let html = '<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px;">';
+    
+    sortedTeams.forEach(team => {
+        // Calculer la couleur de fond en fonction des résultats
+        const lastResults = team.opponents.slice(-5);
+        const wins = lastResults.filter(m => m.result === 'V').length;
+        const losses = lastResults.filter(m => m.result === 'D').length;
+        
+        let bgGradient = '';
+        if (wins > losses) {
+            bgGradient = 'linear-gradient(135deg, #d1fae5 0%, #ecfdf5 100%)'; // Vert clair si plus de victoires
+        } else if (losses > wins) {
+            bgGradient = 'linear-gradient(135deg, #fee2e2 0%, #fef2f2 100%)'; // Rouge clair si plus de défaites
+        } else {
+            bgGradient = 'linear-gradient(135deg, #fef3c7 0%, #fefce8 100%)'; // Orange clair si égalité
+        }
+        
+        html += `
+            <div class="stat-card team-card-clickable" onclick="showSingleTeamStats('${team.name.replace(/'/g, "\\'")}');" style="padding: 0; overflow: hidden; background: ${bgGradient};">
+                <div style="padding: 20px 20px 15px 20px; text-align: center;">
+                    <h3 style="margin: 0 0 5px 0; font-size: 1.4em; color: #1f2937; font-weight: 700;">${escapeHtml(team.name)}</h3>
+                    <div style="font-size: 0.85em; color: #6b7280; font-weight: 500;">${escapeHtml(team.division)}</div>
+                </div>
+                
+                <div style="padding: 15px 20px 20px 20px; background: rgba(255,255,255,0.7); backdrop-filter: blur(10px);">
+                    <div style="font-size: 0.8em; font-weight: 600; color: #4b5563; margin-bottom: 10px; text-align: center; text-transform: uppercase; letter-spacing: 0.5px;">Derniers résultats</div>
+                    <div style="display: flex; gap: 6px; justify-content: center; flex-wrap: wrap;">
+                        ${team.opponents.slice(-5).map(m => {
+                            const color = m.result === 'V' ? '#10b981' : (m.result === 'D' ? '#ef4444' : '#f59e0b');
+                            return `<div style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; background: ${color}; color: white; border-radius: 6px; font-size: 1em; font-weight: 700; box-shadow: 0 2px 4px rgba(0,0,0,0.1);" title="${escapeHtml(m.opponent)} (${m.score})">${m.result}</div>`;
+                        }).join('')}
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+    
+    html += '</div>';
+    container.innerHTML = html;
+}
+
+function showSingleTeamStats(teamName) {
+    const teamStats = collectTeamStatistics();
+    const team = teamStats[teamName];
+    const container = document.getElementById('stats-equipes-content');
+    
+    const tauxVictoire = team.matches.total > 0 ? 
+        Math.round((team.matches.victoires / team.matches.total) * 100) : 0;
+    const tauxRencontres = team.rencontres.total > 0 ? 
+        Math.round((team.rencontres.victoires / team.rencontres.total) * 100) : 0;
+    const ratioSets = team.sets.gagnes + team.sets.perdus > 0 ? 
+        (team.sets.gagnes / (team.sets.gagnes + team.sets.perdus) * 100).toFixed(0) : 0;
+    
+    let html = `
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <button onclick="displayTeamStatistics()" style="margin-bottom: 20px; padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.95em; transition: background 0.3s;" onmouseover="this.style.background='#5568d3'" onmouseout="this.style.background='#667eea'">
+                ← Retour aux équipes
+            </button>
+            
+            <div style="margin-bottom: 25px; padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 10px; color: white;">
+                <h2 style="margin: 0 0 15px 0;">${escapeHtml(team.name)}</h2>
+                <div style="font-size: 0.95em; opacity: 0.9; margin-bottom: 20px;">${escapeHtml(team.division)}</div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; text-align: center;">
+                    <div>
+                        <div style="font-size: 12px; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px;">Matchs d'équipe</div>
+                        <div style="font-size: 32px; font-weight: bold; margin: 5px 0;">${team.matches.victoires}-${team.matches.nuls}-${team.matches.defaites}</div>
+                        <div style="font-size: 13px; opacity: 0.9;">${tauxVictoire}% victoires</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 12px; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px;">Rencontres</div>
+                        <div style="font-size: 32px; font-weight: bold; margin: 5px 0;">${team.rencontres.victoires}/${team.rencontres.total}</div>
+                        <div style="font-size: 13px; opacity: 0.9;">${tauxRencontres}% victoires</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 12px; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px;">Sets</div>
+                        <div style="font-size: 32px; font-weight: bold; margin: 5px 0;">${team.sets.gagnes}-${team.sets.perdus}</div>
+                        <div style="font-size: 13px; opacity: 0.9;">${ratioSets}% ratio</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div>
+                <h3 style="color: #667eea; margin-bottom: 15px; font-size: 18px;">📋 Historique des matchs</h3>
+    `;
+    
+    if (team.matchDetails.length === 0) {
+        html += '<p style="color: #999; text-align: center; padding: 20px;">Aucun match trouvé</p>';
+    } else {
+        team.matchDetails.forEach((match, matchIdx) => {
+            const resultColor = match.result === 'V' ? '#10b981' : (match.result === 'D' ? '#ef4444' : '#f59e0b');
+            const resultBg = match.result === 'V' ? '#d1fae5' : (match.result === 'D' ? '#fee2e2' : '#fef3c7');
+            const detailsId = `match-details-${teamName}-${matchIdx}`;
+            
+            html += `
+                <div style="margin-bottom: 15px; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; background: white;">
+                    <div style="padding: 15px; background: ${resultBg}; border-left: 4px solid ${resultColor}; display: flex; justify-content: space-between; align-items: center; cursor: pointer;" onclick="toggleMatchDetails('${detailsId}')">
+                        <div style="flex: 1;">
+                            <div style="font-weight: 700; font-size: 16px; color: #333; margin-bottom: 4px;">
+                                ${escapeHtml(match.opponent)}
+                            </div>
+                            <div style="font-size: 13px; color: #666;">${match.journee} • ${match.isSTH_A ? '🏠 Domicile' : '✈️ Extérieur'}</div>
+                        </div>
+                        <div style="text-align: right; margin-right: 15px;">
+                            <div style="font-size: 24px; font-weight: bold; color: ${resultColor}; margin-bottom: 4px;">${match.score}</div>
+                            <div style="display: inline-block; padding: 4px 12px; background: ${resultColor}; color: white; border-radius: 4px; font-weight: 600; font-size: 12px;">
+                                ${match.result === 'V' ? 'VICTOIRE' : (match.result === 'D' ? 'DÉFAITE' : 'NUL')}
+                            </div>
+                        </div>
+                        <div style="font-size: 20px; color: #667eea; transition: transform 0.3s;">
+                            <span id="${detailsId}-icon">▼</span>
+                        </div>
+                    </div>
+            `;
+            
+            if (match.rencontres && match.rencontres.length > 0) {
+                html += `<div id="${detailsId}" style="display: none; padding: 15px; background: #f9fafb; border-top: 1px solid #e5e7eb;">`;
+                
+                match.rencontres.forEach((r, idx) => {
+                    if (!r.joueur_a || !r.joueur_x) return;
+                    
+                    const joueurSTH = match.isSTH_A ? r.joueur_a : r.joueur_x;
+                    const joueurAdv = match.isSTH_A ? r.joueur_x : r.joueur_a;
+                    const sthWins = (match.isSTH_A && r.vainqueur === 'A') || (!match.isSTH_A && r.vainqueur === 'X');
+                    
+                    // Construire les noms des joueurs
+                    let joueurAName = '';
+                    if (r.type === 'double' && r.joueur_a.joueur2) {
+                        joueurAName = `${escapeHtml(r.joueur_a.nom)} ${escapeHtml(r.joueur_a.prenom)} / ${escapeHtml(r.joueur_a.joueur2.nom)} ${escapeHtml(r.joueur_a.joueur2.prenom)}`;
+                    } else {
+                        joueurAName = `${escapeHtml(r.joueur_a.nom)} ${escapeHtml(r.joueur_a.prenom)}`;
+                    }
+                    
+                    let joueurXName = '';
+                    if (r.type === 'double' && r.joueur_x.joueur2) {
+                        joueurXName = `${escapeHtml(r.joueur_x.nom)} ${escapeHtml(r.joueur_x.prenom)} / ${escapeHtml(r.joueur_x.joueur2.nom)} ${escapeHtml(r.joueur_x.joueur2.prenom)}`;
+                    } else {
+                        joueurXName = `${escapeHtml(r.joueur_x.nom)} ${escapeHtml(r.joueur_x.prenom)}`;
+                    }
+                    
+                    // Construire les scores des sets
+                    let sets = '';
+                    if (r.sets && Array.isArray(r.sets)) {
+                        sets = r.sets.map(set => {
+                            const scoreA = set.equipe_a || set.score_a || 0;
+                            const scoreX = set.equipe_x || set.score_x || 0;
+                            
+                            let setClass = 'set-score';
+                            if (match.isSTH_A && scoreA > scoreX) {
+                                setClass = 'set-score herblain-win';
+                            } else if (!match.isSTH_A && scoreX > scoreA) {
+                                setClass = 'set-score herblain-win';
+                            } else if ((match.isSTH_A && scoreA < scoreX) || (!match.isSTH_A && scoreX < scoreA)) {
+                                setClass = 'set-score herblain-lose';
+                            }
+                            
+                            return `<span class="${setClass}">${scoreA}-${scoreX}</span>`;
+                        }).join('');
+                    }
+                    
+                    // Résultat
+                    let matchScoreA = 0, matchScoreX = 0;
+                    if (r.sets && Array.isArray(r.sets)) {
+                        r.sets.forEach(s => {
+                            const scoreA = s.equipe_a || s.score_a || 0;
+                            const scoreX = s.equipe_x || s.score_x || 0;
+                            if (scoreA > scoreX) matchScoreA++;
+                            else if (scoreX > scoreA) matchScoreX++;
+                        });
+                    }
+                    const result = `${matchScoreA}-${matchScoreX}`;
+                    
+                    // Classe de victoire
+                    let victoryClass = '';
+                    if (sthWins) {
+                        victoryClass = 'victoire';
+                    } else {
+                        victoryClass = 'defaite';
+                    }
+                    
+                    html += `
+                        <div class="rencontre-item ${victoryClass}">
+                            <div class="rencontre-num">${r.numero || idx + 1}</div>
+                            <div class="rencontre-players">
+                                ${joueurAName} <span class="vs">vs</span> ${joueurXName}
+                            </div>
+                            <div class="rencontre-sets">
+                                ${sets}
+                                <span class="rencontre-result">${result}</span>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                html += '</div>';
+            }
+            
+            html += '</div>';
+        });
+    }
+    
+    html += `
+            </div>
+        </div>
+    `;
+    
+    container.innerHTML = html;
+}
+
+function toggleMatchDetails(detailsId) {
+    const detailsDiv = document.getElementById(detailsId);
+    const icon = document.getElementById(detailsId + '-icon');
+    
+    if (detailsDiv.style.display === 'none') {
+        detailsDiv.style.display = 'block';
+        icon.style.transform = 'rotate(180deg)';
+        icon.textContent = '▲';
+    } else {
+        detailsDiv.style.display = 'none';
+        icon.style.transform = 'rotate(0deg)';
+        icon.textContent = '▼';
+    }
 }
 
 function displayClubStatistics() {
@@ -676,10 +1039,10 @@ function displayTop5Players() {
                        'rgba(100, 100, 100, 0.05)';
         
         html += `
-            <div style="display: flex; align-items: center; padding: 12px; margin-bottom: 10px; background: ${bgColor}; border-radius: 8px; border-left: 4px solid #667eea; cursor: pointer;" onclick="showPlayerDetail('${joueur.nom.replace(/'/g, "\\'")}')">
+            <div style="display: flex; align-items: center; padding: 12px; margin-bottom: 10px; background: ${bgColor}; border-radius: 8px; border-left: 4px solid #667eea; cursor: pointer;" onclick="showPlayerDetail('${joueur.nom.replace(/'/g, "\\'")}'\, true)">
                 <div style="font-size: 1.5em; margin-right: 15px;">${medal}</div>
                 <div style="flex: 1;">
-                    <div style="font-weight: bold; color: #333;">${joueur.nom}</div>
+                    <div style="font-weight: bold; color: #333;">${escapeHtml(joueur.nom)}</div>
                     <div style="font-size: 0.85em; color: #666;">
                         ${joueur.matches.victoires} V - ${joueur.matches.defaites} D (${joueur.matches.taux_victoire}%) | Perf: ${joueur.performance_classement?.score > 0 ? '+' : ''}${joueur.performance_classement?.score || 0}
                     </div>
@@ -1063,7 +1426,7 @@ function updateTableRows(joueursArray) {
         html += `
             <tr onclick="showPlayerDetail('${joueur.nom.replace(/'/g, "\\'")}');" style="cursor: pointer;">
                 <td class="rank">${index + 1}</td>
-                <td class="player-name-cell">${joueur.nom}</td>
+                <td class="player-name-cell">${escapeHtml(joueur.nom)}</td>
                 <td><span class="stats-badge badge-info">${joueur.points_officiels} pts</span></td>
                 <td>${joueur.matches.total}</td>
                 <td><span class="stats-badge badge-success">${joueur.matches.victoires}</span></td>
@@ -1120,7 +1483,7 @@ function displayMVPForJournee(journeeId, journeeKey) {
                         🏆 MVP de la journée
                     </div>
                     <div style="font-size: 24px; font-weight: 700; color: white; margin-bottom: 10px;">
-                        ${mvp.nom}
+                        ${escapeHtml(mvp.nom)}
                     </div>
                     <div style="display: flex; gap: 20px; flex-wrap: wrap;">
                         <div>
@@ -1196,7 +1559,7 @@ function displayTop3ForJournee(journeeId, journeeKey) {
                     <div style="display: flex; align-items: center; margin-bottom: 10px;">
                         <div style="font-size: 2em; margin-right: 10px;">${medal}</div>
                         <div style="flex: 1;">
-                            <div style="font-weight: 700; font-size: 16px; color: #333;">${player.nom}</div>
+                            <div style="font-weight: 700; font-size: 16px; color: #333;">${escapeHtml(player.nom)}</div>
                             <div style="font-size: 12px; color: #666;">${player.points_officiels} pts</div>
                         </div>
                     </div>
@@ -1291,7 +1654,7 @@ function displayMatches(journeeId) {
         card.innerHTML = `
             <div class="match-header">
                 <div style="display: flex; align-items: center; flex: 1;">
-                    ${equipeTTSH ? `<span class="match-equipe">${equipeTTSH}</span>` : ''}
+                    ${equipeTTSH ? `<span class="match-equipe">${escapeHtml(equipeTTSH)}</span>` : ''}
                     <div class="match-teams">${teamA} vs ${teamX}</div>
                 </div>
                 <div class="match-score">${scoreA} - ${scoreX}</div>
@@ -1519,13 +1882,13 @@ function showMatchDetail(journeeId, matchIndex) {
     const equipeTTSH = match.equipe_ttsh || '';
     
     document.getElementById('modal-title').innerHTML = 
-        `${equipeTTSH ? `<span style="background: #667eea; color: white; padding: 5px 12px; border-radius: 5px; margin-right: 15px;">${equipeTTSH}</span>` : ''}${equipeA.nom || 'Équipe A'} ${scoreA} - ${scoreX} ${equipeX.nom || 'Équipe X'}`;
+        `${equipeTTSH ? `<span style="background: #667eea; color: white; padding: 5px 12px; border-radius: 5px; margin-right: 15px;">${escapeHtml(equipeTTSH)}</span>` : ''}${escapeHtml(equipeA.nom) || 'Équipe A'} ${scoreA} - ${scoreX} ${escapeHtml(equipeX.nom) || 'Équipe X'}`;
     
     // Build players lists
     const playersA = equipeA.joueurs.map(j => `
         <li class="player-item">
             <div>
-                <span class="player-name">${j.nom} ${j.prenom}</span>
+                <span class="player-name">${escapeHtml(j.nom)} ${escapeHtml(j.prenom)}</span>
                 <span class="player-license">${j.licence}</span>
             </div>
             <span class="player-points">${j.points} pts</span>
@@ -1535,7 +1898,7 @@ function showMatchDetail(journeeId, matchIndex) {
     const playersX = equipeX.joueurs.map(j => `
         <li class="player-item">
             <div>
-                <span class="player-name">${j.nom} ${j.prenom}</span>
+                <span class="player-name">${escapeHtml(j.nom)} ${escapeHtml(j.prenom)}</span>
                 <span class="player-license">${j.licence}</span>
             </div>
             <span class="player-points">${j.points} pts</span>
@@ -1553,10 +1916,10 @@ function showMatchDetail(journeeId, matchIndex) {
         if (typeof r.joueur_a === 'object' && r.joueur_a) {
             if (r.joueur_a.joueur2) {
                 // Double: only last names
-                joueurAName = `${r.joueur_a.nom} / ${r.joueur_a.joueur2.nom}`;
+                joueurAName = `${escapeHtml(r.joueur_a.nom)} / ${escapeHtml(r.joueur_a.joueur2.nom)}`;
             } else {
                 // Simple: full name
-                joueurAName = `${r.joueur_a.nom} ${r.joueur_a.prenom}`;
+                joueurAName = `${escapeHtml(r.joueur_a.nom)} ${escapeHtml(r.joueur_a.prenom)}`;
             }
         } else {
             joueurAName = r.joueur_a || 'Joueur A';
@@ -1566,10 +1929,10 @@ function showMatchDetail(journeeId, matchIndex) {
         if (typeof r.joueur_x === 'object' && r.joueur_x) {
             if (r.joueur_x.joueur2) {
                 // Double: only last names
-                joueurXName = `${r.joueur_x.nom} / ${r.joueur_x.joueur2.nom}`;
+                joueurXName = `${escapeHtml(r.joueur_x.nom)} / ${escapeHtml(r.joueur_x.joueur2.nom)}`;
             } else {
                 // Simple: full name
-                joueurXName = `${r.joueur_x.nom} ${r.joueur_x.prenom}`;
+                joueurXName = `${escapeHtml(r.joueur_x.nom)} ${escapeHtml(r.joueur_x.prenom)}`;
             }
         } else {
             joueurXName = r.joueur_x || 'Joueur X';
@@ -1580,14 +1943,18 @@ function showMatchDetail(journeeId, matchIndex) {
         // Calculer le score en sets (nombre de sets gagnés par chaque joueur)
         let setsWonA = 0;
         let setsWonX = 0;
-        r.sets.forEach(s => {
-            const scoreA = s.equipe_a || s.score_a || 0;
-            const scoreX = s.equipe_x || s.score_x || 0;
-            if (scoreA > scoreX) setsWonA++;
-            else if (scoreX > scoreA) setsWonX++;
-        });
         
-        const result = isAbandon ? '(A)' : `${setsWonA}-${setsWonX}`;
+        // Vérifier si les sets existent (certains matchs n'ont pas de détails de sets)
+        if (r.sets && Array.isArray(r.sets)) {
+            r.sets.forEach(s => {
+                const scoreA = s.equipe_a || s.score_a || 0;
+                const scoreX = s.equipe_x || s.score_x || 0;
+                if (scoreA > scoreX) setsWonA++;
+                else if (scoreX > scoreA) setsWonX++;
+            });
+        }
+        
+        const result = isAbandon ? '(A)' : (r.sets ? `${setsWonA}-${setsWonX}` : 'N/A');
         
         // Score pour déterminer la victoire (1-0 ou 0-1)
         const matchScoreA = r.score_a !== undefined ? r.score_a : (r.score_match ? parseInt(r.score_match.split('-')[0]) : 0);
@@ -1641,11 +2008,11 @@ function showMatchDetail(journeeId, matchIndex) {
     modalBody.innerHTML = `
         <div class="teams-section">
             <div class="team-panel">
-                <h3>${equipeA.nom || 'Équipe A'}</h3>
+                <h3>${escapeHtml(equipeA.nom) || 'Équipe A'}</h3>
                 <ul class="player-list">${playersA}</ul>
             </div>
             <div class="team-panel">
-                <h3>${equipeX.nom || 'Équipe X'}</h3>
+                <h3>${escapeHtml(equipeX.nom) || 'Équipe X'}</h3>
                 <ul class="player-list">${playersX}</ul>
             </div>
         </div>
@@ -1828,10 +2195,13 @@ function normalizePlayerName(joueur) {
     return `${prenom} ${nom}`;
 }
 
-function showPlayerDetail(playerName) {
+function showPlayerDetail(playerName, forceAll = false) {
+    // Respecter le filtre de journée actif (sauf si forceAll)
+    const displayJournee = forceAll ? 'all' : currentStatsJournee;
+    
     // Récupérer les stats en fonction de la journée sélectionnée
     let joueur;
-    if (currentStatsJournee === 'all') {
+    if (displayJournee === 'all') {
         // Pour "all", calculer les stats depuis les matchs bruts pour compter les doubles comme 1
         const allJourneesStats = {};
         
@@ -1882,9 +2252,9 @@ function showPlayerDetail(playerName) {
     const modalBody = document.getElementById('modal-body');
     
     let journeeTitle = '';
-    if (currentStatsJournee !== 'all') {
-        const match = currentStatsJournee.match(/J(\d+)_(\d{4})(\d{2})(\d{2})/);
-        journeeTitle = match ? ` - Journée ${match[1]}` : ` - ${currentStatsJournee}`;
+    if (displayJournee !== 'all') {
+        const match = displayJournee.match(/J(\d+)_(\d{4})(\d{2})(\d{2})/);
+        journeeTitle = match ? ` - Journée ${match[1]}` : ` - ${displayJournee}`;
     }
     
     document.getElementById('modal-title').innerHTML = 
@@ -1928,7 +2298,7 @@ function showPlayerDetail(playerName) {
         if (journeeId === 'statistiques') return;
         
         // Si on est sur une journée spécifique, filtrer uniquement cette journée
-        if (currentStatsJournee !== 'all' && journeeId !== currentStatsJournee) return;
+        if (displayJournee !== 'all' && journeeId !== displayJournee) return;
         
         matches.forEach((match, matchIndex) => {
             const equipeA = match.equipes.equipe_a;

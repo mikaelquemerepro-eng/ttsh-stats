@@ -21,6 +21,9 @@
             <button class="nav-tab" onclick="showMainSection('stats-joueurs', this)">
                 👥 Stats Joueurs
             </button>
+            <button class="nav-tab" onclick="showMainSection('stats-equipes', this)">
+                🎯 Stats Équipes
+            </button>
             <button class="nav-tab" onclick="showMainSection('stats-club', this)">
                 🏆 Stats Club
             </button>
@@ -46,6 +49,14 @@
                     <!-- Les onglets de filtrage par journée seront créés dynamiquement -->
                 </div>
                 <div id="stats-content">
+                    <p style="text-align: center; color: #999; padding: 40px;">Chargement des statistiques...</p>
+                </div>
+            </div>
+            
+            <!-- Section Stats Équipes -->
+            <div id="stats-equipes" class="main-section">
+                <h2 class="section-title">🎯 Statistiques par équipes TTSH</h2>
+                <div id="stats-equipes-content">
                     <p style="text-align: center; color: #999; padding: 40px;">Chargement des statistiques...</p>
                 </div>
             </div>

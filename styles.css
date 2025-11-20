@@ -65,6 +65,21 @@ header p {
     border-bottom: 3px solid #667eea;
 }
 
+/* Cartes d'équipes cliquables */
+.team-card-clickable {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.team-card-clickable:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.team-card-clickable:active {
+    transform: translateY(-2px);
+}
+
 .content {
     padding: 30px;
 }

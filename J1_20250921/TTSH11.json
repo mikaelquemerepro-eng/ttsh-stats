@@ -54,9 +54,9 @@
     }
   },
   "resultat_global": {
-    "equipe_a": 0,
-    "equipe_x": 0,
-    "vainqueur": "X"
+    "equipe_a": 8,
+    "equipe_x": 2,
+    "vainqueur": "A"
   },
   "rencontres": [
     {
@@ -71,7 +71,26 @@
         "lettre": "X",
         "nom": "PELTIER",
         "prenom": "Joël"
-      }
+      },
+      "vainqueur": "A",
+      "score_match": "1-0",
+      "sets": [
+        {
+          "equipe_a": 11,
+          "equipe_x": 8,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 7,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 4,
+          "gagnant": "A"
+        }
+      ]
     },
     {
       "numero": 2,
@@ -85,7 +104,26 @@
         "lettre": "Y",
         "nom": "LOIZEL",
         "prenom": "Olivier"
-      }
+      },
+      "vainqueur": "A",
+      "score_match": "1-0",
+      "sets": [
+        {
+          "equipe_a": 16,
+          "equipe_x": 14,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 2,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 7,
+          "gagnant": "A"
+        }
+      ]
     },
     {
       "numero": 3,
@@ -99,7 +137,26 @@
         "lettre": "Z",
         "nom": "MADIOT",
         "prenom": "Francois-regis"
-      }
+      },
+      "vainqueur": "A",
+      "score_match": "1-0",
+      "sets": [
+        {
+          "equipe_a": 11,
+          "equipe_x": 6,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 9,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 4,
+          "gagnant": "A"
+        }
+      ]
     },
     {
       "numero": 4,
@@ -113,7 +170,26 @@
         "lettre": "X",
         "nom": "PELTIER",
         "prenom": "Joël"
-      }
+      },
+      "vainqueur": "A",
+      "score_match": "1-0",
+      "sets": [
+        {
+          "equipe_a": 11,
+          "equipe_x": 7,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 7,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 4,
+          "gagnant": "A"
+        }
+      ]
     },
     {
       "numero": 5,
@@ -135,7 +211,31 @@
           "nom": "LOIZEL",
           "prenom": "Olivier"
         }
-      }
+      },
+      "vainqueur": "A",
+      "score_match": "1-0",
+      "sets": [
+        {
+          "equipe_a": 9,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 4,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 2,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 3,
+          "gagnant": "A"
+        }
+      ]
     },
     {
       "numero": 6,
@@ -149,7 +249,31 @@
         "lettre": "Z",
         "nom": "MADIOT",
         "prenom": "Francois-regis"
-      }
+      },
+      "vainqueur": "X",
+      "score_match": "0-1",
+      "sets": [
+        {
+          "equipe_a": 11,
+          "equipe_x": 5,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 6,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 10,
+          "equipe_x": 12,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 10,
+          "equipe_x": 12,
+          "gagnant": "X"
+        }
+      ]
     },
     {
       "numero": 7,
@@ -163,7 +287,36 @@
         "lettre": "Y",
         "nom": "LOIZEL",
         "prenom": "Olivier"
-      }
+      },
+      "vainqueur": "X",
+      "score_match": "0-1",
+      "sets": [
+        {
+          "equipe_a": 11,
+          "equipe_x": 7,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 6,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 9,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 4,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 9,
+          "equipe_x": 11,
+          "gagnant": "X"
+        }
+      ]
     },
     {
       "numero": 8,
@@ -177,7 +330,26 @@
         "lettre": "Z",
         "nom": "MADIOT",
         "prenom": "Francois-regis"
-      }
+      },
+      "vainqueur": "A",
+      "score_match": "1-0",
+      "sets": [
+        {
+          "equipe_a": 12,
+          "equipe_x": 10,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 5,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 6,
+          "gagnant": "A"
+        }
+      ]
     },
     {
       "numero": 9,
@@ -191,7 +363,26 @@
         "lettre": "X",
         "nom": "PELTIER",
         "prenom": "Joël"
-      }
+      },
+      "vainqueur": "A",
+      "score_match": "1-0",
+      "sets": [
+        {
+          "equipe_a": 11,
+          "equipe_x": 6,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 5,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 9,
+          "gagnant": "A"
+        }
+      ]
     },
     {
       "numero": 10,
@@ -205,7 +396,31 @@
         "lettre": "Y",
         "nom": "LOIZEL",
         "prenom": "Olivier"
-      }
+      },
+      "vainqueur": "A",
+      "score_match": "1-0",
+      "sets": [
+        {
+          "equipe_a": 11,
+          "equipe_x": 9,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 10,
+          "equipe_x": 12,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 4,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 13,
+          "equipe_x": 11,
+          "gagnant": "A"
+        }
+      ]
     }
   ],
   "expected_matches": 10,
