@@ -716,3 +716,235 @@ header p {
         min-width: 120px;
     }
 }
+
+/* Optimisation spécifique pour mobile portrait */
+@media (max-width: 768px) and (orientation: portrait) {
+    body {
+        padding: 10px;
+    }
+    
+    .container {
+        border-radius: 10px;
+    }
+    
+    header {
+        padding: 20px 15px;
+    }
+    
+    header h1 {
+        font-size: 1.8em;
+    }
+    
+    header p {
+        font-size: 1em;
+    }
+    
+    .nav-tabs {
+        flex-wrap: wrap;
+    }
+    
+    .nav-tab {
+        flex: 1 1 50%;
+        padding: 15px 10px;
+        font-size: 0.95em;
+    }
+    
+    .content {
+        padding: 15px;
+    }
+    
+    .sidebar-tabs {
+        width: 100%;
+        border-right: none;
+        border-bottom: 2px solid #ddd;
+        min-height: auto;
+        display: flex;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .sidebar-tab {
+        padding: 12px 20px;
+        white-space: nowrap;
+        border-bottom: 3px solid transparent;
+        border-left: none;
+    }
+    
+    .sidebar-tab.active {
+        border-bottom: 3px solid #667eea;
+        border-left: none;
+    }
+    
+    .content-with-sidebar {
+        flex-direction: column;
+    }
+    
+    .sub-content {
+        padding: 15px;
+    }
+    
+    /* Stats table en portrait */
+    .stats-table {
+        font-size: 0.75em;
+    }
+    
+    .stats-table th,
+    .stats-table td {
+        padding: 6px 4px;
+    }
+    
+    .stats-badge {
+        padding: 3px 6px;
+        font-size: 0.9em;
+    }
+    
+    .win-rate-bar {
+        min-width: 60px;
+    }
+    
+    /* Match cards */
+    .match-card {
+        padding: 12px;
+    }
+    
+    .match-equipe {
+        padding: 4px 8px;
+        font-size: 0.85em;
+    }
+    
+    .match-teams {
+        font-size: 0.95em;
+    }
+    
+    .match-score {
+        font-size: 1.2em;
+    }
+    
+    /* Team cards */
+    .team-card {
+        padding: 15px;
+    }
+    
+    .team-card h3 {
+        font-size: 1.2em;
+    }
+    
+    /* Rencontre items */
+    .rencontre-item {
+        padding: 10px;
+        grid-template-columns: 30px 1fr auto;
+        gap: 10px;
+        font-size: 0.9em;
+    }
+    
+    .rencontre-num {
+        width: 30px;
+        height: 30px;
+        font-size: 0.85em;
+    }
+    
+    .set-score {
+        padding: 4px 6px;
+        font-size: 0.8em;
+        min-width: 40px;
+    }
+    
+    /* Modal */
+    .modal-content {
+        width: 95%;
+        max-height: 90vh;
+        margin: 5% auto;
+    }
+    
+    .modal-header h2 {
+        font-size: 1.3em;
+    }
+    
+    /* Charts */
+    .chart-container {
+        height: 250px;
+    }
+    
+    /* Section titles */
+    .section-title,
+    h3 {
+        font-size: 1.3em;
+    }
+    
+    /* Stats Club - Top 5 et Charts */
+    .performance-grid {
+        grid-template-columns: 1fr !important;
+        gap: 15px !important;
+    }
+    
+    .stat-card {
+        padding: 15px !important;
+    }
+    
+    .stat-card .number {
+        font-size: 2em !important;
+    }
+    
+    /* Bilan matchs d'équipe */
+    .team-performance-summary {
+        padding: 20px !important;
+    }
+    
+    .team-stats-flex {
+        flex-direction: column !important;
+        gap: 10px !important;
+    }
+    
+    .team-stats-flex > div {
+        padding: 20px !important;
+    }
+    
+    .team-stats-flex > div > div:first-child {
+        font-size: 2.5em !important;
+    }
+    
+    .team-stats-flex > div > div:nth-child(2) {
+        font-size: 1em !important;
+    }
+    
+    /* Top 5 players */
+    #top5-players > div {
+        padding: 10px !important;
+    }
+    
+    #top5-players > div > div {
+        padding: 10px !important;
+        font-size: 0.9em !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+    }
+    
+    #top5-players > div > div > div:first-child {
+        font-size: 1.5em !important;
+        margin-right: 0 !important;
+        margin-bottom: 5px !important;
+    }
+    
+    #top5-players > div > div > div:nth-child(2) {
+        width: 100% !important;
+        margin-bottom: 10px !important;
+    }
+    
+    #top5-players > div > div > div:last-child {
+        align-self: flex-end !important;
+    }
+    
+    /* Chart layout */
+    .chart-layout {
+        flex-direction: column !important;
+    }
+    
+    .chart-ratio {
+        width: 100% !important;
+        margin-bottom: 15px !important;
+    }
+    
+    .chart-container canvas {
+        max-height: 250px !important;
+    }
+}

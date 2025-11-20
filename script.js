@@ -24,6 +24,34 @@ function escapeHtml(text) {
     return div.innerHTML;
 }
 
+async function loadVersionInfo() {
+    try {
+        const response = await fetch('version.json');
+        if (response.ok) {
+            const versionData = await response.json();
+            const versionDiv = document.getElementById('version-info');
+            if (versionDiv) {
+                const buildDate = new Date(versionData.timestamp).toLocaleString('fr-FR', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+                versionDiv.innerHTML = `
+                    ST HERBLAIN T.T - ${versionData.version} 
+                    <span style="color: #ccc; margin: 0 5px;">|</span>
+                    Build #${versionData.build} 
+                    <span style="color: #ccc; margin: 0 5px;">|</span>
+                    ${buildDate}
+                `;
+            }
+        }
+    } catch (e) {
+        console.log('Version info not available');
+    }
+}
+
 async function loadData() {
     try {
         // Charger d'abord les statistiques pour connaître les journées disponibles
@@ -80,6 +108,9 @@ async function loadData() {
         displayStatistics('all');
         displayClubStatistics();
         createGlobalSetDistributionChart();
+        
+        // Charger les informations de version
+        loadVersionInfo();
     } catch (error) {
         console.error('Erreur de chargement:', error);
         alert('Erreur de chargement des données: ' + error.message);
@@ -940,9 +971,9 @@ function displayClubStatistics() {
                 </div>
             </div>
             
-            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 15px; padding: 30px; margin: 0 auto; max-width: 800px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+            <div class="team-performance-summary" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 15px; padding: 30px; margin: 0 auto; max-width: 800px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
                 <h3 style="color: white; text-align: center; margin: 0 0 25px 0; font-size: 1.3em;">🏆 Bilan des matchs d'équipe</h3>
-                <div style="display: flex; justify-content: space-around; align-items: stretch; gap: 15px;">
+                <div class="team-stats-flex" style="display: flex; justify-content: space-around; align-items: stretch; gap: 15px;">
                     <div style="flex: 1; background: rgba(255,255,255,0.15); backdrop-filter: blur(10px); border-radius: 12px; padding: 25px; text-align: center; border: 2px solid rgba(76, 175, 80, 0.5);">
                         <div style="font-size: 3em; font-weight: bold; color: white; margin-bottom: 10px;">${matchsEquipe.victoires}</div>
                         <div style="color: white; font-size: 1.1em; text-transform: uppercase; letter-spacing: 1px;">✅ Victoires</div>
@@ -962,18 +993,16 @@ function displayClubStatistics() {
             </div>
         </div>
         
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 30px;">
-            <!-- Top 5 des joueurs -->
-            <div class="chart-container">
-                <h3>🏅 Top 5 des joueurs</h3>
-                <div id="top5-players"></div>
-            </div>
-            
-            <!-- Evolution par journée -->
-            <div class="chart-container">
-                <h3>📈 Evolution par journée</h3>
-                <canvas id="chart-evolution-journees"></canvas>
-            </div>
+        <!-- Top 5 des joueurs -->
+        <div class="chart-container" style="margin-top: 30px;">
+            <h3>🏅 Top 5 des joueurs</h3>
+            <div id="top5-players"></div>
+        </div>
+        
+        <!-- Evolution par journée -->
+        <div class="chart-container" style="margin-top: 30px;">
+            <h3>📈 Evolution par journée</h3>
+            <canvas id="chart-evolution-journees"></canvas>
         </div>
         
         <div class="chart-container" style="margin-top: 30px;">
