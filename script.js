@@ -453,22 +453,23 @@ function displayStatistics(journeeFilter = 'all') {
     
     let html = `
         <h3 style="color: #667eea; margin-bottom: 20px;">🏆 Classement des joueurs - ${journeeTitle} ${minMatchesText}</h3>
-        <table class="stats-table" id="stats-table">
-            <thead>
-                <tr>
-                    <th data-column="rank" data-type="number">#</th>
-                    <th data-column="nom" data-type="string">Joueur</th>
-                    <th data-column="points_officiels" data-type="number">Points</th>
-                    <th data-column="matches.total" data-type="number">Matches</th>
-                    <th data-column="matches.victoires" data-type="number">Victoires</th>
-                    <th data-column="matches.defaites" data-type="number">Défaites</th>
-                    <th data-column="matches.taux_victoire" data-type="number">Taux de victoire</th>
-                    <th data-column="sets.total" data-type="number">Sets</th>
-                    <th data-column="sets.ratio" data-type="number">Ratio sets</th>
-                    <th data-column="performance_classement.score" data-type="number" title="Points gagnés contre mieux classés - Points perdus contre moins bien classés">Perf. Classement</th>
-                </tr>
-            </thead>
-            <tbody id="stats-table-body">
+        <div class="table-responsive">
+            <table class="stats-table" id="stats-table">
+                <thead>
+                    <tr>
+                        <th data-column="rank" data-type="number">#</th>
+                        <th data-column="nom" data-type="string">Joueur</th>
+                        <th data-column="points_officiels" data-type="number">Points</th>
+                        <th data-column="matches.total" data-type="number">Matches</th>
+                        <th data-column="matches.victoires" data-type="number">Victoires</th>
+                        <th data-column="matches.defaites" data-type="number">Défaites</th>
+                        <th data-column="matches.taux_victoire" data-type="number">Taux de victoire</th>
+                        <th data-column="sets.total" data-type="number">Sets</th>
+                        <th data-column="sets.ratio" data-type="number">Ratio sets</th>
+                        <th data-column="performance_classement.score" data-type="number" title="Points gagnés contre mieux classés - Points perdus contre moins bien classés">Perf. Classement</th>
+                    </tr>
+                </thead>
+                <tbody id="stats-table-body">
     `;
     
     joueursArray.forEach((joueur, index) => {
@@ -502,6 +503,7 @@ function displayStatistics(journeeFilter = 'all') {
     html += `
             </tbody>
         </table>
+        </div>
     `;
     
     container.innerHTML = html;

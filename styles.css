@@ -464,6 +464,12 @@ header p {
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
 .stats-table thead {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
@@ -678,5 +684,35 @@ header p {
         margin-left: 0;
         margin-top: 10px;
     }
+    
+    /* Table responsive en mode paysage mobile */
+    .stats-table {
+        font-size: 0.85em;
+    }
+    
+    .stats-table th,
+    .stats-table td {
+        padding: 8px 10px;
+        white-space: nowrap;
+    }
+    
+    .stats-table th::after {
+        font-size: 0.7em;
+    }
 }
 
+/* Optimisation spécifique pour mobile paysage */
+@media (max-width: 900px) and (orientation: landscape) {
+    .stats-table {
+        font-size: 0.8em;
+    }
+    
+    .stats-table th,
+    .stats-table td {
+        padding: 6px 8px;
+    }
+    
+    .player-name-cell {
+        min-width: 120px;
+    }
+}
