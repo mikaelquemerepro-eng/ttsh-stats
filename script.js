@@ -24,6 +24,17 @@ function escapeHtml(text) {
     return div.innerHTML;
 }
 
+// Fonction de normalisation des noms de joueurs
+function normalizePlayerNameString(prenom, nom) {
+    const nomUpper = nom.toUpperCase();
+    // Gérer les prénoms composés avec tirets
+    const prenomParts = prenom.split('-');
+    const prenomNormalized = prenomParts.map(part => 
+        part.charAt(0).toUpperCase() + part.slice(1).toLowerCase()
+    ).join('-');
+    return `${prenomNormalized} ${nomUpper}`;
+}
+
 async function loadVersionInfo() {
     try {
         const response = await fetch('version.json');
@@ -339,7 +350,7 @@ function calculateJourneeStats(journeeId, countDoublesAsOne = true) {
                     const isTTSH = isTeamA ? isSTH_A : isSTH_X;
                     if (!isTTSH) return;
                     
-                    const nomComplet = `${joueur.prenom.charAt(0).toUpperCase()}${joueur.prenom.slice(1).toLowerCase()} ${joueur.nom.toUpperCase()}`;
+                    const nomComplet = normalizePlayerNameString(joueur.prenom, joueur.nom);
                     
                     if (!joueurs[nomComplet]) {
                         joueurs[nomComplet] = {
@@ -398,17 +409,20 @@ function calculateJourneeStats(journeeId, countDoublesAsOne = true) {
                         const pointsJoueur = joueurData.points;
                         const pointsAdversaire = adversaireData.points;
                         
-                        if (setsGagnes > setsPerdus) {
-                            // Victoire
-                            if (pointsAdversaire > pointsJoueur) {
-                                // Victoire contre un mieux classé
-                                stats.performance_classement.score += pointsAdversaire - pointsJoueur;
-                            }
-                        } else {
-                            // Défaite
-                            if (pointsAdversaire < pointsJoueur) {
-                                // Défaite contre un moins bien classé
-                                stats.performance_classement.score -= pointsJoueur - pointsAdversaire;
+                        // Performance de classement : exclure complètement les doubles
+                        if (rencontre.type !== 'double') {
+                            if (setsGagnes > setsPerdus) {
+                                // Victoire
+                                if (pointsAdversaire > pointsJoueur) {
+                                    // Victoire contre un mieux classé
+                                    stats.performance_classement.score += pointsAdversaire - pointsJoueur;
+                                }
+                            } else {
+                                // Défaite
+                                if (pointsAdversaire < pointsJoueur) {
+                                    // Défaite contre un moins bien classé
+                                    stats.performance_classement.score -= pointsJoueur - pointsAdversaire;
+                                }
                             }
                         }
                     }
@@ -2221,9 +2235,7 @@ function closeModal() {
 
 // Fonction helper pour normaliser les noms de joueurs
 function normalizePlayerName(joueur) {
-    const nom = joueur.nom.toUpperCase();
-    const prenom = joueur.prenom.charAt(0).toUpperCase() + joueur.prenom.slice(1).toLowerCase();
-    return `${prenom} ${nom}`;
+    return normalizePlayerNameString(joueur.prenom, joueur.nom);
 }
 
 function showPlayerDetail(playerName, forceAll = false) {
@@ -2336,12 +2348,7 @@ function showPlayerDetail(playerName, forceAll = false) {
             const equipeX = match.equipes.equipe_x;
             
             // Vérifier si le joueur a participé - normaliser les noms pour la comparaison
-            const normalizePlayerName = (j) => {
-                // Normaliser en "Prenom NOM" pour correspondre au format des stats
-                const nom = j.nom.toUpperCase();
-                const prenom = j.prenom.charAt(0).toUpperCase() + j.prenom.slice(1).toLowerCase();
-                return `${prenom} ${nom}`;
-            };
+            const normalizePlayerName = (j) => normalizePlayerNameString(j.prenom, j.nom);
             
             const playerInA = equipeA.joueurs.some(j => normalizePlayerName(j) === playerName);
             const playerInX = equipeX.joueurs.some(j => normalizePlayerName(j) === playerName);
