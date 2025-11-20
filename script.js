@@ -26,35 +26,174 @@ function escapeHtml(text) {
 
 async function loadData() {
     try {
-        const j3Response = await fetch('J3_20251012/tous_les_matchs.json');
-        const j4Response = await fetch('J4_20251116/tous_les_matchs.json');
+        // Charger d'abord les statistiques pour connaître les journées disponibles
         const statsResponse = await fetch('statistiques.json');
-        
-        if (!j3Response.ok || !j4Response.ok || !statsResponse.ok) {
-            throw new Error('Erreur lors du chargement des données');
+        if (!statsResponse.ok) {
+            throw new Error('Erreur lors du chargement des statistiques');
         }
         
-        const j3Data = await j3Response.json();
-        const j4Data = await j4Response.json();
         const statsData = await statsResponse.json();
         
         // Validation des données
-        if (!validateMatchData(j3Data) || !validateMatchData(j4Data) || !validateStatsData(statsData)) {
-            throw new Error('Données invalides détectées');
+        if (!validateStatsData(statsData)) {
+            throw new Error('Données de statistiques invalides');
         }
         
-        allData['J3_20251012'] = j3Data;
-        allData['J4_20251116'] = j4Data;
         allData['statistiques'] = statsData;
         
-        displayMatches('J3_20251012');
-        displayMatches('J4_20251116');
+        // Extraire les journées uniques des données de joueurs
+        const journees = new Set();
+        Object.values(statsData.joueurs).forEach(joueur => {
+            if (joueur.journees && Array.isArray(joueur.journees)) {
+                joueur.journees.forEach(j => journees.add(j.journee));
+            }
+        });
+        
+        // Trier les journées par ordre chronologique
+        const journeesArray = Array.from(journees).sort();
+        
+        // Charger les données de chaque journée
+        for (const journee of journeesArray) {
+            try {
+                const response = await fetch(`${journee}/tous_les_matchs.json`);
+                if (response.ok) {
+                    const data = await response.json();
+                    if (validateMatchData(data)) {
+                        allData[journee] = data;
+                    }
+                }
+            } catch (e) {
+                // Ignorer les journées non disponibles
+            }
+        }
+        
+        // Créer dynamiquement les onglets de journées
+        createJourneesTabs(journeesArray);
+        
+        // Créer dynamiquement les onglets de filtrage de journées pour les stats
+        createStatsJourneeTabs(journeesArray);
+        
+        // Afficher la première journée
+        if (journeesArray.length > 0) {
+            displayMatches(journeesArray[0]);
+        }
         displayStatistics('all');
         displayClubStatistics();
         createGlobalSetDistributionChart();
     } catch (error) {
-        alert('Erreur de chargement des données. Veuillez réessayer plus tard.');
+        console.error('Erreur de chargement:', error);
+        alert('Erreur de chargement des données: ' + error.message);
     }
+}
+
+function createJourneesTabs(journees) {
+    const sidebarTabs = document.querySelector('.sidebar-tabs');
+    const subContent = document.querySelector('.sub-content');
+    
+    if (!sidebarTabs || !subContent) return;
+    
+    // Vider le contenu existant
+    sidebarTabs.innerHTML = '';
+    subContent.innerHTML = '';
+    
+    // Créer un onglet et une section pour chaque journée
+    journees.forEach((journee, index) => {
+        // Formater la date (ex: J1_20250921 -> J1 - 21/09/2025)
+        const match = journee.match(/J(\d+)_(\d{4})(\d{2})(\d{2})/);
+        const label = match ? 
+            `J${match[1]} - ${match[4]}/${match[3]}/${match[2]}` : 
+            journee;
+        
+        // Créer l'onglet
+        const tab = document.createElement('button');
+        tab.className = 'sidebar-tab' + (index === 0 ? ' active' : '');
+        tab.textContent = label;
+        tab.onclick = function() { showJournee(journee, this); };
+        sidebarTabs.appendChild(tab);
+        
+        // Créer la section de contenu
+        const section = document.createElement('div');
+        section.id = journee;
+        section.className = 'journee-section' + (index === 0 ? ' active' : '');
+        
+        const journeeKey = journee.toLowerCase().replace('_', '-');
+        
+        section.innerHTML = `
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="number" id="stats-${journeeKey}-matches">-</div>
+                    <div class="label">Matchs</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number" id="stats-${journeeKey}-victoires">-</div>
+                    <div class="label">Victoires</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number" id="stats-${journeeKey}-nuls">-</div>
+                    <div class="label">Nuls</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number" id="stats-${journeeKey}-defaites">-</div>
+                    <div class="label">Défaites</div>
+                </div>
+            </div>
+            <div id="mvp-${journeeKey}" style="margin: 20px 0;"></div>
+            <div id="top3-${journeeKey}" style="margin: 20px 0;"></div>
+            <div id="matches-${journeeKey}" class="matches-grid"></div>
+            <div class="chart-container">
+                <h3>📊 Taux de réussite par nombre de sets joués</h3>
+                <div class="chart-layout">
+                    <div class="chart-ratio" id="ratio-${journeeKey}">
+                        <div class="ratio-label">Ratio global</div>
+                        <div class="ratio-value">-</div>
+                        <div class="ratio-details">
+                            <div class="ratio-item">
+                                <div class="ratio-item-value" id="wins-${journeeKey}">-</div>
+                                <div class="ratio-item-label">Victoires</div>
+                            </div>
+                            <div class="ratio-item">
+                                <div class="ratio-item-value" id="losses-${journeeKey}">-</div>
+                                <div class="ratio-item-label">Défaites</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chart-wrapper" style="flex: 1;">
+                        <canvas id="chart-${journeeKey}"></canvas>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        subContent.appendChild(section);
+    });
+}
+
+function createStatsJourneeTabs(journees) {
+    const container = document.getElementById('stats-journee-tabs');
+    if (!container) return;
+    
+    container.innerHTML = '';
+    
+    // Bouton "Toutes journées"
+    const allBtn = document.createElement('button');
+    allBtn.className = 'nav-tab active';
+    allBtn.textContent = '🌐 Toutes journées';
+    allBtn.onclick = function() { showStatsJournee('all', this); };
+    container.appendChild(allBtn);
+    
+    // Boutons pour chaque journée
+    journees.forEach(journee => {
+        const match = journee.match(/J(\d+)_(\d{4})(\d{2})(\d{2})/);
+        const label = match ? 
+            `J${match[1]} - ${match[4]}/${match[3]}/${match[2]}` : 
+            journee;
+        
+        const btn = document.createElement('button');
+        btn.className = 'nav-tab';
+        btn.textContent = label;
+        btn.onclick = function() { showStatsJournee(journee, this); };
+        container.appendChild(btn);
+    });
 }
 
 function showStatsJournee(journeeId, element) {
@@ -83,6 +222,14 @@ function showMainSection(sectionId, element) {
         section.classList.remove('active');
     });
     document.getElementById(sectionId).classList.add('active');
+    
+    // Charger les données spécifiques à chaque section
+    if (sectionId === 'stats-joueurs') {
+        displayStatistics('all');
+    } else if (sectionId === 'stats-club') {
+        displayClubStatistics();
+        createGlobalSetDistributionChart();
+    }
 }
 
 function showJournee(journeeId, element) {
@@ -99,6 +246,9 @@ function showJournee(journeeId, element) {
         section.classList.remove('active');
     });
     document.getElementById(journeeId).classList.add('active');
+    
+    // Charger et afficher les données de la journée
+    displayMatches(journeeId);
 }
 
 function calculateJourneeStats(journeeId, countDoublesAsOne = true) {
@@ -110,6 +260,10 @@ function calculateJourneeStats(journeeId, countDoublesAsOne = true) {
     matches.forEach(match => {
         const equipeA = match.equipes.equipe_a;
         const equipeX = match.equipes.equipe_x;
+        
+        // Vérifier que les noms d'équipes ne sont pas null
+        if (!equipeA.nom || !equipeX.nom) return;
+        
         const isSTH_A = equipeA.nom.includes('ST HERBLAIN') || equipeA.nom.includes('TTSH');
         const isSTH_X = equipeX.nom.includes('ST HERBLAIN') || equipeX.nom.includes('TTSH');
         
@@ -288,9 +442,11 @@ function displayStatistics(journeeFilter = 'all') {
         return;
     }
     
-    const journeeTitle = journeeFilter === 'all' ? 'Toutes journées confondues' : 
-                        journeeFilter === 'J3_20251012' ? 'Journée 3 - 12/10/2025' :
-                        'Journée 4 - 16/11/2025';
+    let journeeTitle = 'Toutes journées confondues';
+    if (journeeFilter !== 'all') {
+        const match = journeeFilter.match(/J(\d+)_(\d{4})(\d{2})(\d{2})/);
+        journeeTitle = match ? `Journée ${match[1]} - ${match[4]}/${match[3]}/${match[2]}` : journeeFilter;
+    }
     const minMatchesText = journeeFilter === 'all' ? '(minimum 3 matches)' : '';
     
     let html = `
@@ -363,11 +519,16 @@ function displayClubStatistics() {
     // Calculer les victoires/défaites/nuls sur les rencontres d'équipe
     let matchsEquipe = { victoires: 0, nuls: 0, defaites: 0, total: 0 };
     
-    ['J3_20251012', 'J4_20251116'].forEach(journeeId => {
-        if (allData[journeeId]) {
+    // Parcourir toutes les journées chargées (sauf 'statistiques')
+    Object.keys(allData).forEach(journeeId => {
+        if (journeeId !== 'statistiques' && allData[journeeId]) {
             allData[journeeId].forEach(match => {
                 const equipeA = match.equipes.equipe_a;
                 const equipeX = match.equipes.equipe_x;
+                
+                // Vérifier que les noms d'équipes ne sont pas null
+                if (!equipeA.nom || !equipeX.nom) return;
+                
                 const isSTH_A = equipeA.nom.includes('ST HERBLAIN') || equipeA.nom.includes('TTSH');
                 const isSTH_X = equipeX.nom.includes('ST HERBLAIN') || equipeX.nom.includes('TTSH');
                 
@@ -533,8 +694,12 @@ function displayTop5Players() {
 }
 
 function displayEvolutionChart() {
-    const journees = ['J3_20251012', 'J4_20251116'];
-    const journeesLabels = ['J3 (12/10)', 'J4 (16/11)'];
+    // Récupérer toutes les journées chargées (sauf 'statistiques')
+    const journees = Object.keys(allData).filter(k => k !== 'statistiques').sort();
+    const journeesLabels = journees.map(j => {
+        const match = j.match(/J(\d+)_(\d{4})(\d{2})(\d{2})/);
+        return match ? `J${match[1]} (${match[4]}/${match[3]})` : j;
+    });
     
     const data = {
         victoires: [],
@@ -548,6 +713,10 @@ function displayEvolutionChart() {
             allData[journeeId].forEach(match => {
                 const equipeA = match.equipes.equipe_a;
                 const equipeX = match.equipes.equipe_x;
+                
+                // Vérifier que les noms d'équipes ne sont pas null
+                if (!equipeA.nom || !equipeX.nom) return;
+                
                 const isSTH_A = equipeA.nom.includes('ST HERBLAIN') || equipeA.nom.includes('TTSH');
                 const isSTH_X = equipeX.nom.includes('ST HERBLAIN') || equipeX.nom.includes('TTSH');
                 
@@ -697,12 +866,12 @@ function createGlobalSetDistributionChart() {
     // Combiner tous les matchs de toutes les journées
     const allMatches = [];
     
-    if (allData['J3_20251012']) {
-        allMatches.push(...allData['J3_20251012']);
-    }
-    if (allData['J4_20251116']) {
-        allMatches.push(...allData['J4_20251116']);
-    }
+    // Parcourir toutes les journées chargées (sauf 'statistiques')
+    Object.keys(allData).forEach(journeeId => {
+        if (journeeId !== 'statistiques' && allData[journeeId]) {
+            allMatches.push(...allData[journeeId]);
+        }
+    });
     
     if (allMatches.length === 0) return;
     
@@ -915,7 +1084,7 @@ function updateTableRows(joueursArray) {
     tbody.innerHTML = html;
 }
 
-function displayMVPForJournee(journeeId, journeePrefix) {
+function displayMVPForJournee(journeeId, journeeKey) {
     // Calculate stats for this journee with doubles = 1
     const stats = calculateJourneeStats(journeeId, true);
     if (!stats || !Array.isArray(stats) || stats.length === 0) return;
@@ -939,7 +1108,7 @@ function displayMVPForJournee(journeeId, journeePrefix) {
     const perfSign = perfScore >= 0 ? '+' : '';
     
     // Get container
-    const container = document.getElementById(`mvp-${journeePrefix}`);
+    const container = document.getElementById(`mvp-${journeeKey}`);
     if (!container) return;
     
     // Create MVP card
@@ -982,7 +1151,7 @@ function displayMVPForJournee(journeeId, journeePrefix) {
     `;
 }
 
-function displayTop3ForJournee(journeeId, journeePrefix) {
+function displayTop3ForJournee(journeeId, journeeKey) {
     // Calculate stats for this journee with doubles = 1
     const stats = calculateJourneeStats(journeeId, true);
     if (!stats || !Array.isArray(stats) || stats.length === 0) return;
@@ -1003,7 +1172,7 @@ function displayTop3ForJournee(journeeId, journeePrefix) {
     const top3 = eligiblePlayers.slice(0, 3);
     
     // Get container
-    const container = document.getElementById(`top3-${journeePrefix}`);
+    const container = document.getElementById(`top3-${journeeKey}`);
     if (!container) return;
     
     // Create Top 3 cards
@@ -1056,8 +1225,8 @@ function displayMatches(journeeId) {
         return;
     }
     
-    const journeePrefix = journeeId.split('_')[0].toLowerCase();
-    const matchesContainer = document.getElementById(`matches-${journeePrefix}`);
+    const journeeKey = journeeId.toLowerCase().replace('_', '-');
+    const matchesContainer = document.getElementById(`matches-${journeeKey}`);
     
     if (!matchesContainer) {
         return;
@@ -1147,24 +1316,24 @@ function displayMatches(journeeId) {
     });
     
     // Update stats
-    document.getElementById(`stats-${journeePrefix}-matches`).textContent = sortedMatches.length;
-    document.getElementById(`stats-${journeePrefix}-victoires`).textContent = victoires;
-    document.getElementById(`stats-${journeePrefix}-nuls`).textContent = nuls;
-    document.getElementById(`stats-${journeePrefix}-defaites`).textContent = defaites;
+    document.getElementById(`stats-${journeeKey}-matches`).textContent = sortedMatches.length;
+    document.getElementById(`stats-${journeeKey}-victoires`).textContent = victoires;
+    document.getElementById(`stats-${journeeKey}-nuls`).textContent = nuls;
+    document.getElementById(`stats-${journeeKey}-defaites`).textContent = defaites;
     
     // Display MVP for this journee
-    displayMVPForJournee(journeeId, journeePrefix);
+    displayMVPForJournee(journeeId, journeeKey);
     
     // Display Top 3 for this journee
-    displayTop3ForJournee(journeeId, journeePrefix);
+    displayTop3ForJournee(journeeId, journeeKey);
     
     // Create pie chart for this journee
     createSetDistributionChart(journeeId, sortedMatches);
 }
 
 function createSetDistributionChart(journeeId, matches) {
-    const journeePrefix = journeeId.split('_')[0].toLowerCase();
-    const canvasId = `chart-${journeePrefix}`;
+    const journeeKey = journeeId.toLowerCase().replace('_', '-');
+    const canvasId = `chart-${journeeKey}`;
     
     // Compter les victoires et défaites par nombre de sets joués
     const stats = {
@@ -1230,20 +1399,20 @@ function createSetDistributionChart(journeeId, matches) {
     const totalMatches = totalWins + totalLosses;
     const winPercentage = totalMatches > 0 ? ((totalWins / totalMatches) * 100).toFixed(0) : 0;
     
-    document.getElementById(`wins-${journeePrefix}`).textContent = totalWins;
-    document.getElementById(`losses-${journeePrefix}`).textContent = totalLosses;
-    document.getElementById(`ratio-${journeePrefix}`).querySelector('.ratio-value').textContent = `${winPercentage}%`;
+    document.getElementById(`wins-${journeeKey}`).textContent = totalWins;
+    document.getElementById(`losses-${journeeKey}`).textContent = totalLosses;
+    document.getElementById(`ratio-${journeeKey}`).querySelector('.ratio-value').textContent = `${winPercentage}%`;
     
     const canvas = document.getElementById(canvasId);
     if (!canvas) return;
     
     // Détruire l'ancien graphique s'il existe
-    if (window[`chart_${journeePrefix}`]) {
-        window[`chart_${journeePrefix}`].destroy();
+    if (window[`chart_${journeeKey}`]) {
+        window[`chart_${journeeKey}`].destroy();
     }
     
     // Créer le nouveau graphique
-    window[`chart_${journeePrefix}`] = new Chart(canvas, {
+    window[`chart_${journeeKey}`] = new Chart(canvas, {
         type: 'bar',
         data: {
             labels: ['3 sets', '4 sets', '5 sets'],
@@ -1666,8 +1835,8 @@ function showPlayerDetail(playerName) {
         // Pour "all", calculer les stats depuis les matchs bruts pour compter les doubles comme 1
         const allJourneesStats = {};
         
-        // Calculer pour chaque journée
-        ['J3_20251012', 'J4_20251116'].forEach(journeeId => {
+        // Calculer pour chaque journée chargée (sauf 'statistiques')
+        Object.keys(allData).filter(k => k !== 'statistiques').forEach(journeeId => {
             if (allData[journeeId]) {
                 const journeeStatsArray = calculateJourneeStats(journeeId);
                 journeeStatsArray.forEach(stats => {
@@ -1712,8 +1881,11 @@ function showPlayerDetail(playerName) {
     const modal = document.getElementById('matchModal');
     const modalBody = document.getElementById('modal-body');
     
-    const journeeTitle = currentStatsJournee === 'all' ? '' : 
-                        currentStatsJournee === 'J3_20251012' ? ' - Journée 3' : ' - Journée 4';
+    let journeeTitle = '';
+    if (currentStatsJournee !== 'all') {
+        const match = currentStatsJournee.match(/J(\d+)_(\d{4})(\d{2})(\d{2})/);
+        journeeTitle = match ? ` - Journée ${match[1]}` : ` - ${currentStatsJournee}`;
+    }
     
     document.getElementById('modal-title').innerHTML = 
         `<span style="background: #667eea; color: white; padding: 5px 12px; border-radius: 5px; margin-right: 15px;">👤</span>${playerName}${journeeTitle}`;

@@ -1,0 +1,213 @@
+{
+  "equipes": {
+    "equipe_a": {
+      "nom": "MELLINET",
+      "joueurs": [
+        {
+          "lettre": "A",
+          "nom": "HOANG",
+          "prenom": "Raphael",
+          "points": 526,
+          "licence": "4463530"
+        },
+        {
+          "lettre": "B",
+          "nom": "ROUGÉ",
+          "prenom": "Pacome",
+          "points": 573,
+          "licence": "4470998"
+        },
+        {
+          "lettre": "C",
+          "nom": "SOUDANNE",
+          "prenom": "Sacha",
+          "points": 500,
+          "licence": "4470911"
+        }
+      ]
+    },
+    "equipe_x": {
+      "nom": "ST HERBLAIN T.T",
+      "joueurs": [
+        {
+          "lettre": "X",
+          "nom": "PELTIER",
+          "prenom": "Joël",
+          "points": 500,
+          "licence": "4460885"
+        },
+        {
+          "lettre": "Y",
+          "nom": "LOIZEL",
+          "prenom": "Olivier",
+          "points": 501,
+          "licence": "9252735"
+        },
+        {
+          "lettre": "Z",
+          "nom": "MADIOT",
+          "prenom": "Francois-regis",
+          "points": 500,
+          "licence": "4456917"
+        }
+      ]
+    }
+  },
+  "resultat_global": {
+    "equipe_a": 0,
+    "equipe_x": 0,
+    "vainqueur": "X"
+  },
+  "rencontres": [
+    {
+      "numero": 1,
+      "type": "simple",
+      "joueur_a": {
+        "lettre": "A",
+        "nom": "HOANG",
+        "prenom": "Raphael"
+      },
+      "joueur_x": {
+        "lettre": "X",
+        "nom": "PELTIER",
+        "prenom": "Joël"
+      }
+    },
+    {
+      "numero": 2,
+      "type": "simple",
+      "joueur_a": {
+        "lettre": "B",
+        "nom": "ROUGÉ",
+        "prenom": "Pacome"
+      },
+      "joueur_x": {
+        "lettre": "Y",
+        "nom": "LOIZEL",
+        "prenom": "Olivier"
+      }
+    },
+    {
+      "numero": 3,
+      "type": "simple",
+      "joueur_a": {
+        "lettre": "C",
+        "nom": "SOUDANNE",
+        "prenom": "Sacha"
+      },
+      "joueur_x": {
+        "lettre": "Z",
+        "nom": "MADIOT",
+        "prenom": "Francois-regis"
+      }
+    },
+    {
+      "numero": 4,
+      "type": "simple",
+      "joueur_a": {
+        "lettre": "B",
+        "nom": "ROUGÉ",
+        "prenom": "Pacome"
+      },
+      "joueur_x": {
+        "lettre": "X",
+        "nom": "PELTIER",
+        "prenom": "Joël"
+      }
+    },
+    {
+      "numero": 5,
+      "type": "double",
+      "joueur_a": {
+        "lettre": "A/C",
+        "nom": "HOANG",
+        "prenom": "Raphael",
+        "joueur2": {
+          "nom": "SOUDANNE",
+          "prenom": "Sacha"
+        }
+      },
+      "joueur_x": {
+        "lettre": "X/Y",
+        "nom": "PELTIER",
+        "prenom": "Joël",
+        "joueur2": {
+          "nom": "LOIZEL",
+          "prenom": "Olivier"
+        }
+      }
+    },
+    {
+      "numero": 6,
+      "type": "simple",
+      "joueur_a": {
+        "lettre": "A",
+        "nom": "HOANG",
+        "prenom": "Raphael"
+      },
+      "joueur_x": {
+        "lettre": "Z",
+        "nom": "MADIOT",
+        "prenom": "Francois-regis"
+      }
+    },
+    {
+      "numero": 7,
+      "type": "simple",
+      "joueur_a": {
+        "lettre": "C",
+        "nom": "SOUDANNE",
+        "prenom": "Sacha"
+      },
+      "joueur_x": {
+        "lettre": "Y",
+        "nom": "LOIZEL",
+        "prenom": "Olivier"
+      }
+    },
+    {
+      "numero": 8,
+      "type": "simple",
+      "joueur_a": {
+        "lettre": "B",
+        "nom": "ROUGÉ",
+        "prenom": "Pacome"
+      },
+      "joueur_x": {
+        "lettre": "Z",
+        "nom": "MADIOT",
+        "prenom": "Francois-regis"
+      }
+    },
+    {
+      "numero": 9,
+      "type": "simple",
+      "joueur_a": {
+        "lettre": "C",
+        "nom": "SOUDANNE",
+        "prenom": "Sacha"
+      },
+      "joueur_x": {
+        "lettre": "X",
+        "nom": "PELTIER",
+        "prenom": "Joël"
+      }
+    },
+    {
+      "numero": 10,
+      "type": "simple",
+      "joueur_a": {
+        "lettre": "A",
+        "nom": "HOANG",
+        "prenom": "Raphael"
+      },
+      "joueur_x": {
+        "lettre": "Y",
+        "nom": "LOIZEL",
+        "prenom": "Olivier"
+      }
+    }
+  ],
+  "expected_matches": 10,
+  "equipe_ttsh": "TTSH11"
+}

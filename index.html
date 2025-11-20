@@ -31,105 +31,10 @@
             <div id="journees" class="main-section active">
                 <div class="content-with-sidebar">
                     <div class="sidebar-tabs">
-                        <button class="sidebar-tab active" onclick="showJournee('J3_20251012', this)">
-                            J3 - 12/10/2025
-                        </button>
-                        <button class="sidebar-tab" onclick="showJournee('J4_20251116', this)">
-                            J4 - 16/11/2025
-                        </button>
+                        <!-- Les onglets seront créés dynamiquement par JavaScript -->
                     </div>
                     <div class="sub-content">
-                        <div id="J3_20251012" class="journee-section active">
-                            <div class="stats-grid">
-                                <div class="stat-card">
-                                    <div class="number" id="stats-j3-matches">-</div>
-                                    <div class="label">Matchs</div>
-                                </div>
-                                <div class="stat-card">
-                                    <div class="number" id="stats-j3-victoires">-</div>
-                                    <div class="label">Victoires</div>
-                                </div>
-                                <div class="stat-card">
-                                    <div class="number" id="stats-j3-nuls">-</div>
-                                    <div class="label">Nuls</div>
-                                </div>
-                                <div class="stat-card">
-                                    <div class="number" id="stats-j3-defaites">-</div>
-                                    <div class="label">Défaites</div>
-                                </div>
-                            </div>
-                            <div id="mvp-j3" style="margin: 20px 0;"></div>
-                            <div id="top3-j3" style="margin: 20px 0;"></div>
-                            <div id="matches-j3" class="matches-grid"></div>
-                            <div class="chart-container">
-                                <h3>📊 Taux de réussite par nombre de sets joués</h3>
-                                <div class="chart-layout">
-                                    <div class="chart-ratio" id="ratio-j3">
-                                        <div class="ratio-label">Ratio global</div>
-                                        <div class="ratio-value">-</div>
-                                        <div class="ratio-details">
-                                            <div class="ratio-item">
-                                                <div class="ratio-item-value" id="wins-j3">-</div>
-                                                <div class="ratio-item-label">Victoires</div>
-                                            </div>
-                                            <div class="ratio-item">
-                                                <div class="ratio-item-value" id="losses-j3">-</div>
-                                                <div class="ratio-item-label">Défaites</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="chart-wrapper" style="flex: 1;">
-                                        <canvas id="chart-j3"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div id="J4_20251116" class="journee-section">
-                            <div class="stats-grid">
-                                <div class="stat-card">
-                                    <div class="number" id="stats-j4-matches">-</div>
-                                    <div class="label">Matchs</div>
-                                </div>
-                                <div class="stat-card">
-                                    <div class="number" id="stats-j4-victoires">-</div>
-                                    <div class="label">Victoires</div>
-                                </div>
-                                <div class="stat-card">
-                                    <div class="number" id="stats-j4-nuls">-</div>
-                                    <div class="label">Nuls</div>
-                                </div>
-                                <div class="stat-card">
-                                    <div class="number" id="stats-j4-defaites">-</div>
-                                    <div class="label">Défaites</div>
-                                </div>
-                            </div>
-                            <div id="mvp-j4" style="margin: 20px 0;"></div>
-                            <div id="top3-j4" style="margin: 20px 0;"></div>
-                            <div id="matches-j4" class="matches-grid"></div>
-                            <div class="chart-container">
-                                <h3>📊 Taux de réussite par nombre de sets joués</h3>
-                                <div class="chart-layout">
-                                    <div class="chart-ratio" id="ratio-j4">
-                                        <div class="ratio-label">Ratio global</div>
-                                        <div class="ratio-value">-</div>
-                                        <div class="ratio-details">
-                                            <div class="ratio-item">
-                                                <div class="ratio-item-value" id="wins-j4">-</div>
-                                                <div class="ratio-item-label">Victoires</div>
-                                            </div>
-                                            <div class="ratio-item">
-                                                <div class="ratio-item-value" id="losses-j4">-</div>
-                                                <div class="ratio-item-label">Défaites</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="chart-wrapper" style="flex: 1;">
-                                        <canvas id="chart-j4"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <!-- Les sections de journées seront créées dynamiquement par JavaScript -->
                     </div>
                 </div>
             </div>
@@ -137,16 +42,8 @@
             <!-- Section Stats Joueurs -->
             <div id="stats-joueurs" class="main-section">
                 <h2 class="section-title">👥 Statistiques des joueurs ST HERBLAIN T.T</h2>
-                <div class="nav-tabs" style="margin-bottom: 20px;">
-                    <button class="nav-tab active" onclick="showStatsJournee('all', this)">
-                        🌐 Toutes journées
-                    </button>
-                    <button class="nav-tab" onclick="showStatsJournee('J3_20251012', this)">
-                        J3 - 12/10/2025
-                    </button>
-                    <button class="nav-tab" onclick="showStatsJournee('J4_20251116', this)">
-                        J4 - 16/11/2025
-                    </button>
+                <div class="nav-tabs" style="margin-bottom: 20px;" id="stats-journee-tabs">
+                    <!-- Les onglets de filtrage par journée seront créés dynamiquement -->
                 </div>
                 <div id="stats-content">
                     <p style="text-align: center; color: #999; padding: 40px;">Chargement des statistiques...</p>
