@@ -592,10 +592,20 @@ function collectTeamStatistics() {
                 
                 // Initialiser les stats pour cette équipe si nécessaire
                 if (!teamStats[teamKey]) {
+                    // Simplifier la poule pour n'afficher que "Poule X"
+                    let pouleSimple = match.poule || 'N/A';
+                    if (pouleSimple !== 'N/A') {
+                        const pouleMatch = pouleSimple.match(/Poule\s+(\d+)/);
+                        if (pouleMatch) {
+                            pouleSimple = `Poule ${pouleMatch[1]}`;
+                        }
+                    }
+                    
                     teamStats[teamKey] = {
                         name: teamKey,
                         fullName: equipeSTH,
                         division: match.division || 'N/A',
+                        poule: pouleSimple,
                         matches: { total: 0, victoires: 0, nuls: 0, defaites: 0 },
                         rencontres: { victoires: 0, defaites: 0, total: 0 },
                         sets: { gagnes: 0, perdus: 0 },
@@ -695,6 +705,39 @@ function displayTeamStatistics() {
 function showTeamOverview(sortedTeams) {
     const container = document.getElementById('stats-equipes-content');
     
+    // Fonction pour obtenir le badge et la couleur de la division
+    function getDivisionStyle(division) {
+        let bgColor, textColor, label;
+        
+        if (division.includes('REGIO')) {
+            bgColor = '#8b5cf6'; // Violet pour régional
+            textColor = 'white';
+            label = 'RÉGIONAL';
+        } else if (division.includes('PR')) {
+            bgColor = '#f59e0b'; // Orange pour pré-régional
+            textColor = 'white';
+            label = 'PRÉ-RÉGIONAL';
+        } else if (division.includes('D2')) {
+            bgColor = '#3b82f6'; // Bleu pour D2
+            textColor = 'white';
+            label = 'D2';
+        } else if (division.includes('D3')) {
+            bgColor = '#10b981'; // Vert pour D3
+            textColor = 'white';
+            label = 'D3';
+        } else if (division.includes('D4')) {
+            bgColor = '#6b7280'; // Gris pour D4
+            textColor = 'white';
+            label = 'D4';
+        } else {
+            bgColor = '#e5e7eb';
+            textColor = '#374151';
+            label = 'DÉPARTEMENTAL';
+        }
+        
+        return { bgColor, textColor, label };
+    }
+    
     let html = '<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px;">';
     
     sortedTeams.forEach(team => {
@@ -712,11 +755,14 @@ function showTeamOverview(sortedTeams) {
             bgGradient = 'linear-gradient(135deg, #fef3c7 0%, #fefce8 100%)'; // Orange clair si égalité
         }
         
+        const divStyle = getDivisionStyle(team.division);
+        
         html += `
             <div class="stat-card team-card-clickable" onclick="showSingleTeamStats('${team.name.replace(/'/g, "\\'")}');" style="padding: 0; overflow: hidden; background: ${bgGradient};">
                 <div style="padding: 20px 20px 15px 20px; text-align: center;">
-                    <h3 style="margin: 0 0 5px 0; font-size: 1.4em; color: #1f2937; font-weight: 700;">${escapeHtml(team.name)}</h3>
-                    <div style="font-size: 0.85em; color: #6b7280; font-weight: 500;">${escapeHtml(team.division)}</div>
+                    <h3 style="margin: 0 0 10px 0; font-size: 1.4em; color: #1f2937; font-weight: 700;">${escapeHtml(team.name)}</h3>
+                    <div style="display: inline-block; padding: 4px 12px; background: ${divStyle.bgColor}; color: ${divStyle.textColor}; border-radius: 12px; font-size: 0.75em; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 6px;">${divStyle.label}</div>
+                    <div style="font-size: 0.8em; color: #6b7280; font-weight: 500; margin-top: 4px;">${escapeHtml(team.poule || '')}</div>
                 </div>
                 
                 <div style="padding: 15px 20px 20px 20px; background: rgba(255,255,255,0.7); backdrop-filter: blur(10px);">
@@ -748,15 +794,45 @@ function showSingleTeamStats(teamName) {
     const ratioSets = team.sets.gagnes + team.sets.perdus > 0 ? 
         (team.sets.gagnes / (team.sets.gagnes + team.sets.perdus) * 100).toFixed(0) : 0;
     
+    // Fonction pour obtenir le badge de la division
+    function getDivisionBadge(division) {
+        let bgColor, label;
+        
+        if (division.includes('REGIO')) {
+            bgColor = '#8b5cf6';
+            label = 'RÉGIONAL';
+        } else if (division.includes('PR')) {
+            bgColor = '#f59e0b';
+            label = 'PRÉ-RÉGIONAL';
+        } else if (division.includes('D2')) {
+            bgColor = '#3b82f6';
+            label = 'D2';
+        } else if (division.includes('D3')) {
+            bgColor = '#10b981';
+            label = 'D3';
+        } else if (division.includes('D4')) {
+            bgColor = '#6b7280';
+            label = 'D4';
+        } else {
+            bgColor = '#e5e7eb';
+            label = 'DÉPARTEMENTAL';
+        }
+        
+        return `<span style="display: inline-block; padding: 6px 14px; background: ${bgColor}; color: white; border-radius: 14px; font-size: 0.85em; font-weight: 700; letter-spacing: 0.5px; margin-right: 10px;">${label}</span>`;
+    }
+    
     let html = `
         <div style="max-width: 1200px; margin: 0 auto;">
             <button onclick="displayTeamStatistics()" style="margin-bottom: 20px; padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.95em; transition: background 0.3s;" onmouseover="this.style.background='#5568d3'" onmouseout="this.style.background='#667eea'">
                 ← Retour aux équipes
             </button>
             
-            <div style="margin-bottom: 25px; padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 10px; color: white;">
-                <h2 style="margin: 0 0 15px 0;">${escapeHtml(team.name)}</h2>
-                <div style="font-size: 0.95em; opacity: 0.9; margin-bottom: 20px;">${escapeHtml(team.division)}</div>
+            <div style="margin-bottom: 25px; padding: 25px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 10px; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                <h2 style="margin: 0 0 15px 0; font-size: 2em;">${escapeHtml(team.name)}</h2>
+                <div style="margin-bottom: 20px; opacity: 0.95;">
+                    ${getDivisionBadge(team.division)}
+                    <span style="font-size: 0.95em; opacity: 0.9;">${escapeHtml(team.poule || '')}</span>
+                </div>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; text-align: center;">
                     <div>
                         <div style="font-size: 12px; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px;">Matchs d'équipe</div>
@@ -2427,18 +2503,30 @@ function showPlayerDetail(playerName, forceAll = false) {
     if (allMatches.length === 0) {
         html += '<p style="color: #999; text-align: center; padding: 20px;">Aucun match trouvé pour ce joueur</p>';
     } else {
-        // Compter le total de parties jouées
-        let totalParties = 0;
+        // Compter le total de parties jouées (simples et doubles séparément)
+        let totalSimples = 0;
+        let totalDoubles = 0;
         allMatches.forEach(match => {
             if (match.playerMatches && match.playerMatches.length > 0) {
-                totalParties += match.playerMatches.length;
+                match.playerMatches.forEach(partie => {
+                    if (partie.type === 'double') {
+                        totalDoubles++;
+                    } else {
+                        totalSimples++;
+                    }
+                });
             }
         });
+        
+        const totalParties = totalSimples + totalDoubles;
         
         if (totalParties === 0) {
             html += '<p style="color: #999; text-align: center; padding: 20px;">Détails des matchs individuels non disponibles</p>';
         } else {
-            html += `<div style="color: #666; margin-bottom: 15px; font-size: 14px;">${totalParties} match(s) individuel(s) dans ${allMatches.length} rencontre(s)</div>`;
+            html += `<div style="color: #666; margin-bottom: 15px; font-size: 14px;">
+                <strong>${totalParties} match(s) individuel(s)</strong> dans ${allMatches.length} rencontre(s) 
+                <span style="margin-left: 15px;">• ${totalSimples} simple(s) • ${totalDoubles} double(s)</span>
+            </div>`;
             
             allMatches.forEach(match => {
                 // N'afficher que si le joueur a joué des parties
@@ -2452,10 +2540,15 @@ function showPlayerDetail(playerName, forceAll = false) {
                 let playerLosses = 0;
                 let setsWon = 0;
                 let setsLost = 0;
+                let simplesWins = 0;
+                let simplesLosses = 0;
+                let doublesWins = 0;
+                let doublesLosses = 0;
                 
                 match.playerMatches.forEach(partie => {
                     const joueurA = normalizePlayerName(partie.joueur_a);
                     const isPlayerA = joueurA === playerName;
+                    const isDouble = partie.type === 'double';
                     
                     // Calculer le score en sets depuis les sets
                     let scoreA = 0;
@@ -2467,12 +2560,29 @@ function showPlayerDetail(playerName, forceAll = false) {
                         });
                     }
                     
-                    if ((isPlayerA && scoreA > scoreX) || (!isPlayerA && scoreX > scoreA)) {
+                    // Déterminer si le joueur a gagné cette partie
+                    let playerWon;
+                    if (isDouble) {
+                        const joueurA2 = partie.joueur_a.joueur2 ? normalizePlayerName({
+                            nom: partie.joueur_a.joueur2.nom,
+                            prenom: partie.joueur_a.joueur2.prenom
+                        }) : '';
+                        const isPlayerInTeamA = joueurA === playerName || joueurA2 === playerName;
+                        playerWon = (isPlayerInTeamA && scoreA > scoreX) || (!isPlayerInTeamA && scoreX > scoreA);
+                    } else {
+                        playerWon = (isPlayerA && scoreA > scoreX) || (!isPlayerA && scoreX > scoreA);
+                    }
+                    
+                    if (playerWon) {
                         playerWins++;
+                        if (isDouble) doublesWins++;
+                        else simplesWins++;
                         setsWon += isPlayerA ? scoreA : scoreX;
                         setsLost += isPlayerA ? scoreX : scoreA;
                     } else {
                         playerLosses++;
+                        if (isDouble) doublesLosses++;
+                        else simplesLosses++;
                         setsWon += isPlayerA ? scoreA : scoreX;
                         setsLost += isPlayerA ? scoreX : scoreA;
                     }
@@ -2498,9 +2608,11 @@ function showPlayerDetail(playerName, forceAll = false) {
                         <div style="background: white; padding: 15px; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
                             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 2px solid #f0f0f0;">
                                 <div style="font-weight: bold; color: #333; font-size: 15px;">🎯 Performance individuelle</div>
-                                <div style="display: flex; gap: 15px; font-size: 14px;">
+                                <div style="display: flex; gap: 15px; font-size: 14px; flex-wrap: wrap;">
                                     <div><strong>${playerWins}V</strong> - <strong>${playerLosses}D</strong> <span style="color: #999;">(${playerWinRate}%)</span></div>
                                     <div style="color: #666;">Sets: <strong>${setsWon}-${setsLost}</strong></div>
+                                    ${(simplesWins + simplesLosses > 0) ? `<div style="color: #4caf50;">Simples: <strong>${simplesWins}-${simplesLosses}</strong></div>` : ''}
+                                    ${(doublesWins + doublesLosses > 0) ? `<div style="color: #2196f3;">Doubles: <strong>${doublesWins}-${doublesLosses}</strong></div>` : ''}
                                 </div>
                             </div>
                             
@@ -2579,8 +2691,11 @@ function showPlayerDetail(playerName, forceAll = false) {
                             <div style="display: flex; align-items: center; gap: 10px;">
                                 <span style="font-size: 18px;">${won ? '✓' : '✗'}</span>
                                 <div>
-                                    ${isDouble ? `<div style="font-weight: 500; color: #333;">🎾 Double avec ${partenaire}</div>` : ''}
-                                    <div style="font-weight: ${isDouble ? 'normal' : '500'}; color: #333;">vs ${adversaires}</div>
+                                    ${isDouble 
+                                        ? `<div style="font-weight: 500; color: #2196f3;">👥 Double avec ${partenaire}</div>` 
+                                        : `<div style="font-weight: 500; color: #333;">🏓 Simple</div>`
+                                    }
+                                    <div style="font-weight: ${isDouble ? 'normal' : 'normal'}; color: #333; ${isDouble ? '' : 'margin-top: 2px;'}">vs ${adversaires}</div>
                                     ${!isDouble ? `<div style="font-size: 12px; color: #666;">Classement: ${advPoints} pts</div>` : ''}
                                 </div>
                             </div>

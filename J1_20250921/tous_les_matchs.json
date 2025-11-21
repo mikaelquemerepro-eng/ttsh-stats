@@ -1,5 +1,7 @@
 [
   {
+    "division": "L12_Ph1 - REGIO Masculin",
+    "poule": "R3-1 Poule 3",
     "equipes": {
       "equipe_a": {
         "nom": "EVRON / Mayenne CA ent",
@@ -602,6 +604,8 @@
     "equipe_ttsh": "TTSH01"
   },
   {
+    "division": "D44 D4 SENIORS MESSIEURS PH1",
+    "poule": "Poule 15",
     "equipes": {
       "equipe_a": {
         "nom": "MELLINET",
@@ -649,7 +653,7 @@
           {
             "lettre": "Z",
             "nom": "MADIOT",
-            "prenom": "Francois-regis",
+            "prenom": "Francois-Regis",
             "points": 500,
             "licence": "4456917"
           }
@@ -815,44 +819,6 @@
             "prenom": "Olivier"
           }
         },
-        "vainqueur": "A",
-        "score_match": "1-0",
-        "sets": [
-          {
-            "equipe_a": 9,
-            "equipe_x": 11,
-            "gagnant": "X"
-          },
-          {
-            "equipe_a": 11,
-            "equipe_x": 4,
-            "gagnant": "A"
-          },
-          {
-            "equipe_a": 11,
-            "equipe_x": 2,
-            "gagnant": "A"
-          },
-          {
-            "equipe_a": 11,
-            "equipe_x": 3,
-            "gagnant": "A"
-          }
-        ]
-      },
-      {
-        "numero": 6,
-        "type": "simple",
-        "joueur_a": {
-          "lettre": "A",
-          "nom": "HOANG",
-          "prenom": "Raphael"
-        },
-        "joueur_x": {
-          "lettre": "Z",
-          "nom": "MADIOT",
-          "prenom": "Francois-Regis"
-        },
         "vainqueur": "X",
         "score_match": "0-1",
         "sets": [
@@ -875,6 +841,44 @@
             "equipe_a": 10,
             "equipe_x": 12,
             "gagnant": "X"
+          }
+        ]
+      },
+      {
+        "numero": 6,
+        "type": "simple",
+        "joueur_a": {
+          "lettre": "A",
+          "nom": "HOANG",
+          "prenom": "Raphael"
+        },
+        "joueur_x": {
+          "lettre": "Z",
+          "nom": "MADIOT",
+          "prenom": "Francois-Regis"
+        },
+        "vainqueur": "A",
+        "score_match": "1-0",
+        "sets": [
+          {
+            "equipe_a": 9,
+            "equipe_x": 11,
+            "gagnant": "X"
+          },
+          {
+            "equipe_a": 11,
+            "equipe_x": 4,
+            "gagnant": "A"
+          },
+          {
+            "equipe_a": 11,
+            "equipe_x": 2,
+            "gagnant": "A"
+          },
+          {
+            "equipe_a": 11,
+            "equipe_x": 3,
+            "gagnant": "A"
           }
         ]
       },
@@ -1030,6 +1034,8 @@
     "equipe_ttsh": "TTSH11"
   },
   {
+    "division": "D44 PRM",
+    "poule": "Poule 2",
     "equipes": {
       "equipe_a": {
         "nom": "ORVAULT SPORT",
@@ -1913,6 +1919,8 @@
     "equipe_ttsh": "TTSH02"
   },
   {
+    "division": "D44 PR SENIORS Mixte",
+    "poule": "PR Poule 4",
     "equipes": {
       "equipe_a": {
         "nom": "ST HERBLAIN T.T",
@@ -2796,6 +2804,8 @@
     "equipe_ttsh": "TTSH03"
   },
   {
+    "division": "D44 D2 SENIORS Mixte",
+    "poule": "P1MD2 Poule 2",
     "equipes": {
       "equipe_a": {
         "nom": "ST HERBLAIN T.T",
@@ -2885,7 +2895,7 @@
           {
             "lettre": "T",
             "nom": "LE",
-            "prenom": "MESLE Laurent",
+            "prenom": "Mesle laurent",
             "points": 614,
             "licence": "4450324"
           }
@@ -3629,6 +3639,8 @@
     "equipe_ttsh": "TTSH04"
   },
   {
+    "division": "D44 D2 SENIORS Mixte",
+    "poule": "P1MD2 Poule 3",
     "equipes": {
       "equipe_a": {
         "nom": "CARQUEFOU",
@@ -3697,14 +3709,14 @@
           {
             "lettre": "Z",
             "nom": "PELTIER",
-            "prenom": "BAZIN Noam",
+            "prenom": "Bazin noam",
             "points": 777,
             "licence": "4456494"
           },
           {
             "lettre": "R",
             "nom": "DE",
-            "prenom": "FREMICOURT Geoffroy",
+            "prenom": "Fremicourt geoffroy",
             "points": 745,
             "licence": "7629800"
           },
@@ -4487,6 +4499,8 @@
     "equipe_ttsh": "TTSH05"
   },
   {
+    "division": "D44 D2 SENIORS Mixte",
+    "poule": "P1MD2 Poule 5",
     "equipes": {
       "equipe_a": {
         "nom": "ST HERBLAIN T.T",
@@ -4515,7 +4529,7 @@
           {
             "lettre": "D",
             "nom": "CANAVATE",
-            "prenom": "Jean Philippe",
+            "prenom": "Jean philippe",
             "points": 740,
             "licence": "4461742"
           },
@@ -4633,7 +4647,7 @@
         "joueur_a": {
           "lettre": "D",
           "nom": "CANAVATE",
-          "prenom": "Jean philippe"
+          "prenom": "Jean Philippe"
         },
         "joueur_x": {
           "lettre": "R",
@@ -4996,7 +5010,7 @@
         "joueur_a": {
           "lettre": "D",
           "nom": "CANAVATE",
-          "prenom": "Jean philippe"
+          "prenom": "Jean Philippe"
         },
         "joueur_x": {
           "lettre": "T",
@@ -5313,7 +5327,7 @@
         "joueur_a": {
           "lettre": "D",
           "nom": "CANAVATE",
-          "prenom": "Jean philippe"
+          "prenom": "Jean Philippe"
         },
         "joueur_x": {
           "lettre": "S",
@@ -5350,6 +5364,8 @@
     "equipe_ttsh": "TTSH06"
   },
   {
+    "division": "D44 D2 SENIORS Mixte",
+    "poule": "P1MD2 Poule 10",
     "equipes": {
       "equipe_a": {
         "nom": "ST HERBLAIN T.T (7)",
@@ -6228,6 +6244,8 @@
     "equipe_ttsh": "TTSH07"
   },
   {
+    "division": "D44 D3M",
+    "poule": "Poule 2",
     "equipes": {
       "equipe_a": {
         "nom": "ORVAULT SPORT",
@@ -7091,6 +7109,8 @@
     "equipe_ttsh": "TTSH08"
   },
   {
+    "division": "D44 D3 SENIORS Mixte",
+    "poule": "P1MD3 Poule 5",
     "equipes": {
       "equipe_a": {
         "nom": "ST HERBLAIN T.T",
