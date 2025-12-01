@@ -1,0 +1,193 @@
+{
+  "division": "D44 R3 M",
+  "poule": "Poule 3",
+  "equipes": {
+    "equipe_a": {
+      "nom": "MAMERS CS",
+      "joueurs": []
+    },
+    "equipe_x": {
+      "nom": "ST HERBLAIN T.T",
+      "joueurs": [
+        {
+          "lettre": "X",
+          "nom": "LOC",
+          "prenom": "Enzo",
+          "points": 1200,
+          "licence": "4447694"
+        },
+        {
+          "lettre": "Y",
+          "nom": "PERRIDY",
+          "prenom": "Thibault",
+          "points": 1399,
+          "licence": "4930744"
+        },
+        {
+          "lettre": "Z",
+          "nom": "LOTHE",
+          "prenom": "Corentin",
+          "points": 1462,
+          "licence": "5617084"
+        }
+      ]
+    }
+  },
+  "resultat_global": {
+    "equipe_a": 0,
+    "equipe_x": 0,
+    "vainqueur": "X"
+  },
+  "rencontres": [
+    {
+      "numero": 2,
+      "type": "simple",
+      "joueur_a": {
+        "lettre": "B",
+        "nom": "MEUNIER",
+        "prenom": "Matthieu"
+      },
+      "joueur_x": {
+        "lettre": "X",
+        "nom": "LOC",
+        "prenom": "Enzo"
+      }
+    },
+    {
+      "numero": 3,
+      "type": "simple",
+      "joueur_a": {
+        "lettre": "C",
+        "nom": "BESNIER",
+        "prenom": "Sylvain"
+      },
+      "joueur_x": {
+        "lettre": "Y",
+        "nom": "PERRIDY",
+        "prenom": "Thibault"
+      }
+    },
+    {
+      "numero": 4,
+      "type": "simple",
+      "joueur_a": {
+        "lettre": "D",
+        "nom": "FOUQUERAY",
+        "prenom": "Tristan"
+      },
+      "joueur_x": {
+        "lettre": "Z",
+        "nom": "LOTHE",
+        "prenom": "Corentin"
+      }
+    },
+    {
+      "numero": 5,
+      "type": "simple",
+      "joueur_a": {
+        "lettre": "A",
+        "nom": "LECHAT",
+        "prenom": "Thomas"
+      },
+      "joueur_x": {
+        "lettre": "X",
+        "nom": "LOC",
+        "prenom": "Enzo"
+      }
+    },
+    {
+      "numero": 7,
+      "type": "simple",
+      "joueur_a": {
+        "lettre": "D",
+        "nom": "FOUQUERAY",
+        "prenom": "Tristan"
+      },
+      "joueur_x": {
+        "lettre": "Y",
+        "nom": "PERRIDY",
+        "prenom": "Thibault"
+      }
+    },
+    {
+      "numero": 8,
+      "type": "simple",
+      "joueur_a": {
+        "lettre": "C",
+        "nom": "BESNIER",
+        "prenom": "Sylvain"
+      },
+      "joueur_x": {
+        "lettre": "Z",
+        "nom": "LOTHE",
+        "prenom": "Corentin"
+      }
+    },
+    {
+      "numero": 10,
+      "type": "double",
+      "joueur_a": {
+        "lettre": "A/C",
+        "nom": "LECHAT",
+        "prenom": "Thomas",
+        "joueur2": {
+          "nom": "BESNIER",
+          "prenom": "Sylvain"
+        }
+      },
+      "joueur_x": {
+        "lettre": "X/Z",
+        "nom": "LOC",
+        "prenom": "Enzo",
+        "joueur2": {
+          "nom": "LOTHE",
+          "prenom": "Corentin"
+        }
+      }
+    },
+    {
+      "numero": 11,
+      "type": "simple",
+      "joueur_a": {
+        "lettre": "A",
+        "nom": "LECHAT",
+        "prenom": "Thomas"
+      },
+      "joueur_x": {
+        "lettre": "Y",
+        "nom": "PERRIDY",
+        "prenom": "Thibault"
+      }
+    },
+    {
+      "numero": 13,
+      "type": "simple",
+      "joueur_a": {
+        "lettre": "D",
+        "nom": "FOUQUERAY",
+        "prenom": "Tristan"
+      },
+      "joueur_x": {
+        "lettre": "X",
+        "nom": "LOC",
+        "prenom": "Enzo"
+      }
+    },
+    {
+      "numero": 14,
+      "type": "simple",
+      "joueur_a": {
+        "lettre": "B",
+        "nom": "MEUNIER",
+        "prenom": "Matthieu"
+      },
+      "joueur_x": {
+        "lettre": "Z",
+        "nom": "LOTHE",
+        "prenom": "Corentin"
+      }
+    }
+  ],
+  "expected_matches": 10,
+  "equipe_ttsh": "TTSH01"
+}

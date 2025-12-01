@@ -1,0 +1,193 @@
+{
+  "division": "D44 R3 M",
+  "poule": "Poule 3",
+  "equipes": {
+    "equipe_a": {
+      "nom": "VIBRAYE ASTT",
+      "joueurs": []
+    },
+    "equipe_x": {
+      "nom": "ST HERBLAIN T.T",
+      "joueurs": [
+        {
+          "lettre": "X",
+          "nom": "GUERET",
+          "prenom": "John",
+          "points": 1497,
+          "licence": "448598"
+        },
+        {
+          "lettre": "Y",
+          "nom": "PERRIDY",
+          "prenom": "Thibault",
+          "points": 1399,
+          "licence": "4930744"
+        },
+        {
+          "lettre": "Z",
+          "nom": "LETORT",
+          "prenom": "Remi",
+          "points": 1498,
+          "licence": "4436251"
+        }
+      ]
+    }
+  },
+  "resultat_global": {
+    "equipe_a": 0,
+    "equipe_x": 0,
+    "vainqueur": "X"
+  },
+  "rencontres": [
+    {
+      "numero": 2,
+      "type": "simple",
+      "joueur_a": {
+        "lettre": "B",
+        "nom": "ROMAGNE",
+        "prenom": "Jeremy"
+      },
+      "joueur_x": {
+        "lettre": "X",
+        "nom": "GUERET",
+        "prenom": "John"
+      }
+    },
+    {
+      "numero": 3,
+      "type": "simple",
+      "joueur_a": {
+        "lettre": "C",
+        "nom": "CHAUMIER",
+        "prenom": "Dylan"
+      },
+      "joueur_x": {
+        "lettre": "Y",
+        "nom": "PERRIDY",
+        "prenom": "Thibault"
+      }
+    },
+    {
+      "numero": 4,
+      "type": "simple",
+      "joueur_a": {
+        "lettre": "D",
+        "nom": "ROMAGNE",
+        "prenom": "Franck"
+      },
+      "joueur_x": {
+        "lettre": "Z",
+        "nom": "LETORT",
+        "prenom": "Remi"
+      }
+    },
+    {
+      "numero": 5,
+      "type": "simple",
+      "joueur_a": {
+        "lettre": "A",
+        "nom": "CHAUMIER",
+        "prenom": "Mathias"
+      },
+      "joueur_x": {
+        "lettre": "X",
+        "nom": "GUERET",
+        "prenom": "John"
+      }
+    },
+    {
+      "numero": 7,
+      "type": "simple",
+      "joueur_a": {
+        "lettre": "D",
+        "nom": "ROMAGNE",
+        "prenom": "Franck"
+      },
+      "joueur_x": {
+        "lettre": "Y",
+        "nom": "PERRIDY",
+        "prenom": "Thibault"
+      }
+    },
+    {
+      "numero": 8,
+      "type": "simple",
+      "joueur_a": {
+        "lettre": "C",
+        "nom": "CHAUMIER",
+        "prenom": "Dylan"
+      },
+      "joueur_x": {
+        "lettre": "Z",
+        "nom": "LETORT",
+        "prenom": "Remi"
+      }
+    },
+    {
+      "numero": 9,
+      "type": "double",
+      "joueur_a": {
+        "lettre": "B/D",
+        "nom": "ROMAGNE",
+        "prenom": "Jeremy",
+        "joueur2": {
+          "nom": "ROMAGNE",
+          "prenom": "Franck"
+        }
+      },
+      "joueur_x": {
+        "lettre": "X/Y",
+        "nom": "GUERET",
+        "prenom": "John",
+        "joueur2": {
+          "nom": "PERRIDY",
+          "prenom": "Thibault"
+        }
+      }
+    },
+    {
+      "numero": 11,
+      "type": "simple",
+      "joueur_a": {
+        "lettre": "A",
+        "nom": "CHAUMIER",
+        "prenom": "Mathias"
+      },
+      "joueur_x": {
+        "lettre": "Y",
+        "nom": "PERRIDY",
+        "prenom": "Thibault"
+      }
+    },
+    {
+      "numero": 13,
+      "type": "simple",
+      "joueur_a": {
+        "lettre": "D",
+        "nom": "ROMAGNE",
+        "prenom": "Franck"
+      },
+      "joueur_x": {
+        "lettre": "X",
+        "nom": "GUERET",
+        "prenom": "John"
+      }
+    },
+    {
+      "numero": 14,
+      "type": "simple",
+      "joueur_a": {
+        "lettre": "B",
+        "nom": "ROMAGNE",
+        "prenom": "Jeremy"
+      },
+      "joueur_x": {
+        "lettre": "Z",
+        "nom": "LETORT",
+        "prenom": "Remi"
+      }
+    }
+  ],
+  "expected_matches": 10,
+  "equipe_ttsh": "TTSH01"
+}
