@@ -710,13 +710,21 @@ function showTeamOverview(sortedTeams) {
         let bgColor, textColor, label;
         
         if (division.includes('REGIO')) {
-            bgColor = '#8b5cf6'; // Violet pour régional
+            bgColor = '#0d0d0e'; // Violet pour régional
+            textColor = 'white';
+            label = 'RÉGIONAL';
+        } else if (division.includes('R3')) {
+            bgColor = '#f59e0b'; // Orange pour pré-régional
             textColor = 'white';
             label = 'RÉGIONAL';
         } else if (division.includes('PR')) {
             bgColor = '#f59e0b'; // Orange pour pré-régional
             textColor = 'white';
             label = 'PRÉ-RÉGIONAL';
+        } else if (division.includes('D1')) {
+            bgColor = '#3bc4f6'; // Bleu pour D2
+            textColor = 'white';
+            label = 'D1';
         } else if (division.includes('D2')) {
             bgColor = '#3b82f6'; // Bleu pour D2
             textColor = 'white';
@@ -801,9 +809,15 @@ function showSingleTeamStats(teamName) {
         if (division.includes('REGIO')) {
             bgColor = '#8b5cf6';
             label = 'RÉGIONAL';
+        } else if (division.includes('R3')) {
+            bgColor = '#8b5cf6';
+            label = 'RÉGIONAL';
         } else if (division.includes('PR')) {
-            bgColor = '#f59e0b';
+            bgColor = '#f59e0b'; // Orange pour pré-régional
             label = 'PRÉ-RÉGIONAL';
+        } else if (division.includes('D1')) {
+            bgColor = '#3bc4f6'; 
+            label = 'D1';
         } else if (division.includes('D2')) {
             bgColor = '#3b82f6';
             label = 'D2';
