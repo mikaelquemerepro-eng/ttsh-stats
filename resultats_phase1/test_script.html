@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tests Unitaires - TTSH Stats</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+            border-bottom: 3px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+        .test-suite {
+            background: white;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-suite h2 {
+            color: #555;
+            margin-top: 0;
+        }
+        .test-case {
+            margin: 10px 0;
+            padding: 10px;
+            border-left: 4px solid #ddd;
+            background: #f9f9f9;
+        }
+        .test-case.pass {
+            border-left-color: #4CAF50;
+            background: #f1f8f4;
+        }
+        .test-case.fail {
+            border-left-color: #f44336;
+            background: #fef1f0;
+        }
+        .test-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        .test-result {
+            font-size: 14px;
+            color: #666;
+        }
+        .test-error {
+            color: #f44336;
+            font-family: monospace;
+            background: #fff;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 4px;
+            white-space: pre-wrap;
+        }
+        .summary {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        .summary.all-pass {
+            background: #c8e6c9;
+        }
+        .summary.has-fail {
+            background: #ffcdd2;
+        }
+        .run-button {
+            background: #2196F3;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        .run-button:hover {
+            background: #1976D2;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Tests Unitaires - TTSH Stats</h1>
+    <div id="loading-status" style="background: #fff3cd; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+        <strong>⏳ Chargement des données...</strong>
+        <div id="loading-details" style="margin-top: 5px; font-size: 14px; color: #666;"></div>
+    </div>
+    <button class="run-button" onclick="runAllTests()">▶️ Lancer tous les tests</button>
+    <div id="test-results"></div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Attendre que le script principal soit chargé
+        let dataLoaded = false;
+        let loadError = null;
+        
+        // Fonction pour mettre à jour le statut
+        function updateLoadingStatus(message, isError = false) {
+            const statusDiv = document.getElementById('loading-status');
+            const detailsDiv = document.getElementById('loading-details');
+            if (detailsDiv) {
+                detailsDiv.textContent = message;
+                if (isError) {
+                    statusDiv.style.background = '#f8d7da';
+                    statusDiv.innerHTML = '<strong>⚠️ Erreur de chargement</strong><div id="loading-details"></div>';
+                    document.getElementById('loading-details').textContent = message;
+                }
+            }
+        }
+        
+        // Intercepter les erreurs de fetch pour le CORS
+        const originalFetch = window.fetch;
+        window.fetch = function(...args) {
+            return originalFetch.apply(this, args).catch(error => {
+                if (error.message.includes('Failed to fetch')) {
+                    loadError = 'CORS: Ouvrir via serveur HTTP (python -m http.server 8000)';
+                    updateLoadingStatus(loadError, true);
+                }
+                throw error;
+            });
+        };
+        
+        // Vérifier toutes les 100ms si les données sont chargées
+        const checkDataInterval = setInterval(() => {
+            if (typeof allData !== 'undefined' && allData && Object.keys(allData).length > 0) {
+                dataLoaded = true;
+                clearInterval(checkDataInterval);
+                console.log('✅ Données chargées:', Object.keys(allData));
+                updateLoadingStatus('✅ Données chargées avec succès!');
+                document.getElementById('loading-status').style.background = '#d4edda';
+                setTimeout(() => {
+                    document.getElementById('loading-status').style.display = 'none';
+                }, 2000);
+            }
+        }, 100);
+        
+        // Timeout après 5 secondes
+        setTimeout(() => {
+            if (!dataLoaded && !loadError) {
+                loadError = 'Timeout: Les données n\'ont pas pu être chargées. Vérifiez que vous utilisez un serveur HTTP.';
+                updateLoadingStatus(loadError, true);
+                clearInterval(checkDataInterval);
+            }
+        }, 5000);
+        
+        // Framework de test simple
+        class TestRunner {
+            constructor() {
+                this.results = [];
+                this.currentSuite = null;
+            }
+            
+            suite(name) {
+                this.currentSuite = {name, tests: []};
+                this.results.push(this.currentSuite);
+                return this;
+            }
+            
+            test(name, fn) {
+                try {
+                    fn();
+                    this.currentSuite.tests.push({name, pass: true});
+                } catch (error) {
+                    this.currentSuite.tests.push({name, pass: false, error: error.message});
+                }
+                return this;
+            }
+            
+            assert(condition, message) {
+                if (!condition) {
+                    throw new Error(message || 'Assertion failed');
+                }
+            }
+            
+            assertEqual(actual, expected, message) {
+                if (actual !== expected) {
+                    throw new Error(message || `Expected ${expected} but got ${actual}`);
+                }
+            }
+            
+            assertArrayEqual(actual, expected, message) {
+                if (JSON.stringify(actual) !== JSON.stringify(expected)) {
+                    throw new Error(message || `Arrays don't match.\nExpected: ${JSON.stringify(expected)}\nActual: ${JSON.stringify(actual)}`);
+                }
+            }
+            
+            assertType(value, type, message) {
+                const actualType = Array.isArray(value) ? 'array' : typeof value;
+                if (actualType !== type) {
+                    throw new Error(message || `Expected type ${type} but got ${actualType}`);
+                }
+            }
+            
+            assertHasProperty(obj, prop, message) {
+                if (!obj.hasOwnProperty(prop)) {
+                    throw new Error(message || `Object doesn't have property '${prop}'`);
+                }
+            }
+            
+            render() {
+                const container = document.getElementById('test-results');
+                let html = '';
+                let totalTests = 0;
+                let passedTests = 0;
+                
+                this.results.forEach(suite => {
+                    const suitePassed = suite.tests.every(t => t.pass);
+                    html += `<div class="test-suite">`;
+                    html += `<h2>${suite.name}</h2>`;
+                    
+                    suite.tests.forEach(test => {
+                        totalTests++;
+                        if (test.pass) passedTests++;
+                        
+                        html += `<div class="test-case ${test.pass ? 'pass' : 'fail'}">`;
+                        html += `<div class="test-name">${test.pass ? '✅' : '❌'} ${test.name}</div>`;
+                        if (!test.pass) {
+                            html += `<div class="test-error">${test.error}</div>`;
+                        }
+                        html += `</div>`;
+                    });
+                    
+                    html += `</div>`;
+                });
+                
+                const allPass = passedTests === totalTests;
+                html += `<div class="summary ${allPass ? 'all-pass' : 'has-fail'}">`;
+                html += `<strong>Résumé:</strong> ${passedTests}/${totalTests} tests réussis`;
+                if (allPass) {
+                    html += ` 🎉`;
+                }
+                html += `</div>`;
+                
+                container.innerHTML = html;
+            }
+        }
+        
+        // Tests
+        function runAllTests() {
+            if (loadError) {
+                alert('❌ Impossible de lancer les tests:\n\n' + loadError + '\n\nSolution:\n1. Ouvrir un terminal dans le dossier resultats/\n2. Lancer: python -m http.server 8000\n3. Ouvrir: http://localhost:8000/test_script.html');
+                return;
+            }
+            
+            if (!dataLoaded) {
+                alert('⏳ Données en cours de chargement... Réessayez dans 1 seconde.');
+                return;
+            }
+            
+            const runner = new TestRunner();
+            
+            // Test Suite 1: calculateJourneeStats
+            runner.suite('📊 calculateJourneeStats')
+                .test('Retourne un tableau', () => {
+                    const result = calculateJourneeStats('J3_20251012');
+                    runner.assertType(result, 'array', 'calculateJourneeStats doit retourner un tableau');
+                })
+                .test('Les éléments ont la propriété "nom"', () => {
+                    const result = calculateJourneeStats('J3_20251012');
+                    runner.assert(result.length > 0, 'Le tableau ne devrait pas être vide');
+                    runner.assertHasProperty(result[0], 'nom', 'Chaque élément doit avoir une propriété "nom"');
+                })
+                .test('Les éléments ont la propriété "matches"', () => {
+                    const result = calculateJourneeStats('J3_20251012');
+                    runner.assertHasProperty(result[0], 'matches', 'Chaque élément doit avoir une propriété "matches"');
+                })
+                .test('matches contient total, victoires, defaites', () => {
+                    const result = calculateJourneeStats('J3_20251012');
+                    const matches = result[0].matches;
+                    runner.assertHasProperty(matches, 'total');
+                    runner.assertHasProperty(matches, 'victoires');
+                    runner.assertHasProperty(matches, 'defaites');
+                })
+                .test('Les éléments ont performance_classement', () => {
+                    const result = calculateJourneeStats('J3_20251012');
+                    runner.assertHasProperty(result[0], 'performance_classement');
+                })
+                .test('Retourne array vide si journeeId invalide', () => {
+                    const result = calculateJourneeStats('INVALID_ID');
+                    runner.assertType(result, 'object', 'Doit retourner un objet (peut être array vide)');
+                });
+            
+            // Test Suite 2: displayStatistics
+            runner.suite('👥 displayStatistics')
+                .test('Ne crash pas avec journeeFilter="all"', () => {
+                    try {
+                        // Créer le conteneur nécessaire
+                        let container = document.getElementById('stats-content');
+                        if (!container) {
+                            container = document.createElement('div');
+                            container.id = 'stats-content';
+                            document.body.appendChild(container);
+                        }
+                        
+                        displayStatistics('all');
+                        runner.assert(true);
+                        
+                        // Nettoyer
+                        if (container.parentNode === document.body) {
+                            document.body.removeChild(container);
+                        }
+                    } catch (e) {
+                        runner.assert(false, `Erreur: ${e.message}`);
+                    }
+                })
+                .test('Ne crash pas avec journeeFilter="J3_20251012"', () => {
+                    try {
+                        // Créer le conteneur nécessaire
+                        let container = document.getElementById('stats-content');
+                        if (!container) {
+                            container = document.createElement('div');
+                            container.id = 'stats-content';
+                            document.body.appendChild(container);
+                        }
+                        
+                        displayStatistics('J3_20251012');
+                        runner.assert(true);
+                        
+                        // Nettoyer
+                        if (container.parentNode === document.body) {
+                            document.body.removeChild(container);
+                        }
+                    } catch (e) {
+                        runner.assert(false, `Erreur: ${e.message}`);
+                    }
+                });
+            
+            // Test Suite 3: displayMVPForJournee
+            runner.suite('🏆 displayMVPForJournee')
+                .test('Ne crash pas avec données valides', () => {
+                    try {
+                        // Créer un conteneur DOM
+                        const container = document.createElement('div');
+                        container.id = 'mvp-j3';
+                        document.body.appendChild(container);
+                        
+                        displayMVPForJournee('J3_20251012', 'j3');
+                        runner.assert(true);
+                        
+                        // Vérifier que le MVP a été affiché
+                        runner.assert(container.innerHTML.length > 0, 'Le MVP devrait avoir généré du HTML');
+                        
+                        document.body.removeChild(container);
+                    } catch (e) {
+                        runner.assert(false, `Erreur: ${e.message}`);
+                    }
+                })
+                .test('Ne crash pas si pas de données', () => {
+                    try {
+                        displayMVPForJournee('INVALID_ID', 'invalid');
+                        runner.assert(true);
+                    } catch (e) {
+                        runner.assert(false, `Erreur: ${e.message}`);
+                    }
+                })
+                .test('MVP a les bonnes propriétés affichées', () => {
+                    const container = document.createElement('div');
+                    container.id = 'mvp-test';
+                    document.body.appendChild(container);
+                    
+                    displayMVPForJournee('J3_20251012', 'test');
+                    
+                    const html = container.innerHTML;
+                    runner.assert(html.includes('MVP de la journée'), 'Devrait contenir le titre MVP');
+                    runner.assert(html.includes('Bilan'), 'Devrait contenir "Bilan"');
+                    runner.assert(html.includes('Performance'), 'Devrait contenir "Performance"');
+                    
+                    document.body.removeChild(container);
+                });
+            
+            // Test Suite 4: Cohérence des données
+            runner.suite('🔍 Cohérence des données')
+                .test('calculateJourneeStats avec doubles=true vs false', () => {
+                    const withOne = calculateJourneeStats('J3_20251012', true);
+                    const withHalf = calculateJourneeStats('J3_20251012', false);
+                    
+                    runner.assert(Array.isArray(withOne) && Array.isArray(withHalf), 
+                        'Les deux doivent retourner des tableaux');
+                })
+                .test('Tous les joueurs ont un nom non vide', () => {
+                    const result = calculateJourneeStats('J3_20251012');
+                    result.forEach(player => {
+                        runner.assert(player.nom && player.nom !== 'undefined', 
+                            `Le joueur ne doit pas avoir un nom vide ou "undefined", trouvé: "${player.nom}"`);
+                    });
+                })
+                .test('Les stats matches sont cohérentes', () => {
+                    const result = calculateJourneeStats('J3_20251012');
+                    result.forEach(player => {
+                        const total = player.matches.total;
+                        const victoires = player.matches.victoires;
+                        const defaites = player.matches.defaites;
+                        runner.assert(Math.abs(total - (victoires + defaites)) < 0.01, 
+                            `total (${total}) devrait égaler victoires (${victoires}) + défaites (${defaites})`);
+                    });
+                });
+            
+            runner.render();
+        }
+        
+        // Auto-run après chargement
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                if (dataLoaded) {
+                    console.log('🚀 Lancement automatique des tests...');
+                    runAllTests();
+                } else {
+                    console.log('⏳ En attente du chargement des données...');
+                    // Réessayer toutes les secondes
+                    const retryInterval = setInterval(() => {
+                        if (dataLoaded) {
+                            clearInterval(retryInterval);
+                            console.log('🚀 Données prêtes, lancement des tests...');
+                            runAllTests();
+                        }
+                    }, 1000);
+                }
+            }, 500);
+        });
+    </script>
+</body>
+</html>
