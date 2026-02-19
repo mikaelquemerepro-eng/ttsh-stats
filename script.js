@@ -1,5 +1,19 @@
 let allData = {};
 let currentStatsJournee = 'all';
+let currentDisplayMode = 'phase2';  // 'phase1' ou 'phase2' (combined désactivé)
+let teamDataPhase1 = null;  // Cache pour données équipes P1
+let teamDataPhase2 = null;  // Cache pour données équipes P2
+
+// Map des fichiers de statistiques selon le mode
+const statsFilesByMode = {
+    'phase1': 'statistiques_p1_seule.json',
+    'phase2': 'statistiques_p2_seule.json'
+};
+
+const modeDescriptions = {
+    // 'phase1': '🔒 Affichage de la Phase 1 seule (données bloquées)',
+    // 'phase2': '📈 Affichage de la Phase 2 seule (données en cours de calcul)'
+};
 
 // Fonction de validation des données
 function validateMatchData(data) {
@@ -66,9 +80,10 @@ async function loadVersionInfo() {
 async function loadData() {
     try {
         // Charger d'abord les statistiques pour connaître les journées disponibles
-        const statsResponse = await fetch('statistiques.json');
+        const statsFile = statsFilesByMode[currentDisplayMode] || 'statistiques.json';
+        const statsResponse = await fetch(statsFile);
         if (!statsResponse.ok) {
-            throw new Error('Erreur lors du chargement des statistiques');
+            throw new Error(`Erreur lors du chargement des statistiques (${statsFile})`);
         }
         
         const statsData = await statsResponse.json();
@@ -79,6 +94,9 @@ async function loadData() {
         }
         
         allData['statistiques'] = statsData;
+        
+        // En parallèle, charger les données P1 et P2 séparement pour les équipes
+        loadTeamDataByPhase();
         
         // Extraire les journées uniques des données de joueurs
         const journees = new Set();
@@ -91,10 +109,14 @@ async function loadData() {
         // Trier les journées par ordre chronologique
         const journeesArray = Array.from(journees).sort();
         
+        // Déterminer le préfixe de chemin selon la phase
+        const journeePathPrefix = currentDisplayMode === 'phase1' ? '../resultats_phase1/' : '';
+        
         // Charger les données de chaque journée
         for (const journee of journeesArray) {
             try {
-                const response = await fetch(`${journee}/tous_les_matchs.json`);
+                const journeePath = `${journeePathPrefix}${journee}/tous_les_matchs.json`;
+                const response = await fetch(journeePath);
                 if (response.ok) {
                     const data = await response.json();
                     if (validateMatchData(data)) {
@@ -126,6 +148,212 @@ async function loadData() {
         console.error('Erreur de chargement:', error);
         alert('Erreur de chargement des données: ' + error.message);
     }
+}
+
+async function loadTeamDataByPhase() {
+    // Charger les données P1 pour les équipes
+    try {
+        const response1 = await fetch('statistiques_p1_seule.json');
+        if (response1.ok) {
+            teamDataPhase1 = await response1.json();
+            // Charger aussi les journées de Phase 1
+            await loadJourneesForPhase(teamDataPhase1, 'phase1');
+        }
+    } catch (e) {
+        console.log('Phase 1 data not available for teams');
+    }
+    
+    // Charger les données P2 pour les équipes
+    try {
+        const response2 = await fetch('statistiques_p2_seule.json');
+        if (response2.ok) {
+            teamDataPhase2 = await response2.json();
+            // Charger aussi les journées de Phase 2
+            await loadJourneesForPhase(teamDataPhase2, 'phase2');
+        }
+    } catch (e) {
+        console.log('Phase 2 data not available for teams');
+    }
+}
+
+async function loadJourneesForPhase(statsData, phase) {
+    // Charger les données détaillées des journées pour une phase
+    if (!statsData || !statsData.journees) return;
+    
+    if (!statsData._journeeData) {
+        statsData._journeeData = {};
+    }
+    
+    // Déterminer le préfixe de chemin selon la phase
+    const pathPrefix = phase === 'phase1' ? '../resultats_phase1/' : '';
+    
+    for (const journeeId of Object.keys(statsData.journees)) {
+        try {
+            const journeePath = `${pathPrefix}${journeeId}/tous_les_matchs.json`;
+            const response = await fetch(journeePath);
+            if (response.ok) {
+                const data = await response.json();
+                if (Array.isArray(data)) {
+                    statsData._journeeData[journeeId] = data;
+                }
+            }
+        } catch (e) {
+            // Ignorer les journées non disponibles
+        }
+    }
+}
+
+async function changeDisplayMode(mode) {
+    currentDisplayMode = mode;
+    
+    // Mettre à jour la description
+    const description = document.getElementById('phase-description');
+    if (description) {
+        description.textContent = modeDescriptions[mode] || '';
+    }
+    
+    // Vider les données actuelles
+    allData = {};
+    
+    // Recharger les données
+    await loadData();
+    
+    // Vérifier quelle section est actuellement active et la rafraîchir
+    const activeSection = document.querySelector('.main-section.active');
+    if (activeSection) {
+        const sectionId = activeSection.id;
+        if (sectionId === 'stats-joueurs') {
+            displayStatistics('all');
+        } else if (sectionId === 'stats-equipes') {
+            displayTeamStatistics();
+        } else if (sectionId === 'stats-club') {
+            displayClubStatistics();
+            createGlobalSetDistributionChart();
+        }
+    }
+}
+
+function collectTeamStatisticsForPhase(statsData) {
+    // Collecte les stats d'équipe depuis les données de phase avec les journées détaillées
+    const teamStats = {};
+    
+    if (!statsData || !statsData._journeeData) {
+        return teamStats;
+    }
+    
+    // Parcourir toutes les journées
+    Object.entries(statsData._journeeData).forEach(([journeeId, matches]) => {
+        if (!Array.isArray(matches)) return;
+        
+        matches.forEach(match => {
+            // Utiliser directement le champ equipe_ttsh
+            if (!match.equipe_ttsh) return;
+            
+            const teamKey = match.equipe_ttsh;
+            const equipeA = match.equipes.equipe_a;
+            const equipeX = match.equipes.equipe_x;
+            
+            if (!equipeA.nom || !equipeX.nom) return;
+            
+            // Déterminer si ST HERBLAIN est équipe A ou X
+            const isSTH_A = equipeA.nom.includes('ST HERBLAIN') || equipeA.nom.includes('TTSH');
+            const isSTH_X = equipeX.nom.includes('ST HERBLAIN') || equipeX.nom.includes('TTSH');
+            
+            if (!isSTH_A && !isSTH_X) return;
+            
+            const equipeSTH = isSTH_A ? equipeA.nom : equipeX.nom;
+            const equipeAdv = isSTH_A ? equipeX.nom : equipeA.nom;
+            const scoreSTH = isSTH_A ? match.resultat_global.equipe_a : match.resultat_global.equipe_x;
+            const scoreAdv = isSTH_A ? match.resultat_global.equipe_x : match.resultat_global.equipe_a;
+            
+            // Initialiser les stats pour cette équipe si nécessaire
+            if (!teamStats[teamKey]) {
+                // Simplifier la poule pour n'afficher que "Poule X"
+                let pouleSimple = match.poule || 'N/A';
+                if (pouleSimple !== 'N/A') {
+                    const pouleMatch = pouleSimple.match(/Poule\s+(\d+)/);
+                    if (pouleMatch) {
+                        pouleSimple = `Poule ${pouleMatch[1]}`;
+                    }
+                }
+                
+                teamStats[teamKey] = {
+                    name: teamKey,
+                    fullName: equipeSTH,
+                    division: match.division || 'N/A',
+                    poule: pouleSimple,
+                    matches: { total: 0, victoires: 0, nuls: 0, defaites: 0 },
+                    rencontres: { victoires: 0, defaites: 0, total: 0 },
+                    sets: { gagnes: 0, perdus: 0 },
+                    opponents: [],
+                    matchDetails: []
+                };
+            }
+            
+            // Compter le match
+            teamStats[teamKey].matches.total++;
+            if (scoreSTH > scoreAdv) {
+                teamStats[teamKey].matches.victoires++;
+            } else if (scoreSTH < scoreAdv) {
+                teamStats[teamKey].matches.defaites++;
+            } else {
+                teamStats[teamKey].matches.nuls++;
+            }
+            
+            // Compter les rencontres individuelles
+            if (match.rencontres) {
+                match.rencontres.forEach(rencontre => {
+                    if (rencontre.vainqueur) {
+                        teamStats[teamKey].rencontres.total++;
+                        const sthWins = (isSTH_A && rencontre.vainqueur === 'A') || 
+                                       (isSTH_X && rencontre.vainqueur === 'X');
+                        if (sthWins) {
+                            teamStats[teamKey].rencontres.victoires++;
+                        } else {
+                            teamStats[teamKey].rencontres.defaites++;
+                        }
+                        
+                        // Compter les sets
+                        if (rencontre.sets && Array.isArray(rencontre.sets)) {
+                            rencontre.sets.forEach(set => {
+                                const setWinnerSTH = (isSTH_A && set.gagnant === 'A') || 
+                                                   (isSTH_X && set.gagnant === 'X');
+                                if (setWinnerSTH) {
+                                    teamStats[teamKey].sets.gagnes++;
+                                } else {
+                                    teamStats[teamKey].sets.perdus++;
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+            
+            // Ajouter l'adversaire
+            teamStats[teamKey].opponents.push({
+                opponent: equipeAdv,
+                score: `${scoreSTH}-${scoreAdv}`,
+                result: scoreSTH > scoreAdv ? 'V' : (scoreSTH < scoreAdv ? 'D' : 'N'),
+                journee: journeeId
+            });
+            
+            // Stocker les détails complets du match
+            teamStats[teamKey].matchDetails.push({
+                journee: journeeId,
+                opponent: equipeAdv,
+                equipeA_nom: equipeA.nom,
+                equipeX_nom: equipeX.nom,
+                scoreA: match.resultat_global.equipe_a,
+                scoreX: match.resultat_global.equipe_x,
+                score: `${scoreSTH}-${scoreAdv}`,
+                result: scoreSTH > scoreAdv ? 'V' : (scoreSTH < scoreAdv ? 'D' : 'N'),
+                rencontres: match.rencontres,
+                isSTH_A: isSTH_A
+            });
+        });
+    });
+    
+    return teamStats;
 }
 
 function createJourneesTabs(journees) {
@@ -683,8 +911,31 @@ function collectTeamStatistics() {
 }
 
 function displayTeamStatistics() {
-    const teamStats = collectTeamStatistics();
+    // Afficher les équipes de la phase actuelle
     const container = document.getElementById('stats-equipes-content');
+    
+    // Déterminer quelles phases sont disponibles
+    const phase1Available = teamDataPhase1 !== null && teamDataPhase1._journeeData;
+    const phase2Available = teamDataPhase2 !== null && teamDataPhase2._journeeData;
+    
+    // Sélectionner la donnée appropriée selon le mode
+    let teamData = null;
+    
+    // En Phase 1
+    if (currentDisplayMode === 'phase1' && phase1Available) {
+        teamData = teamDataPhase1;
+    } 
+    // En Phase 2
+    else if (currentDisplayMode === 'phase2' && phase2Available) {
+        teamData = teamDataPhase2;
+    }
+    else {
+        container.innerHTML = '<p style="text-align: center; padding: 40px; color: #999;">Aucune donnée disponible</p>';
+        return;
+    }
+    
+    // Collecter les stats d'équipe depuis les données de phase chargées
+    const teamStats = collectTeamStatisticsForPhase(teamData);
     
     if (Object.keys(teamStats).length === 0) {
         container.innerHTML = '<p style="text-align: center; padding: 40px;">Aucune donnée disponible</p>';
@@ -791,8 +1042,28 @@ function showTeamOverview(sortedTeams) {
 }
 
 function showSingleTeamStats(teamName) {
-    const teamStats = collectTeamStatistics();
+    // Obtenir les données de la phase actuelle
+    let teamData = null;
+    
+    if (currentDisplayMode === 'phase1' && teamDataPhase1) {
+        teamData = teamDataPhase1;
+    } else if (currentDisplayMode === 'phase2' && teamDataPhase2) {
+        teamData = teamDataPhase2;
+    }
+    
+    if (!teamData) {
+        document.getElementById('stats-equipes-content').innerHTML = '<p style="text-align: center; padding: 40px; color: #999;">Aucune donnée disponible</p>';
+        return;
+    }
+    
+    const teamStats = collectTeamStatisticsForPhase(teamData);
     const team = teamStats[teamName];
+    
+    if (!team) {
+        document.getElementById('stats-equipes-content').innerHTML = '<p style="text-align: center; padding: 40px; color: #999;">Équipe non trouvée</p>';
+        return;
+    }
+    
     const container = document.getElementById('stats-equipes-content');
     
     const tauxVictoire = team.matches.total > 0 ? 
@@ -2574,16 +2845,19 @@ function showPlayerDetail(playerName, forceAll = false) {
                         });
                     }
                     
-                    // Déterminer si le joueur a gagné cette partie
+                    // Déterminer si le joueur a gagné cette partie et de quel côté il joue
                     let playerWon;
+                    let isPlayerInTeamA;
+                    
                     if (isDouble) {
                         const joueurA2 = partie.joueur_a.joueur2 ? normalizePlayerName({
                             nom: partie.joueur_a.joueur2.nom,
                             prenom: partie.joueur_a.joueur2.prenom
                         }) : '';
-                        const isPlayerInTeamA = joueurA === playerName || joueurA2 === playerName;
+                        isPlayerInTeamA = joueurA === playerName || joueurA2 === playerName;
                         playerWon = (isPlayerInTeamA && scoreA > scoreX) || (!isPlayerInTeamA && scoreX > scoreA);
                     } else {
+                        isPlayerInTeamA = isPlayerA;
                         playerWon = (isPlayerA && scoreA > scoreX) || (!isPlayerA && scoreX > scoreA);
                     }
                     
@@ -2591,14 +2865,14 @@ function showPlayerDetail(playerName, forceAll = false) {
                         playerWins++;
                         if (isDouble) doublesWins++;
                         else simplesWins++;
-                        setsWon += isPlayerA ? scoreA : scoreX;
-                        setsLost += isPlayerA ? scoreX : scoreA;
+                        setsWon += isPlayerInTeamA ? scoreA : scoreX;
+                        setsLost += isPlayerInTeamA ? scoreX : scoreA;
                     } else {
                         playerLosses++;
                         if (isDouble) doublesLosses++;
                         else simplesLosses++;
-                        setsWon += isPlayerA ? scoreA : scoreX;
-                        setsLost += isPlayerA ? scoreX : scoreA;
+                        setsWon += isPlayerInTeamA ? scoreA : scoreX;
+                        setsLost += isPlayerInTeamA ? scoreX : scoreA;
                     }
                 });
                 
