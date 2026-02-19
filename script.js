@@ -110,7 +110,7 @@ async function loadData() {
         const journeesArray = Array.from(journees).sort();
         
         // Déterminer le préfixe de chemin selon la phase
-        const journeePathPrefix = currentDisplayMode === 'phase1' ? '../resultats_phase1/' : '';
+        const journeePathPrefix = currentDisplayMode === 'phase1' ? 'phase1/' : 'phase2/';
         
         // Charger les données de chaque journée
         for (const journee of journeesArray) {
@@ -185,7 +185,7 @@ async function loadJourneesForPhase(statsData, phase) {
     }
     
     // Déterminer le préfixe de chemin selon la phase
-    const pathPrefix = phase === 'phase1' ? '../resultats_phase1/' : '';
+    const pathPrefix = phase === 'phase1' ? 'phase1/' : 'phase2/';
     
     for (const journeeId of Object.keys(statsData.journees)) {
         try {
