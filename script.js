@@ -49,6 +49,30 @@ function normalizePlayerNameString(prenom, nom) {
     return `${prenomNormalized} ${nomUpper}`;
 }
 
+// Récupère le ratio de sets utilisé en départage de tri.
+// Compatibilité: accepte `ratio_set` ou `sets.ratio`.
+function getPlayerSetRatio(player) {
+    if (typeof player?.ratio_set === 'number') {
+        return player.ratio_set;
+    }
+    return player?.sets?.ratio || 0;
+}
+
+// Tri de référence (MVP / classements):
+// 1) victoires desc, 2) perf classement desc, 3) ratio sets desc
+function comparePlayersForRanking(a, b) {
+    if (b.matches.victoires !== a.matches.victoires) {
+        return b.matches.victoires - a.matches.victoires;
+    }
+
+    const perfDiff = (b.performance_classement?.score || 0) - (a.performance_classement?.score || 0);
+    if (perfDiff !== 0) {
+        return perfDiff;
+    }
+
+    return getPlayerSetRatio(b) - getPlayerSetRatio(a);
+}
+
 async function loadVersionInfo() {
     try {
         const response = await fetch('version.json');
@@ -704,13 +728,8 @@ function displayStatistics(journeeFilter = 'all') {
     const minMatches = journeeFilter === 'all' ? 3 : 1;
     const joueursArray = joueurs.filter(j => j.matches.total >= minMatches);
     
-    // Trier par victoires, puis par performance de classement en cas d'égalité
-    joueursArray.sort((a, b) => {
-        if (b.matches.victoires !== a.matches.victoires) {
-            return b.matches.victoires - a.matches.victoires;
-        }
-        return (b.performance_classement?.score || 0) - (a.performance_classement?.score || 0);
-    });
+    // Trier par victoires, perf classement, puis ratio sets en cas d'égalité
+    joueursArray.sort(comparePlayersForRanking);
     
     const container = document.getElementById('stats-content');
     if (!container) {
@@ -965,7 +984,7 @@ function showTeamOverview(sortedTeams) {
             textColor = 'white';
             label = 'RÉGIONAL';
         } else if (division.includes('R3')) {
-            bgColor = '#f59e0b'; // Orange pour pré-régional
+            bgColor = '#080808'; // Noire le régional
             textColor = 'white';
             label = 'RÉGIONAL';
         } else if (division.includes('PR')) {
@@ -1419,18 +1438,13 @@ function displayTop5Players() {
     const stats = allData['statistiques'];
     const joueurs = stats.joueurs;
     
-    // Convertir et trier par victoires puis performance classement
+    // Convertir et trier par victoires, perf classement, puis ratio sets
     let joueursArray = Object.entries(joueurs).map(([nom, data]) => ({
         nom: nom,
         ...data
     }))
     .filter(j => j.matches.total >= 3)
-    .sort((a, b) => {
-        if (b.matches.victoires !== a.matches.victoires) {
-            return b.matches.victoires - a.matches.victoires;
-        }
-        return (b.performance_classement?.score || 0) - (a.performance_classement?.score || 0);
-    })
+    .sort(comparePlayersForRanking)
     .slice(0, 5);
     
     const container = document.getElementById('top5-players');
@@ -1862,13 +1876,8 @@ function displayMVPForJournee(journeeId, journeeKey) {
     const eligiblePlayers = stats.filter(p => p.matches && p.matches.total >= 1);
     if (eligiblePlayers.length === 0) return;
     
-    // Sort by: victories DESC, then performance_classement.score DESC
-    eligiblePlayers.sort((a, b) => {
-        if (b.matches.victoires !== a.matches.victoires) {
-            return b.matches.victoires - a.matches.victoires;
-        }
-        return (b.performance_classement?.score || 0) - (a.performance_classement?.score || 0);
-    });
+    // Sort by: victories DESC, then performance_classement.score DESC, then set ratio DESC
+    eligiblePlayers.sort(comparePlayersForRanking);
     
     // Get MVP (top player)
     const mvp = eligiblePlayers[0];
@@ -1929,13 +1938,8 @@ function displayTop3ForJournee(journeeId, journeeKey) {
     const eligiblePlayers = stats.filter(p => p.matches && p.matches.total >= 1);
     if (eligiblePlayers.length === 0) return;
     
-    // Sort by: victories DESC, then performance_classement.score DESC
-    eligiblePlayers.sort((a, b) => {
-        if (b.matches.victoires !== a.matches.victoires) {
-            return b.matches.victoires - a.matches.victoires;
-        }
-        return (b.performance_classement?.score || 0) - (a.performance_classement?.score || 0);
-    });
+    // Sort by: victories DESC, then performance_classement.score DESC, then set ratio DESC
+    eligiblePlayers.sort(comparePlayersForRanking);
     
     // Get Top 3
     const top3 = eligiblePlayers.slice(0, 3);
