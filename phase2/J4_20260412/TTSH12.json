@@ -1,0 +1,37 @@
+{
+  "division": "D44 P2MD4",
+  "poule": "P2MD4 Poule 16",
+  "equipes": {
+    "equipe_a": {
+      "nom": "TREILLIERES",
+      "joueurs": [
+        {
+          "lettre": "A",
+          "nom": "LATOUCHE",
+          "prenom": "Laurent",
+          "points": 543,
+          "licence": "4424857"
+        },
+        {
+          "lettre": "B",
+          "nom": "BOULAY",
+          "prenom": "Jean-Philippe",
+          "points": 544,
+          "licence": "441235"
+        }
+      ]
+    },
+    "equipe_x": {
+      "nom": "ST HERBLAIN T.T",
+      "joueurs": []
+    }
+  },
+  "resultat_global": {
+    "equipe_a": 1,
+    "equipe_x": 0,
+    "vainqueur": "X"
+  },
+  "rencontres": [],
+  "expected_matches": 10,
+  "equipe_ttsh": "TTSH12"
+}
