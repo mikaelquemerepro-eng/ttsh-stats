@@ -1,0 +1,420 @@
+{
+  "division": "D44 P2MD4",
+  "poule": "P2MD4 Poule 16",
+  "equipes": {
+    "equipe_a": {
+      "nom": "ST HERBLAIN T.T",
+      "joueurs": [
+        {
+          "lettre": "A",
+          "nom": "LE BOULAIRE",
+          "prenom": "Edouard",
+          "points": 500,
+          "licence": "4452991"
+        },
+        {
+          "lettre": "B",
+          "nom": "LOIZEL",
+          "prenom": "Olivier",
+          "points": 500,
+          "licence": "9252735"
+        },
+        {
+          "lettre": "C",
+          "nom": "MOKRANI",
+          "prenom": "Mouloud",
+          "points": 500,
+          "licence": "4446392"
+        }
+      ]
+    },
+    "equipe_x": {
+      "nom": "MISSILLAC",
+      "joueurs": [
+        {
+          "lettre": "X",
+          "nom": "GIRAUD",
+          "prenom": "Thomas",
+          "points": 800,
+          "licence": "4465540"
+        },
+        {
+          "lettre": "Y",
+          "nom": "GIRAUD PATRY",
+          "prenom": "Lili",
+          "points": 500,
+          "licence": "4464684"
+        },
+        {
+          "lettre": "Z",
+          "nom": "LE GUILLOU",
+          "prenom": "Jean-Michel",
+          "points": 568,
+          "licence": "4454727"
+        }
+      ]
+    }
+  },
+  "resultat_global": {
+    "equipe_a": 3,
+    "equipe_x": 7,
+    "vainqueur": "X"
+  },
+  "rencontres": [
+    {
+      "numero": 1,
+      "type": "simple",
+      "joueur_a": {
+        "lettre": "A",
+        "nom": "LE BOULAIRE",
+        "prenom": "Edouard"
+      },
+      "joueur_x": {
+        "lettre": "X",
+        "nom": "GIRAUD",
+        "prenom": "Thomas"
+      },
+      "sets": [
+        {
+          "equipe_a": 12,
+          "equipe_x": 10,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 1,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 5,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 4,
+          "equipe_x": 11,
+          "gagnant": "X"
+        }
+      ],
+      "vainqueur": "X",
+      "score_match": "0-1"
+    },
+    {
+      "numero": 2,
+      "type": "simple",
+      "joueur_a": {
+        "lettre": "B",
+        "nom": "LOIZEL",
+        "prenom": "Olivier"
+      },
+      "joueur_x": {
+        "lettre": "Y",
+        "nom": "GIRAUD PATRY",
+        "prenom": "Lili"
+      },
+      "sets": [
+        {
+          "equipe_a": 11,
+          "equipe_x": 5,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 1,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 6,
+          "gagnant": "A"
+        }
+      ],
+      "vainqueur": "A",
+      "score_match": "1-0"
+    },
+    {
+      "numero": 3,
+      "type": "simple",
+      "joueur_a": {
+        "lettre": "C",
+        "nom": "MOKRANI",
+        "prenom": "Mouloud"
+      },
+      "joueur_x": {
+        "lettre": "Z",
+        "nom": "LE GUILLOU",
+        "prenom": "Jean-Michel"
+      },
+      "sets": [
+        {
+          "equipe_a": 5,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 7,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 3,
+          "equipe_x": 11,
+          "gagnant": "X"
+        }
+      ],
+      "vainqueur": "X",
+      "score_match": "0-1"
+    },
+    {
+      "numero": 4,
+      "type": "simple",
+      "joueur_a": {
+        "lettre": "B",
+        "nom": "LOIZEL",
+        "prenom": "Olivier"
+      },
+      "joueur_x": {
+        "lettre": "X",
+        "nom": "GIRAUD",
+        "prenom": "Thomas"
+      },
+      "sets": [
+        {
+          "equipe_a": 4,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 6,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 3,
+          "equipe_x": 11,
+          "gagnant": "X"
+        }
+      ],
+      "vainqueur": "X",
+      "score_match": "0-1"
+    },
+    {
+      "numero": 5,
+      "type": "double",
+      "joueur_a": {
+        "lettre": "A/B",
+        "nom": "LE BOULAIRE",
+        "prenom": "Edouard",
+        "joueur2": {
+          "nom": "LOIZEL",
+          "prenom": "Olivier"
+        }
+      },
+      "joueur_x": {
+        "lettre": "X/Z",
+        "nom": "GIRAUD",
+        "prenom": "Thomas",
+        "joueur2": {
+          "nom": "LE GUILLOU",
+          "prenom": "J."
+        }
+      },
+      "sets": [
+        {
+          "equipe_a": 11,
+          "equipe_x": 6,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 0,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 9,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 8,
+          "equipe_x": 11,
+          "gagnant": "X"
+        }
+      ],
+      "vainqueur": "X",
+      "score_match": "0-1"
+    },
+    {
+      "numero": 6,
+      "type": "simple",
+      "joueur_a": {
+        "lettre": "A",
+        "nom": "LE BOULAIRE",
+        "prenom": "Edouard"
+      },
+      "joueur_x": {
+        "lettre": "Z",
+        "nom": "LE GUILLOU",
+        "prenom": "Jean-Michel"
+      },
+      "sets": [
+        {
+          "equipe_a": 6,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 9,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 8,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 10,
+          "equipe_x": 12,
+          "gagnant": "X"
+        }
+      ],
+      "vainqueur": "X",
+      "score_match": "0-1"
+    },
+    {
+      "numero": 7,
+      "type": "simple",
+      "joueur_a": {
+        "lettre": "C",
+        "nom": "MOKRANI",
+        "prenom": "Mouloud"
+      },
+      "joueur_x": {
+        "lettre": "Y",
+        "nom": "GIRAUD PATRY",
+        "prenom": "Lili"
+      },
+      "sets": [
+        {
+          "equipe_a": 13,
+          "equipe_x": 11,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 8,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 9,
+          "gagnant": "A"
+        }
+      ],
+      "vainqueur": "A",
+      "score_match": "1-0"
+    },
+    {
+      "numero": 8,
+      "type": "simple",
+      "joueur_a": {
+        "lettre": "B",
+        "nom": "LOIZEL",
+        "prenom": "Olivier"
+      },
+      "joueur_x": {
+        "lettre": "Z",
+        "nom": "LE GUILLOU",
+        "prenom": "Jean-Michel"
+      },
+      "sets": [
+        {
+          "equipe_a": 4,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 13,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 13,
+          "gagnant": "X"
+        }
+      ],
+      "vainqueur": "X",
+      "score_match": "0-1"
+    },
+    {
+      "numero": 9,
+      "type": "simple",
+      "joueur_a": {
+        "lettre": "C",
+        "nom": "MOKRANI",
+        "prenom": "Mouloud"
+      },
+      "joueur_x": {
+        "lettre": "X",
+        "nom": "GIRAUD",
+        "prenom": "Thomas"
+      },
+      "sets": [
+        {
+          "equipe_a": 2,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 1,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 5,
+          "equipe_x": 11,
+          "gagnant": "X"
+        }
+      ],
+      "vainqueur": "X",
+      "score_match": "0-1"
+    },
+    {
+      "numero": 10,
+      "type": "simple",
+      "joueur_a": {
+        "lettre": "A",
+        "nom": "LE BOULAIRE",
+        "prenom": "Edouard"
+      },
+      "joueur_x": {
+        "lettre": "Y",
+        "nom": "GIRAUD PATRY",
+        "prenom": "Lili"
+      },
+      "sets": [
+        {
+          "equipe_a": 11,
+          "equipe_x": 4,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 4,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 5,
+          "gagnant": "A"
+        }
+      ],
+      "vainqueur": "A",
+      "score_match": "1-0"
+    }
+  ],
+  "expected_matches": 10,
+  "equipe_ttsh": "TTSH12"
+}
