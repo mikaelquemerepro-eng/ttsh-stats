@@ -1,5 +1,5 @@
 {
-  "date_generation": "2026-05-11T09:23:22.513081",
+  "date_generation": "2026-06-01T08:52:00.771446",
   "equipes": {
     "A.S.H.": {
       "joueurs": [
@@ -199,6 +199,22 @@
       "points_encaisses": 30,
       "points_marques": 30
     },
+    "BRIERE (6)": {
+      "joueurs": [
+        "Dyklan BIRAIS",
+        "Lucien HALGAND",
+        "Mathis PASSELANDE"
+      ],
+      "matches": {
+        "defaites": 0,
+        "nuls": 0,
+        "total": 1,
+        "victoires": 1
+      },
+      "nom": "BRIERE (6)",
+      "points_encaisses": 4,
+      "points_marques": 6
+    },
     "BRIVET": {
       "joueurs": [
         "Aymeric ALLAIN",
@@ -218,21 +234,39 @@
       "points_encaisses": 12,
       "points_marques": 8
     },
+    "CARQUEFOU TT": {
+      "joueurs": [],
+      "matches": {
+        "defaites": 1,
+        "nuls": 0,
+        "total": 1,
+        "victoires": 0
+      },
+      "nom": "CARQUEFOU TT",
+      "points_encaisses": 10,
+      "points_marques": 0
+    },
     "CHAPELAINE (LA)": {
       "joueurs": [
+        "Ambroise PERROCHEAU",
+        "Karl BRUHAIS",
+        "Kilian VIGOUROUX",
+        "Laurent BOURGEON",
         "Philippe LEHOUILLIER",
         "Robert BARON",
-        "Roger COZIC"
+        "Roger COZIC",
+        "Rudy MAURICE",
+        "Timothe CRILOUX"
       ],
       "matches": {
         "defaites": 0,
         "nuls": 0,
-        "total": 1,
-        "victoires": 1
+        "total": 2,
+        "victoires": 2
       },
       "nom": "CHAPELAINE (LA)",
-      "points_encaisses": 0,
-      "points_marques": 10
+      "points_encaisses": 6,
+      "points_marques": 24
     },
     "CHATEAUBRIANT": {
       "joueurs": [
@@ -263,20 +297,26 @@
       "joueurs": [
         "Antoine ANILLO",
         "Arnaud BAUDRY",
+        "Baptiste BRELET",
         "Erwan GUINVARC'H",
+        "Florian MERIAIS",
+        "Gerard VENDRE",
         "Julien AUGUGLIARO",
         "Julien CARIS",
-        "Quentin DELBARRE"
+        "Pascal BRIAND",
+        "Patrick DIAVET",
+        "Quentin DELBARRE",
+        "Sébastien BERTHEREAU"
       ],
       "matches": {
-        "defaites": 0,
+        "defaites": 1,
         "nuls": 0,
-        "total": 1,
+        "total": 2,
         "victoires": 1
       },
       "nom": "COUERON",
-      "points_encaisses": 8,
-      "points_marques": 12
+      "points_encaisses": 19,
+      "points_marques": 21
     },
     "GAVRE (LE)": {
       "joueurs": [
@@ -428,6 +468,23 @@
       "points_encaisses": 5,
       "points_marques": 5
     },
+    "MARESCHE": {
+      "joueurs": [
+        "Dimitri LEMOINE",
+        "Jason ALLUSSE",
+        "Jean Roland TOUTOUYOUTE",
+        "Mathias TOUTOUYOUTE"
+      ],
+      "matches": {
+        "defaites": 1,
+        "nuls": 0,
+        "total": 1,
+        "victoires": 0
+      },
+      "nom": "MARESCHE",
+      "points_encaisses": 8,
+      "points_marques": 6
+    },
     "MARSAC": {
       "joueurs": [
         "Cyril GUICHARD",
@@ -573,14 +630,14 @@
       "points_encaisses": 10,
       "points_marques": 10
     },
-    "ORVAULT SPORT": {
+    "NORT SUR ERDRE": {
       "joueurs": [
-        "Célestin LECLERC GAUTIER",
-        "Francois BITAUD",
-        "Laurent DROGOU",
-        "Lubin LE GUENNEC",
-        "Nathan BIGARET",
-        "Raphael LAMOUR"
+        "Aziliz JOUANNO",
+        "Bastien NIZAN",
+        "Fabien HAURAY",
+        "Mathis MAILLET",
+        "Paul DELAUNAY",
+        "Sylvain TARIOT"
       ],
       "matches": {
         "defaites": 0,
@@ -588,9 +645,40 @@
         "total": 1,
         "victoires": 1
       },
+      "nom": "NORT SUR ERDRE",
+      "points_encaisses": 5,
+      "points_marques": 15
+    },
+    "ORVAULT SPORT": {
+      "joueurs": [
+        "Alain MARTINEAU",
+        "Chris MOUQUET",
+        "Célestin LECLERC GAUTIER",
+        "Denis PESQUER",
+        "Djamel GUELLIL",
+        "Franck DESTOUCHES",
+        "Francois BITAUD",
+        "Gildas HERNOT",
+        "Gwendal GUEDEU",
+        "Jean-Pierre MICHEL",
+        "Laurent DROGOU",
+        "Lubin LE GUENNEC",
+        "Maxence LE BRIS",
+        "Nathan BIGARET",
+        "Nolan BOISSEAU",
+        "Raphael LAMOUR",
+        "Remy GAUDIN",
+        "Théodore CONTI"
+      ],
+      "matches": {
+        "defaites": 1,
+        "nuls": 0,
+        "total": 3,
+        "victoires": 2
+      },
       "nom": "ORVAULT SPORT",
-      "points_encaisses": 7,
-      "points_marques": 13
+      "points_encaisses": 24,
+      "points_marques": 36
     },
     "PALLET (LE)": {
       "joueurs": [
@@ -719,6 +807,22 @@
       "points_encaisses": 15,
       "points_marques": 5
     },
+    "ST BREVIN TT (2)": {
+      "joueurs": [
+        "Anais DUCATILLON",
+        "Gaelle GUILLOUT",
+        "Valerie BRONSART"
+      ],
+      "matches": {
+        "defaites": 0,
+        "nuls": 1,
+        "total": 1,
+        "victoires": 0
+      },
+      "nom": "ST BREVIN TT (2)",
+      "points_encaisses": 5,
+      "points_marques": 5
+    },
     "ST ETIENNE": {
       "joueurs": [
         "Balthazar FAUCILLON-JAQUET",
@@ -791,8 +895,10 @@
         "Marie Andree AURIGNY",
         "Maryline ORHAN",
         "Mathilde FAVRE",
+        "Mathéo BEILVERT",
         "Maxime DEYDIER",
         "Michael BOSSARD",
+        "Mikaël COUTURIER",
         "Mouloud MOKRANI",
         "Nathalie ESCRIBA",
         "Nicolas COURONNE",
@@ -807,6 +913,7 @@
         "Regis CERCIER",
         "Remi LETORT",
         "Robert BOQUIER",
+        "Robin GAVROY",
         "Selyan TIFRA",
         "Simon DURAND",
         "Soren GUYON",
@@ -821,14 +928,14 @@
         "Yvan PENEAU"
       ],
       "matches": {
-        "defaites": 29,
-        "nuls": 12,
-        "total": 56,
-        "victoires": 15
+        "defaites": 33,
+        "nuls": 13,
+        "total": 67,
+        "victoires": 21
       },
       "nom": "ST HERBLAIN T.T",
-      "points_encaisses": 497,
-      "points_marques": 394
+      "points_encaisses": 585,
+      "points_marques": 484
     },
     "ST HERBLAIN T.T (7)": {
       "joueurs": [
@@ -845,12 +952,12 @@
       "matches": {
         "defaites": 1,
         "nuls": 1,
-        "total": 5,
-        "victoires": 3
+        "total": 6,
+        "victoires": 4
       },
       "nom": "ST HERBLAIN T.T (7)",
-      "points_encaisses": 42,
-      "points_marques": 58
+      "points_encaisses": 46,
+      "points_marques": 74
     },
     "ST HERBLAIN T.T (8)": {
       "joueurs": [
@@ -878,6 +985,25 @@
       "points_encaisses": 37,
       "points_marques": 63
     },
+    "ST HERBLAIN T.T.": {
+      "joueurs": [
+        "Ewen BENIS",
+        "Francis LOC",
+        "Gaëtan POULAIN",
+        "Luc GERAUDIE",
+        "Mikaël QUEMERE",
+        "Quentin LEMETTE"
+      ],
+      "matches": {
+        "defaites": 0,
+        "nuls": 0,
+        "total": 1,
+        "victoires": 1
+      },
+      "nom": "ST HERBLAIN T.T.",
+      "points_encaisses": 7,
+      "points_marques": 13
+    },
     "ST HILAIRE DE L": {
       "joueurs": [
         "Alexandre MILLION",
@@ -894,6 +1020,25 @@
       "nom": "ST HILAIRE DE L",
       "points_encaisses": 7,
       "points_marques": 7
+    },
+    "ST JULIEN TT": {
+      "joueurs": [
+        "Charles GIRARD PECARRERE",
+        "Charly ANNEAU",
+        "Julien ADAMO",
+        "Loup BOUDESSEUL",
+        "Regis GREAU",
+        "Sebastien MORINEAU"
+      ],
+      "matches": {
+        "defaites": 1,
+        "nuls": 0,
+        "total": 1,
+        "victoires": 0
+      },
+      "nom": "ST JULIEN TT",
+      "points_encaisses": 16,
+      "points_marques": 4
     },
     "ST MARS LE CELL": {
       "joueurs": [
@@ -942,6 +1087,41 @@
       "points_encaisses": 15,
       "points_marques": 25
     },
+    "ST MELAIZE": {
+      "joueurs": [
+        "Anthony RABBY",
+        "Maxime DUBE",
+        "Noah BESSIERE",
+        "Thomas HERBAIN"
+      ],
+      "matches": {
+        "defaites": 1,
+        "nuls": 0,
+        "total": 1,
+        "victoires": 0
+      },
+      "nom": "ST MELAIZE",
+      "points_encaisses": 10,
+      "points_marques": 4
+    },
+    "ST NAZAIRE LB": {
+      "joueurs": [
+        "Clément QUESTERBERT",
+        "Eric JAUNEAU",
+        "Frédéric MERLET",
+        "Richard CAILLAUD",
+        "Sylvain REUILLE"
+      ],
+      "matches": {
+        "defaites": 1,
+        "nuls": 0,
+        "total": 1,
+        "victoires": 0
+      },
+      "nom": "ST NAZAIRE LB",
+      "points_encaisses": 12,
+      "points_marques": 8
+    },
     "ST NAZAIRE TT": {
       "joueurs": [
         "Baptiste GOULAY",
@@ -979,22 +1159,28 @@
     },
     "ST SEBASTIEN": {
       "joueurs": [
+        "Adrien BERTEREAU BRULEZ",
         "Christian GUISNEL",
         "Elouan LEFEVRE",
+        "Eric RETAILLEAU",
         "Evan CHAUVEAU",
+        "Franck LANDRIU",
+        "Jean-Grégoire SAUZAY",
+        "Jonathan LAMBERT",
         "Julien DUGAST",
         "Olivier GIRAUDINEAU",
+        "Rodrigue LOINTIER",
         "Yann DANTEC"
       ],
       "matches": {
-        "defaites": 0,
+        "defaites": 1,
         "nuls": 0,
-        "total": 1,
+        "total": 2,
         "victoires": 1
       },
       "nom": "ST SEBASTIEN",
-      "points_encaisses": 2,
-      "points_marques": 18
+      "points_encaisses": 17,
+      "points_marques": 23
     },
     "STE LUCE TT": {
       "joueurs": [
@@ -1179,6 +1365,10 @@
           "D": 0,
           "V": 1
         },
+        "Baptiste BRELET": {
+          "D": 1,
+          "V": 0
+        },
         "Benoit DAUVIN": {
           "D": 1,
           "V": 0
@@ -1207,6 +1397,10 @@
           "D": 0,
           "V": 1
         },
+        "Patrick DIAVET": {
+          "D": 0,
+          "V": 1
+        },
         "Quentin OUARY": {
           "D": 1,
           "V": 0
@@ -1216,6 +1410,10 @@
           "V": 0
         },
         "Sebastien CREQUER": {
+          "D": 0,
+          "V": 1
+        },
+        "Sébastien BERTHEREAU": {
           "D": 0,
           "V": 1
         },
@@ -1300,36 +1498,56 @@
           "journee": "J5_20260510",
           "match": "HERIC T.T. vs ST HERBLAIN T.T",
           "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "COUERON vs ST HERBLAIN T.T",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "COUERON vs ST HERBLAIN T.T",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "COUERON vs ST HERBLAIN T.T",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "COUERON vs ST HERBLAIN T.T",
+          "resultat": "D"
         }
       ],
       "licence": "7874242",
       "matches": {
-        "defaites": 7.5,
-        "taux_victoire": 44.4,
-        "total": 13.5,
-        "victoires": 6.0
+        "defaites": 9.0,
+        "taux_victoire": 47.1,
+        "total": 17.0,
+        "victoires": 8.0
       },
       "nom_complet": "Alban PELLIZZARI",
       "performance_classement": {
-        "defaites_vs_moins_bons": 2,
+        "defaites_vs_moins_bons": 3,
         "points_vs_meilleurs": 283,
-        "points_vs_moins_bons": 37,
-        "score": 246,
+        "points_vs_moins_bons": 50,
+        "score": 233,
         "victoires_vs_meilleurs": 3
       },
       "points_encaisses": {
-        "moyenne_par_set": 9.7,
-        "total": 571
+        "moyenne_par_set": 9.5,
+        "total": 711
       },
       "points_marques": {
-        "moyenne_par_set": 8.8,
-        "total": 520
+        "moyenne_par_set": 8.9,
+        "total": 668
       },
       "points_officiels": 683,
       "sets": {
-        "gagnes": 26,
-        "perdus": 33,
-        "ratio": 0.44
+        "gagnes": 34,
+        "perdus": 41,
+        "ratio": 0.45
       }
     },
     "Alexandre MARTINEAU": {
@@ -1341,6 +1559,10 @@
         "Antoine COLAS": {
           "D": 1,
           "V": 0
+        },
+        "Charly ANNEAU": {
+          "D": 0,
+          "V": 1
         },
         "Clement ARCHETTO": {
           "D": 0,
@@ -1358,7 +1580,15 @@
           "D": 0,
           "V": 1
         },
+        "Loup BOUDESSEUL": {
+          "D": 0,
+          "V": 1
+        },
         "Philippe TESTON": {
+          "D": 0,
+          "V": 1
+        },
+        "Sebastien MORINEAU": {
           "D": 0,
           "V": 1
         },
@@ -1422,14 +1652,29 @@
           "journee": "J5_20260510",
           "match": "BAUT (LE) vs ST HERBLAIN T.T (7)",
           "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST JULIEN TT vs ST HERBLAIN T.T (7)",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST JULIEN TT vs ST HERBLAIN T.T (7)",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST JULIEN TT vs ST HERBLAIN T.T (7)",
+          "resultat": "V"
         }
       ],
       "licence": "4922571",
       "matches": {
         "defaites": 5.5,
-        "taux_victoire": 42.1,
-        "total": 9.5,
-        "victoires": 4.0
+        "taux_victoire": 56.0,
+        "total": 12.5,
+        "victoires": 7.0
       },
       "nom_complet": "Alexandre MARTINEAU",
       "performance_classement": {
@@ -1440,23 +1685,31 @@
         "victoires_vs_meilleurs": 0
       },
       "points_encaisses": {
-        "moyenne_par_set": 9.5,
-        "total": 305
+        "moyenne_par_set": 9.4,
+        "total": 393
       },
       "points_marques": {
-        "moyenne_par_set": 8.7,
-        "total": 277
+        "moyenne_par_set": 9.4,
+        "total": 395
       },
       "points_officiels": 905,
       "sets": {
-        "gagnes": 13,
-        "perdus": 19,
-        "ratio": 0.41
+        "gagnes": 22,
+        "perdus": 20,
+        "ratio": 0.52
       }
     },
     "Angélique MANCION": {
       "adversaires": {
+        "Anais DUCATILLON": {
+          "D": 0,
+          "V": 1
+        },
         "Brigitte JULIENNE": {
+          "D": 1,
+          "V": 0
+        },
+        "Gaelle GUILLOUT": {
           "D": 1,
           "V": 0
         },
@@ -1465,6 +1718,10 @@
           "V": 0
         },
         "Monique LAJUGIE": {
+          "D": 1,
+          "V": 0
+        },
+        "Valerie BRONSART": {
           "D": 1,
           "V": 0
         }
@@ -1490,14 +1747,34 @@
           "journee": "J5_20260510",
           "match": "ST HERBLAIN T.T vs REZE TT",
           "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST BREVIN TT (2) vs ST HERBLAIN T.T",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST BREVIN TT (2) vs ST HERBLAIN T.T",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST BREVIN TT (2) vs ST HERBLAIN T.T",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST BREVIN TT (2) vs ST HERBLAIN T.T",
+          "resultat": "V"
         }
       ],
       "licence": "4472246",
       "matches": {
-        "defaites": 3.5,
-        "taux_victoire": 0.0,
-        "total": 3.5,
-        "victoires": 0
+        "defaites": 6.0,
+        "taux_victoire": 14.3,
+        "total": 7.0,
+        "victoires": 1.0
       },
       "nom_complet": "Angélique MANCION",
       "performance_classement": {
@@ -1508,18 +1785,18 @@
         "victoires_vs_meilleurs": 0
       },
       "points_encaisses": {
-        "moyenne_par_set": 10.5,
-        "total": 158
+        "moyenne_par_set": 10.1,
+        "total": 282
       },
       "points_marques": {
-        "moyenne_par_set": 7.0,
-        "total": 105
+        "moyenne_par_set": 7.5,
+        "total": 211
       },
       "points_officiels": 500,
       "sets": {
-        "gagnes": 3,
-        "perdus": 12,
-        "ratio": 0.2
+        "gagnes": 7,
+        "perdus": 21,
+        "ratio": 0.25
       }
     },
     "Anthony BRULEZ": {
@@ -1552,7 +1829,15 @@
           "D": 1,
           "V": 0
         },
+        "Karl BRUHAIS": {
+          "D": 1,
+          "V": 0
+        },
         "Kevin ZENATI": {
+          "D": 0,
+          "V": 1
+        },
+        "Laurent BOURGEON": {
           "D": 0,
           "V": 1
         },
@@ -1565,6 +1850,10 @@
           "V": 1
         },
         "Remy GANACHE": {
+          "D": 1,
+          "V": 0
+        },
+        "Rudy MAURICE": {
           "D": 1,
           "V": 0
         },
@@ -1686,36 +1975,56 @@
           "journee": "J5_20260510",
           "match": "BLAIN TTC vs ST HERBLAIN T.T",
           "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs CHAPELAINE (LA)",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs CHAPELAINE (LA)",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs CHAPELAINE (LA)",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs CHAPELAINE (LA)",
+          "resultat": "D"
         }
       ],
       "licence": "4456505",
       "matches": {
-        "defaites": 9.0,
-        "taux_victoire": 48.6,
-        "total": 17.5,
-        "victoires": 8.5
+        "defaites": 11.5,
+        "taux_victoire": 45.2,
+        "total": 21.0,
+        "victoires": 9.5
       },
       "nom_complet": "Anthony BRULEZ",
       "performance_classement": {
         "defaites_vs_moins_bons": 0,
-        "points_vs_meilleurs": 713,
+        "points_vs_meilleurs": 728,
         "points_vs_moins_bons": 0,
-        "score": 713,
-        "victoires_vs_meilleurs": 6
+        "score": 728,
+        "victoires_vs_meilleurs": 7
       },
       "points_encaisses": {
-        "moyenne_par_set": 9.6,
-        "total": 765
+        "moyenne_par_set": 9.7,
+        "total": 912
       },
       "points_marques": {
         "moyenne_par_set": 9.4,
-        "total": 750
+        "total": 887
       },
       "points_officiels": 1004,
       "sets": {
-        "gagnes": 38,
-        "perdus": 42,
-        "ratio": 0.47
+        "gagnes": 43,
+        "perdus": 51,
+        "ratio": 0.46
       }
     },
     "Antoine PHILIPPEAU": {
@@ -1879,6 +2188,10 @@
     },
     "Arthur AUDIGER": {
       "adversaires": {
+        "Anthony RABBY": {
+          "D": 0,
+          "V": 1
+        },
         "Benoit FRIBOURG": {
           "D": 1,
           "V": 0
@@ -1891,7 +2204,15 @@
           "D": 0,
           "V": 1
         },
+        "Noah BESSIERE": {
+          "D": 1,
+          "V": 0
+        },
         "Sebastien NEVEU": {
+          "D": 1,
+          "V": 0
+        },
+        "Thomas HERBAIN": {
           "D": 1,
           "V": 0
         },
@@ -1940,36 +2261,56 @@
           "journee": "J3_20260322",
           "match": "AVRILLE (49) vs ST HERBLAIN T.T",
           "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST MELAIZE vs ST HERBLAIN T.T",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST MELAIZE vs ST HERBLAIN T.T",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST MELAIZE vs ST HERBLAIN T.T",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST MELAIZE vs ST HERBLAIN T.T",
+          "resultat": "V"
         }
       ],
       "licence": "4442192",
       "matches": {
-        "defaites": 5.5,
-        "taux_victoire": 15.4,
-        "total": 6.5,
-        "victoires": 1.0
+        "defaites": 7.5,
+        "taux_victoire": 25.0,
+        "total": 10.0,
+        "victoires": 2.5
       },
       "nom_complet": "Arthur AUDIGER",
       "performance_classement": {
         "defaites_vs_moins_bons": 1,
-        "points_vs_meilleurs": 371,
+        "points_vs_meilleurs": 410,
         "points_vs_moins_bons": 126,
-        "score": 245,
-        "victoires_vs_meilleurs": 1
+        "score": 284,
+        "victoires_vs_meilleurs": 2
       },
       "points_encaisses": {
-        "moyenne_par_set": 10.7,
-        "total": 245
+        "moyenne_par_set": 10.2,
+        "total": 406
       },
       "points_marques": {
-        "moyenne_par_set": 8.9,
-        "total": 204
+        "moyenne_par_set": 8.7,
+        "total": 349
       },
       "points_officiels": 1165,
       "sets": {
-        "gagnes": 4,
-        "perdus": 19,
-        "ratio": 0.17
+        "gagnes": 12,
+        "perdus": 28,
+        "ratio": 0.3
       }
     },
     "Baptiste CHAUVELIER": {
@@ -2138,7 +2479,19 @@
           "D": 1,
           "V": 0
         },
+        "Karl BRUHAIS": {
+          "D": 1,
+          "V": 0
+        },
+        "Laurent BOURGEON": {
+          "D": 0,
+          "V": 1
+        },
         "Paul RICHEFORT": {
+          "D": 1,
+          "V": 0
+        },
+        "Rudy MAURICE": {
           "D": 1,
           "V": 0
         },
@@ -2226,36 +2579,51 @@
           "journee": "J5_20260510",
           "match": "BLAIN TTC vs ST HERBLAIN T.T",
           "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs CHAPELAINE (LA)",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs CHAPELAINE (LA)",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs CHAPELAINE (LA)",
+          "resultat": "V"
         }
       ],
       "licence": "4464479",
       "matches": {
-        "defaites": 6.5,
-        "taux_victoire": 50.0,
-        "total": 13.0,
-        "victoires": 6.5
+        "defaites": 8.5,
+        "taux_victoire": 46.9,
+        "total": 16.0,
+        "victoires": 7.5
       },
       "nom_complet": "Benjamin NUGUES",
       "performance_classement": {
         "defaites_vs_moins_bons": 2,
-        "points_vs_meilleurs": 334,
+        "points_vs_meilleurs": 422,
         "points_vs_moins_bons": 142,
-        "score": 192,
-        "victoires_vs_meilleurs": 3
+        "score": 280,
+        "victoires_vs_meilleurs": 4
       },
       "points_encaisses": {
-        "moyenne_par_set": 9.1,
-        "total": 472
+        "moyenne_par_set": 9.2,
+        "total": 562
       },
       "points_marques": {
-        "moyenne_par_set": 8.7,
-        "total": 452
+        "moyenne_par_set": 8.6,
+        "total": 527
       },
       "points_officiels": 931,
       "sets": {
-        "gagnes": 24,
-        "perdus": 28,
-        "ratio": 0.46
+        "gagnes": 27,
+        "perdus": 34,
+        "ratio": 0.44
       }
     },
     "Bruno BONNARD": {
@@ -2455,6 +2823,10 @@
     },
     "Corentin LOTHE": {
       "adversaires": {
+        "Anthony RABBY": {
+          "D": 0,
+          "V": 1
+        },
         "Christophe JULIEN": {
           "D": 1,
           "V": 0
@@ -2499,7 +2871,15 @@
           "D": 0,
           "V": 1
         },
+        "Maxime DUBE": {
+          "D": 0,
+          "V": 1
+        },
         "Nicolas GRELET": {
+          "D": 0,
+          "V": 1
+        },
+        "Noah BESSIERE": {
           "D": 0,
           "V": 1
         },
@@ -2617,14 +2997,34 @@
           "journee": "J5_20260510",
           "match": "ST HERBLAIN T.T vs PALLET (LE)",
           "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST MELAIZE vs ST HERBLAIN T.T",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST MELAIZE vs ST HERBLAIN T.T",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST MELAIZE vs ST HERBLAIN T.T",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST MELAIZE vs ST HERBLAIN T.T",
+          "resultat": "V"
         }
       ],
       "licence": "5617084",
       "matches": {
         "defaites": 9.5,
-        "taux_victoire": 45.7,
-        "total": 17.5,
-        "victoires": 8.0
+        "taux_victoire": 54.8,
+        "total": 21.0,
+        "victoires": 11.5
       },
       "nom_complet": "Corentin LOTHE",
       "performance_classement": {
@@ -2635,18 +3035,18 @@
         "victoires_vs_meilleurs": 1
       },
       "points_encaisses": {
-        "moyenne_par_set": 8.9,
-        "total": 713
+        "moyenne_par_set": 8.7,
+        "total": 815
       },
       "points_marques": {
-        "moyenne_par_set": 9.6,
-        "total": 768
+        "moyenne_par_set": 9.7,
+        "total": 914
       },
       "points_officiels": 1449,
       "sets": {
-        "gagnes": 42,
-        "perdus": 38,
-        "ratio": 0.53
+        "gagnes": 54,
+        "perdus": 40,
+        "ratio": 0.57
       }
     },
     "Damien MENEUX": {
@@ -2746,13 +3146,25 @@
     },
     "Damien ROGER": {
       "adversaires": {
+        "Adrien BERTEREAU BRULEZ": {
+          "D": 1,
+          "V": 0
+        },
         "Bruno FERRAND": {
+          "D": 0,
+          "V": 1
+        },
+        "Eric RETAILLEAU": {
           "D": 0,
           "V": 1
         },
         "Evan CHAUVEAU": {
           "D": 1,
           "V": 0
+        },
+        "Franck LANDRIU": {
+          "D": 0,
+          "V": 1
         },
         "Julien DUGAST": {
           "D": 1,
@@ -2839,40 +3251,59 @@
           "journee": "J4_20260412",
           "match": "ST HERBLAIN T.T vs PALLET (LE)",
           "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ST SEBASTIEN",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ST SEBASTIEN",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ST SEBASTIEN",
+          "resultat": "V"
         }
       ],
       "licence": "4421364",
       "matches": {
-        "defaites": 6.5,
-        "taux_victoire": 35.0,
-        "total": 10.0,
-        "victoires": 3.5
+        "defaites": 7.5,
+        "taux_victoire": 42.3,
+        "total": 13.0,
+        "victoires": 5.5
       },
       "nom_complet": "Damien ROGER",
       "performance_classement": {
-        "defaites_vs_moins_bons": 0,
+        "defaites_vs_moins_bons": 1,
         "points_vs_meilleurs": 409,
-        "points_vs_moins_bons": 0,
-        "score": 409,
+        "points_vs_moins_bons": 135,
+        "score": 274,
         "victoires_vs_meilleurs": 2
       },
       "points_encaisses": {
-        "moyenne_par_set": 9.7,
-        "total": 378
+        "moyenne_par_set": 9.6,
+        "total": 468
       },
       "points_marques": {
-        "moyenne_par_set": 8.6,
-        "total": 335
+        "moyenne_par_set": 9.0,
+        "total": 441
       },
       "points_officiels": 956,
       "sets": {
-        "gagnes": 12,
-        "perdus": 27,
-        "ratio": 0.31
+        "gagnes": 18,
+        "perdus": 31,
+        "ratio": 0.37
       }
     },
     "Delphine CROGUENNEC": {
       "adversaires": {
+        "Anais DUCATILLON": {
+          "D": 0,
+          "V": 1
+        },
         "Christine CORNILLOT": {
           "D": 0,
           "V": 1
@@ -2880,6 +3311,10 @@
         "Florence DUPIN": {
           "D": 1,
           "V": 0
+        },
+        "Gaelle GUILLOUT": {
+          "D": 0,
+          "V": 1
         },
         "Isabelle GARNIER": {
           "D": 1,
@@ -2894,6 +3329,10 @@
           "V": 0
         },
         "Nathalie ESCRIBA": {
+          "D": 1,
+          "V": 0
+        },
+        "Valerie BRONSART": {
           "D": 1,
           "V": 0
         }
@@ -2934,14 +3373,34 @@
           "journee": "J2_20260308",
           "match": "ST HERBLAIN T.T vs ST HERBLAIN T.T",
           "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST BREVIN TT (2) vs ST HERBLAIN T.T",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST BREVIN TT (2) vs ST HERBLAIN T.T",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST BREVIN TT (2) vs ST HERBLAIN T.T",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST BREVIN TT (2) vs ST HERBLAIN T.T",
+          "resultat": "V"
         }
       ],
       "licence": "4466886",
       "matches": {
-        "defaites": 4.5,
-        "taux_victoire": 30.8,
-        "total": 6.5,
-        "victoires": 2.0
+        "defaites": 6.0,
+        "taux_victoire": 40.0,
+        "total": 10.0,
+        "victoires": 4.0
       },
       "nom_complet": "Delphine CROGUENNEC",
       "performance_classement": {
@@ -2952,18 +3411,18 @@
         "victoires_vs_meilleurs": 1
       },
       "points_encaisses": {
-        "moyenne_par_set": 10.1,
-        "total": 243
+        "moyenne_par_set": 9.7,
+        "total": 380
       },
       "points_marques": {
-        "moyenne_par_set": 8.1,
-        "total": 195
+        "moyenne_par_set": 8.6,
+        "total": 335
       },
       "points_officiels": 500,
       "sets": {
-        "gagnes": 8,
-        "perdus": 16,
-        "ratio": 0.33
+        "gagnes": 16,
+        "perdus": 23,
+        "ratio": 0.41
       }
     },
     "Dimitri DUBOIS STIPANOVICH": {
@@ -3044,6 +3503,10 @@
           "D": 0,
           "V": 1
         },
+        "Dyklan BIRAIS": {
+          "D": 0,
+          "V": 1
+        },
         "Frederic VERONNEAU": {
           "D": 1,
           "V": 0
@@ -3057,6 +3520,14 @@
           "V": 0
         },
         "Lili GIRAUD PATRY": {
+          "D": 0,
+          "V": 1
+        },
+        "Lucien HALGAND": {
+          "D": 0,
+          "V": 1
+        },
+        "Mathis PASSELANDE": {
           "D": 0,
           "V": 1
         },
@@ -3134,36 +3605,56 @@
           "journee": "J5_20260510",
           "match": "ST HERBLAIN T.T vs MISSILLAC",
           "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "BRIERE (6) vs ST HERBLAIN T.T",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "BRIERE (6) vs ST HERBLAIN T.T",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "BRIERE (6) vs ST HERBLAIN T.T",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "BRIERE (6) vs ST HERBLAIN T.T",
+          "resultat": "V"
         }
       ],
       "licence": "4452991",
       "matches": {
-        "defaites": 6.5,
-        "taux_victoire": 38.1,
-        "total": 10.5,
-        "victoires": 4.0
+        "defaites": 7.0,
+        "taux_victoire": 50.0,
+        "total": 14.0,
+        "victoires": 7.0
       },
       "nom_complet": "Edouard LE BOULAIRE",
       "performance_classement": {
         "defaites_vs_moins_bons": 0,
-        "points_vs_meilleurs": 7,
+        "points_vs_meilleurs": 43,
         "points_vs_moins_bons": 0,
-        "score": 7,
-        "victoires_vs_meilleurs": 1
+        "score": 43,
+        "victoires_vs_meilleurs": 3
       },
       "points_encaisses": {
-        "moyenne_par_set": 9.4,
-        "total": 403
+        "moyenne_par_set": 9.6,
+        "total": 554
       },
       "points_marques": {
-        "moyenne_par_set": 8.3,
-        "total": 355
+        "moyenne_par_set": 8.7,
+        "total": 503
       },
       "points_officiels": 500,
       "sets": {
-        "gagnes": 17,
-        "perdus": 26,
-        "ratio": 0.4
+        "gagnes": 26,
+        "perdus": 32,
+        "ratio": 0.45
       }
     },
     "Enzo LOC": {
@@ -3300,6 +3791,10 @@
     },
     "Ewen BENIS": {
       "adversaires": {
+        "Djamel GUELLIL": {
+          "D": 0,
+          "V": 1
+        },
         "Donovan FONTAINE": {
           "D": 0,
           "V": 1
@@ -3320,7 +3815,15 @@
           "D": 1,
           "V": 0
         },
+        "Maxence LE BRIS": {
+          "D": 0,
+          "V": 1
+        },
         "Pascal TURPIN": {
+          "D": 0,
+          "V": 1
+        },
+        "Remy GAUDIN": {
           "D": 0,
           "V": 1
         }
@@ -3366,14 +3869,34 @@
           "journee": "J4_20260412",
           "match": "BRIERE vs ST HERBLAIN T.T (8)",
           "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ORVAULT SPORT vs ST HERBLAIN T.T.",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ORVAULT SPORT vs ST HERBLAIN T.T.",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ORVAULT SPORT vs ST HERBLAIN T.T.",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ORVAULT SPORT vs ST HERBLAIN T.T.",
+          "resultat": "V"
         }
       ],
       "licence": "4466180",
       "matches": {
         "defaites": 2.0,
-        "taux_victoire": 71.4,
-        "total": 7.0,
-        "victoires": 5.0
+        "taux_victoire": 81.0,
+        "total": 10.5,
+        "victoires": 8.5
       },
       "nom_complet": "Ewen BENIS",
       "performance_classement": {
@@ -3384,23 +3907,27 @@
         "victoires_vs_meilleurs": 0
       },
       "points_encaisses": {
-        "moyenne_par_set": 8.9,
-        "total": 286
+        "moyenne_par_set": 8.4,
+        "total": 396
       },
       "points_marques": {
-        "moyenne_par_set": 9.5,
-        "total": 303
+        "moyenne_par_set": 9.7,
+        "total": 456
       },
       "points_officiels": 689,
       "sets": {
-        "gagnes": 20,
-        "perdus": 12,
-        "ratio": 0.62
+        "gagnes": 32,
+        "perdus": 15,
+        "ratio": 0.68
       }
     },
     "Fabrice FOUCHER": {
       "adversaires": {
         "Antoine ANILLO": {
+          "D": 0,
+          "V": 1
+        },
+        "Aziliz JOUANNO": {
           "D": 0,
           "V": 1
         },
@@ -3436,6 +3963,10 @@
           "D": 1,
           "V": 0
         },
+        "Mathis MAILLET": {
+          "D": 1,
+          "V": 0
+        },
         "Mathys GORSON": {
           "D": 0,
           "V": 1
@@ -3449,6 +3980,10 @@
           "V": 1
         },
         "Paul RICHEFORT": {
+          "D": 1,
+          "V": 0
+        },
+        "Sylvain TARIOT": {
           "D": 1,
           "V": 0
         },
@@ -3562,43 +4097,75 @@
           "journee": "J5_20260510",
           "match": "BLAIN TTC vs ST HERBLAIN T.T",
           "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "NORT SUR ERDRE vs ST HERBLAIN T.T",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "NORT SUR ERDRE vs ST HERBLAIN T.T",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "NORT SUR ERDRE vs ST HERBLAIN T.T",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "NORT SUR ERDRE vs ST HERBLAIN T.T",
+          "resultat": "V"
         }
       ],
       "licence": "4446206",
       "matches": {
-        "defaites": 8.5,
-        "taux_victoire": 51.4,
-        "total": 17.5,
-        "victoires": 9.0
+        "defaites": 11.0,
+        "taux_victoire": 47.6,
+        "total": 21.0,
+        "victoires": 10.0
       },
       "nom_complet": "Fabrice FOUCHER",
       "performance_classement": {
-        "defaites_vs_moins_bons": 2,
+        "defaites_vs_moins_bons": 4,
         "points_vs_meilleurs": 56,
-        "points_vs_moins_bons": 274,
-        "score": -218,
+        "points_vs_moins_bons": 407,
+        "score": -351,
         "victoires_vs_meilleurs": 2
       },
       "points_encaisses": {
-        "moyenne_par_set": 9.2,
-        "total": 763
+        "moyenne_par_set": 9.4,
+        "total": 928
       },
       "points_marques": {
         "moyenne_par_set": 9.3,
-        "total": 774
+        "total": 923
       },
       "points_officiels": 997,
       "sets": {
-        "gagnes": 45,
-        "perdus": 38,
-        "ratio": 0.54
+        "gagnes": 51,
+        "perdus": 48,
+        "ratio": 0.52
       }
     },
     "Fabrice PARES": {
       "adversaires": {
+        "Alain MARTINEAU": {
+          "D": 1,
+          "V": 0
+        },
+        "Chris MOUQUET": {
+          "D": 1,
+          "V": 0
+        },
         "Christian ETIENNE": {
           "D": 0,
           "V": 1
+        },
+        "Denis PESQUER": {
+          "D": 1,
+          "V": 0
         },
         "Denis THEPENIER": {
           "D": 1,
@@ -3726,36 +4293,51 @@
           "journee": "J5_20260510",
           "match": "ST HERBLAIN T.T vs A.S.H.",
           "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ORVAULT SPORT",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ORVAULT SPORT",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ORVAULT SPORT",
+          "resultat": "D"
         }
       ],
       "licence": "9311407",
       "matches": {
-        "defaites": 13.0,
-        "taux_victoire": 7.1,
-        "total": 14.0,
+        "defaites": 16.0,
+        "taux_victoire": 5.9,
+        "total": 17.0,
         "victoires": 1.0
       },
       "nom_complet": "Fabrice PARES",
       "performance_classement": {
-        "defaites_vs_moins_bons": 3,
+        "defaites_vs_moins_bons": 4,
         "points_vs_meilleurs": 0,
-        "points_vs_moins_bons": 122,
-        "score": -122,
+        "points_vs_moins_bons": 155,
+        "score": -155,
         "victoires_vs_meilleurs": 0
       },
       "points_encaisses": {
-        "moyenne_par_set": 10.9,
-        "total": 652
+        "moyenne_par_set": 10.8,
+        "total": 769
       },
       "points_marques": {
-        "moyenne_par_set": 7.9,
-        "total": 476
+        "moyenne_par_set": 7.8,
+        "total": 556
       },
       "points_officiels": 639,
       "sets": {
-        "gagnes": 13,
-        "perdus": 47,
-        "ratio": 0.22
+        "gagnes": 15,
+        "perdus": 56,
+        "ratio": 0.21
       }
     },
     "Fanny MARIE": {
@@ -3887,6 +4469,10 @@
     },
     "Florian DAGUTS": {
       "adversaires": {
+        "Adrien BERTEREAU BRULEZ": {
+          "D": 0,
+          "V": 1
+        },
         "Bertrand FOUCAUD": {
           "D": 0,
           "V": 1
@@ -3899,9 +4485,17 @@
           "D": 0,
           "V": 1
         },
+        "Eric RETAILLEAU": {
+          "D": 0,
+          "V": 1
+        },
         "Florent GAUTREAU": {
           "D": 1,
           "V": 0
+        },
+        "Franck LANDRIU": {
+          "D": 0,
+          "V": 1
         },
         "Gerald ELBAZ": {
           "D": 0,
@@ -4017,36 +4611,56 @@
           "journee": "J5_20260510",
           "match": "NANTES ST JO TT vs ST HERBLAIN T.T",
           "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ST SEBASTIEN",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ST SEBASTIEN",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ST SEBASTIEN",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ST SEBASTIEN",
+          "resultat": "V"
         }
       ],
       "licence": "7915702",
       "matches": {
-        "defaites": 6.0,
-        "taux_victoire": 57.1,
-        "total": 14.0,
-        "victoires": 8.0
+        "defaites": 6.5,
+        "taux_victoire": 62.9,
+        "total": 17.5,
+        "victoires": 11.0
       },
       "nom_complet": "Florian DAGUTS",
       "performance_classement": {
         "defaites_vs_moins_bons": 1,
-        "points_vs_meilleurs": 460,
+        "points_vs_meilleurs": 465,
         "points_vs_moins_bons": 1,
-        "score": 459,
-        "victoires_vs_meilleurs": 5
+        "score": 464,
+        "victoires_vs_meilleurs": 6
       },
       "points_encaisses": {
-        "moyenne_par_set": 9.4,
-        "total": 628
+        "moyenne_par_set": 9.3,
+        "total": 775
       },
       "points_marques": {
-        "moyenne_par_set": 9.4,
-        "total": 630
+        "moyenne_par_set": 9.7,
+        "total": 801
       },
       "points_officiels": 874,
       "sets": {
-        "gagnes": 36,
-        "perdus": 31,
-        "ratio": 0.54
+        "gagnes": 47,
+        "perdus": 36,
+        "ratio": 0.57
       }
     },
     "Florian DELAUNAY": {
@@ -4199,6 +4813,10 @@
           "D": 1,
           "V": 0
         },
+        "Charles GIRARD PECARRERE": {
+          "D": 0,
+          "V": 1
+        },
         "Denis MARCHAL": {
           "D": 0,
           "V": 1
@@ -4219,6 +4837,10 @@
           "D": 0,
           "V": 1
         },
+        "Julien ADAMO": {
+          "D": 0,
+          "V": 1
+        },
         "Julien DUGAST": {
           "D": 1,
           "V": 0
@@ -4228,6 +4850,10 @@
           "V": 0
         },
         "Philippe TESTON": {
+          "D": 0,
+          "V": 1
+        },
+        "Regis GREAU": {
           "D": 0,
           "V": 1
         },
@@ -4330,14 +4956,34 @@
           "journee": "J5_20260510",
           "match": "BAUT (LE) vs ST HERBLAIN T.T (7)",
           "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST JULIEN TT vs ST HERBLAIN T.T (7)",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST JULIEN TT vs ST HERBLAIN T.T (7)",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST JULIEN TT vs ST HERBLAIN T.T (7)",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST JULIEN TT vs ST HERBLAIN T.T (7)",
+          "resultat": "V"
         }
       ],
       "licence": "4457012",
       "matches": {
         "defaites": 8.5,
-        "taux_victoire": 46.9,
-        "total": 16.0,
-        "victoires": 7.5
+        "taux_victoire": 56.4,
+        "total": 19.5,
+        "victoires": 11.0
       },
       "nom_complet": "Florian SELVA",
       "performance_classement": {
@@ -4348,18 +4994,18 @@
         "victoires_vs_meilleurs": 4
       },
       "points_encaisses": {
-        "moyenne_par_set": 9.6,
-        "total": 713
+        "moyenne_par_set": 9.2,
+        "total": 812
       },
       "points_marques": {
-        "moyenne_par_set": 9.2,
-        "total": 682
+        "moyenne_par_set": 9.4,
+        "total": 827
       },
       "points_officiels": 884,
       "sets": {
-        "gagnes": 37,
-        "perdus": 37,
-        "ratio": 0.5
+        "gagnes": 49,
+        "perdus": 39,
+        "ratio": 0.56
       }
     },
     "Florine LOC": {
@@ -4533,11 +5179,19 @@
           "D": 0,
           "V": 1
         },
+        "Franck DESTOUCHES": {
+          "D": 0,
+          "V": 1
+        },
         "Frederic BOISSINOT": {
           "D": 0,
           "V": 1
         },
         "Gwenael LECOU": {
+          "D": 1,
+          "V": 0
+        },
+        "Jean-Pierre MICHEL": {
           "D": 1,
           "V": 0
         },
@@ -4554,6 +5208,10 @@
           "V": 1
         },
         "Maurice LETEXIER": {
+          "D": 1,
+          "V": 0
+        },
+        "Nolan BOISSEAU": {
           "D": 1,
           "V": 0
         },
@@ -4660,40 +5318,59 @@
           "journee": "J5_20260510",
           "match": "ST HERBLAIN T.T (8) vs BRIVET",
           "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ORVAULT SPORT vs ST HERBLAIN T.T.",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ORVAULT SPORT vs ST HERBLAIN T.T.",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ORVAULT SPORT vs ST HERBLAIN T.T.",
+          "resultat": "D"
         }
       ],
       "licence": "4439167",
       "matches": {
-        "defaites": 3.5,
-        "taux_victoire": 78.1,
-        "total": 16.0,
-        "victoires": 12.5
+        "defaites": 5.5,
+        "taux_victoire": 71.1,
+        "total": 19.0,
+        "victoires": 13.5
       },
       "nom_complet": "Francis LOC",
       "performance_classement": {
-        "defaites_vs_moins_bons": 2,
+        "defaites_vs_moins_bons": 4,
         "points_vs_meilleurs": 33,
-        "points_vs_moins_bons": 185,
-        "score": -152,
+        "points_vs_moins_bons": 494,
+        "score": -461,
         "victoires_vs_meilleurs": 1
       },
       "points_encaisses": {
         "moyenne_par_set": 8.5,
-        "total": 537
+        "total": 631
       },
       "points_marques": {
-        "moyenne_par_set": 10.2,
-        "total": 645
+        "moyenne_par_set": 9.9,
+        "total": 736
       },
       "points_officiels": 828,
       "sets": {
-        "gagnes": 45,
-        "perdus": 18,
-        "ratio": 0.71
+        "gagnes": 50,
+        "perdus": 24,
+        "ratio": 0.68
       }
     },
     "Franck ANDRE": {
       "adversaires": {
+        "Ambroise PERROCHEAU": {
+          "D": 0,
+          "V": 1
+        },
         "Antoine ANILLO": {
           "D": 0,
           "V": 1
@@ -4730,6 +5407,10 @@
           "D": 1,
           "V": 0
         },
+        "Kilian VIGOUROUX": {
+          "D": 0,
+          "V": 1
+        },
         "Mathys GORSON": {
           "D": 0,
           "V": 1
@@ -4747,6 +5428,10 @@
           "V": 0
         },
         "Thibault DELANGRE": {
+          "D": 1,
+          "V": 0
+        },
+        "Timothe CRILOUX": {
           "D": 1,
           "V": 0
         },
@@ -4836,36 +5521,56 @@
           "journee": "J5_20260510",
           "match": "BLAIN TTC vs ST HERBLAIN T.T",
           "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs CHAPELAINE (LA)",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs CHAPELAINE (LA)",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs CHAPELAINE (LA)",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs CHAPELAINE (LA)",
+          "resultat": "V"
         }
       ],
       "licence": "4436316",
       "matches": {
-        "defaites": 8.0,
-        "taux_victoire": 48.4,
-        "total": 15.5,
-        "victoires": 7.5
+        "defaites": 9.5,
+        "taux_victoire": 50.0,
+        "total": 19.0,
+        "victoires": 9.5
       },
       "nom_complet": "Franck ANDRE",
       "performance_classement": {
-        "defaites_vs_moins_bons": 1,
-        "points_vs_meilleurs": 187,
-        "points_vs_moins_bons": 968,
-        "score": -781,
-        "victoires_vs_meilleurs": 3
+        "defaites_vs_moins_bons": 2,
+        "points_vs_meilleurs": 235,
+        "points_vs_moins_bons": 1057,
+        "score": -822,
+        "victoires_vs_meilleurs": 4
       },
       "points_encaisses": {
-        "moyenne_par_set": 9.1,
-        "total": 555
+        "moyenne_par_set": 9.0,
+        "total": 691
       },
       "points_marques": {
         "moyenne_par_set": 9.2,
-        "total": 562
+        "total": 711
       },
       "points_officiels": 968,
       "sets": {
-        "gagnes": 32,
-        "perdus": 29,
-        "ratio": 0.52
+        "gagnes": 41,
+        "perdus": 36,
+        "ratio": 0.53
       }
     },
     "Francois-Regis MADIOT": {
@@ -5144,11 +5849,19 @@
           "D": 0,
           "V": 1
         },
+        "Franck DESTOUCHES": {
+          "D": 0,
+          "V": 1
+        },
         "Frederic BOISSINOT": {
           "D": 0,
           "V": 1
         },
         "Gwenael LECOU": {
+          "D": 0,
+          "V": 1
+        },
+        "Jean-Pierre MICHEL": {
           "D": 0,
           "V": 1
         },
@@ -5167,6 +5880,10 @@
         "Maurice LETEXIER": {
           "D": 0,
           "V": 1
+        },
+        "Nolan BOISSEAU": {
+          "D": 1,
+          "V": 0
         },
         "Olivier CASAGRANDE": {
           "D": 0,
@@ -5281,36 +5998,56 @@
           "journee": "J5_20260510",
           "match": "ST HERBLAIN T.T (8) vs BRIVET",
           "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ORVAULT SPORT vs ST HERBLAIN T.T.",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ORVAULT SPORT vs ST HERBLAIN T.T.",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ORVAULT SPORT vs ST HERBLAIN T.T.",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ORVAULT SPORT vs ST HERBLAIN T.T.",
+          "resultat": "V"
         }
       ],
       "licence": "4461781",
       "matches": {
-        "defaites": 1.5,
-        "taux_victoire": 91.2,
-        "total": 17.0,
-        "victoires": 15.5
+        "defaites": 2.5,
+        "taux_victoire": 87.8,
+        "total": 20.5,
+        "victoires": 18.0
       },
       "nom_complet": "Gaëtan POULAIN",
       "performance_classement": {
-        "defaites_vs_moins_bons": 1,
+        "defaites_vs_moins_bons": 2,
         "points_vs_meilleurs": 87,
-        "points_vs_moins_bons": 179,
-        "score": -92,
+        "points_vs_moins_bons": 367,
+        "score": -280,
         "victoires_vs_meilleurs": 2
       },
       "points_encaisses": {
-        "moyenne_par_set": 8.3,
-        "total": 608
+        "moyenne_par_set": 8.4,
+        "total": 776
       },
       "points_marques": {
-        "moyenne_par_set": 10.6,
-        "total": 773
+        "moyenne_par_set": 10.4,
+        "total": 955
       },
       "points_officiels": 854,
       "sets": {
-        "gagnes": 54,
-        "perdus": 19,
-        "ratio": 0.74
+        "gagnes": 65,
+        "perdus": 27,
+        "ratio": 0.71
       }
     },
     "Geoffroy DE FREMICOURT": {
@@ -5331,6 +6068,10 @@
           "D": 0,
           "V": 1
         },
+        "Charles GIRARD PECARRERE": {
+          "D": 0,
+          "V": 1
+        },
         "Dominique CARDONA": {
           "D": 0,
           "V": 1
@@ -5342,6 +6083,10 @@
         "Gusen AKAIMOV": {
           "D": 1,
           "V": 0
+        },
+        "Julien ADAMO": {
+          "D": 0,
+          "V": 1
         },
         "Jérôme HAIS": {
           "D": 1,
@@ -5364,6 +6109,10 @@
           "V": 1
         },
         "Pierre CHIRON": {
+          "D": 0,
+          "V": 1
+        },
+        "Regis GREAU": {
           "D": 0,
           "V": 1
         },
@@ -5467,14 +6216,34 @@
           "journee": "J5_20260510",
           "match": "BAUT (LE) vs ST HERBLAIN T.T (7)",
           "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST JULIEN TT vs ST HERBLAIN T.T (7)",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST JULIEN TT vs ST HERBLAIN T.T (7)",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST JULIEN TT vs ST HERBLAIN T.T (7)",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST JULIEN TT vs ST HERBLAIN T.T (7)",
+          "resultat": "V"
         }
       ],
       "licence": "7629800",
       "matches": {
         "defaites": 6.5,
-        "taux_victoire": 60.6,
-        "total": 16.5,
-        "victoires": 10.0
+        "taux_victoire": 67.5,
+        "total": 20.0,
+        "victoires": 13.5
       },
       "nom_complet": "Geoffroy DE FREMICOURT",
       "performance_classement": {
@@ -5485,18 +6254,18 @@
         "victoires_vs_meilleurs": 3
       },
       "points_encaisses": {
-        "moyenne_par_set": 8.9,
-        "total": 611
+        "moyenne_par_set": 8.6,
+        "total": 719
       },
       "points_marques": {
         "moyenne_par_set": 10.0,
-        "total": 688
+        "total": 842
       },
       "points_officiels": 791,
       "sets": {
-        "gagnes": 41,
-        "perdus": 28,
-        "ratio": 0.59
+        "gagnes": 53,
+        "perdus": 31,
+        "ratio": 0.63
       }
     },
     "Guillaume DUMEZ": {
@@ -5620,6 +6389,14 @@
           "D": 0,
           "V": 1
         },
+        "Florian MERIAIS": {
+          "D": 1,
+          "V": 0
+        },
+        "Gerard VENDRE": {
+          "D": 0,
+          "V": 1
+        },
         "Laurent LELOUP": {
           "D": 0,
           "V": 1
@@ -5637,6 +6414,10 @@
           "V": 1
         },
         "Pacome ROUGÉ": {
+          "D": 1,
+          "V": 0
+        },
+        "Pascal BRIAND": {
           "D": 1,
           "V": 0
         },
@@ -5753,14 +6534,34 @@
           "journee": "J5_20260510",
           "match": "ST HERBLAIN T.T (8) vs BRIVET",
           "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "COUERON vs ST HERBLAIN T.T",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "COUERON vs ST HERBLAIN T.T",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "COUERON vs ST HERBLAIN T.T",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "COUERON vs ST HERBLAIN T.T",
+          "resultat": "D"
         }
       ],
       "licence": "4458540",
       "matches": {
-        "defaites": 13.0,
-        "taux_victoire": 23.5,
-        "total": 17.0,
-        "victoires": 4.0
+        "defaites": 15.0,
+        "taux_victoire": 26.8,
+        "total": 20.5,
+        "victoires": 5.5
       },
       "nom_complet": "Guillaume GATTEAU",
       "performance_classement": {
@@ -5772,17 +6573,17 @@
       },
       "points_encaisses": {
         "moyenne_par_set": 9.6,
-        "total": 743
+        "total": 896
       },
       "points_marques": {
-        "moyenne_par_set": 8.1,
-        "total": 622
+        "moyenne_par_set": 8.3,
+        "total": 775
       },
       "points_officiels": 527,
       "sets": {
-        "gagnes": 25,
-        "perdus": 52,
-        "ratio": 0.32
+        "gagnes": 33,
+        "perdus": 60,
+        "ratio": 0.35
       }
     },
     "Guillaume GIRAUD": {
@@ -5791,7 +6592,15 @@
           "D": 0,
           "V": 1
         },
+        "Alain MARTINEAU": {
+          "D": 1,
+          "V": 0
+        },
         "Axel TURPIN": {
+          "D": 0,
+          "V": 1
+        },
+        "Chris MOUQUET": {
           "D": 0,
           "V": 1
         },
@@ -5800,6 +6609,10 @@
           "V": 1
         },
         "Denis HUGOT": {
+          "D": 1,
+          "V": 0
+        },
+        "Denis PESQUER": {
           "D": 1,
           "V": 0
         },
@@ -5949,41 +6762,65 @@
           "journee": "J5_20260510",
           "match": "ST HERBLAIN T.T vs A.S.H.",
           "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ORVAULT SPORT",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ORVAULT SPORT",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ORVAULT SPORT",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ORVAULT SPORT",
+          "resultat": "V"
         }
       ],
       "licence": "4457351",
       "matches": {
-        "defaites": 7.5,
-        "taux_victoire": 57.1,
-        "total": 17.5,
-        "victoires": 10.0
+        "defaites": 10.0,
+        "taux_victoire": 52.4,
+        "total": 21.0,
+        "victoires": 11.0
       },
       "nom_complet": "Guillaume GIRAUD",
       "performance_classement": {
         "defaites_vs_moins_bons": 0,
-        "points_vs_meilleurs": 150,
+        "points_vs_meilleurs": 175,
         "points_vs_moins_bons": 0,
-        "score": 150,
-        "victoires_vs_meilleurs": 3
+        "score": 175,
+        "victoires_vs_meilleurs": 4
       },
       "points_encaisses": {
-        "moyenne_par_set": 9.1,
-        "total": 729
+        "moyenne_par_set": 9.2,
+        "total": 852
       },
       "points_marques": {
-        "moyenne_par_set": 9.4,
-        "total": 753
+        "moyenne_par_set": 9.2,
+        "total": 854
       },
       "points_officiels": 581,
       "sets": {
-        "gagnes": 41,
-        "perdus": 39,
-        "ratio": 0.51
+        "gagnes": 44,
+        "perdus": 49,
+        "ratio": 0.47
       }
     },
     "Guillaume PRIGENT": {
       "adversaires": {
         "Christophe PRIEUR": {
+          "D": 1,
+          "V": 0
+        },
+        "Dimitri LEMOINE": {
           "D": 1,
           "V": 0
         },
@@ -5999,7 +6836,15 @@
           "D": 1,
           "V": 0
         },
+        "Jason ALLUSSE": {
+          "D": 1,
+          "V": 0
+        },
         "Martin LARDY": {
+          "D": 1,
+          "V": 0
+        },
+        "Mathias TOUTOUYOUTE": {
           "D": 1,
           "V": 0
         },
@@ -6113,13 +6958,33 @@
           "journee": "J4_20260412",
           "match": "PETIT MARS vs ST HERBLAIN T.T",
           "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "MARESCHE vs ST HERBLAIN T.T",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "MARESCHE vs ST HERBLAIN T.T",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "MARESCHE vs ST HERBLAIN T.T",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "MARESCHE vs ST HERBLAIN T.T",
+          "resultat": "D"
         }
       ],
       "licence": "2931421",
       "matches": {
-        "defaites": 10.5,
-        "taux_victoire": 25.0,
-        "total": 14.0,
+        "defaites": 14.0,
+        "taux_victoire": 20.0,
+        "total": 17.5,
         "victoires": 3.5
       },
       "nom_complet": "Guillaume PRIGENT",
@@ -6131,18 +6996,18 @@
         "victoires_vs_meilleurs": 1
       },
       "points_encaisses": {
-        "moyenne_par_set": 9.7,
-        "total": 623
+        "moyenne_par_set": 9.9,
+        "total": 782
       },
       "points_marques": {
-        "moyenne_par_set": 8.5,
-        "total": 546
+        "moyenne_par_set": 8.3,
+        "total": 655
       },
       "points_officiels": 1195,
       "sets": {
-        "gagnes": 23,
-        "perdus": 41,
-        "ratio": 0.36
+        "gagnes": 26,
+        "perdus": 53,
+        "ratio": 0.33
       }
     },
     "Hugo BARRETEAU": {
@@ -6305,6 +7170,10 @@
           "D": 0,
           "V": 1
         },
+        "Aziliz JOUANNO": {
+          "D": 1,
+          "V": 0
+        },
         "Bertrand FOUCAUD": {
           "D": 1,
           "V": 0
@@ -6337,6 +7206,10 @@
           "D": 0,
           "V": 1
         },
+        "Mathis MAILLET": {
+          "D": 1,
+          "V": 0
+        },
         "Nolan DUBOIS": {
           "D": 0,
           "V": 1
@@ -6350,6 +7223,10 @@
           "V": 1
         },
         "Sylvain DELHOMMEAU": {
+          "D": 1,
+          "V": 0
+        },
+        "Sylvain TARIOT": {
           "D": 1,
           "V": 0
         },
@@ -6463,13 +7340,33 @@
           "journee": "J5_20260510",
           "match": "NANTES ST JO TT vs ST HERBLAIN T.T",
           "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "NORT SUR ERDRE vs ST HERBLAIN T.T",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "NORT SUR ERDRE vs ST HERBLAIN T.T",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "NORT SUR ERDRE vs ST HERBLAIN T.T",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "NORT SUR ERDRE vs ST HERBLAIN T.T",
+          "resultat": "D"
         }
       ],
       "licence": "4457724",
       "matches": {
-        "defaites": 9.5,
-        "taux_victoire": 45.7,
-        "total": 17.5,
+        "defaites": 13.0,
+        "taux_victoire": 38.1,
+        "total": 21.0,
         "victoires": 8.0
       },
       "nom_complet": "Hugo GOURMELIN",
@@ -6481,18 +7378,18 @@
         "victoires_vs_meilleurs": 3
       },
       "points_encaisses": {
-        "moyenne_par_set": 9.3,
-        "total": 732
+        "moyenne_par_set": 9.5,
+        "total": 909
       },
       "points_marques": {
         "moyenne_par_set": 8.9,
-        "total": 706
+        "total": 857
       },
       "points_officiels": 837,
       "sets": {
-        "gagnes": 39,
-        "perdus": 40,
-        "ratio": 0.49
+        "gagnes": 44,
+        "perdus": 52,
+        "ratio": 0.46
       }
     },
     "Isabelle LUCAS": {
@@ -7171,9 +8068,21 @@
           "D": 1,
           "V": 0
         },
+        "Maxime DUBE": {
+          "D": 1,
+          "V": 0
+        },
+        "Noah BESSIERE": {
+          "D": 0,
+          "V": 1
+        },
         "Pauline DUC": {
           "D": 1,
           "V": 0
+        },
+        "Thomas HERBAIN": {
+          "D": 0,
+          "V": 1
         },
         "Yvan LE BOURHIS": {
           "D": 1,
@@ -7221,36 +8130,56 @@
           "journee": "J5_20260510",
           "match": "ST HERBLAIN T.T vs LAVAL BOURNY TT",
           "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST MELAIZE vs ST HERBLAIN T.T",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST MELAIZE vs ST HERBLAIN T.T",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST MELAIZE vs ST HERBLAIN T.T",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST MELAIZE vs ST HERBLAIN T.T",
+          "resultat": "D"
         }
       ],
       "licence": "448598",
       "matches": {
-        "defaites": 5.0,
-        "taux_victoire": 28.6,
-        "total": 7.0,
-        "victoires": 2.0
+        "defaites": 6.0,
+        "taux_victoire": 42.9,
+        "total": 10.5,
+        "victoires": 4.5
       },
       "nom_complet": "John GUERET",
       "performance_classement": {
-        "defaites_vs_moins_bons": 3,
-        "points_vs_meilleurs": 0,
-        "points_vs_moins_bons": 504,
-        "score": -504,
-        "victoires_vs_meilleurs": 0
+        "defaites_vs_moins_bons": 4,
+        "points_vs_meilleurs": 97,
+        "points_vs_moins_bons": 596,
+        "score": -499,
+        "victoires_vs_meilleurs": 1
       },
       "points_encaisses": {
-        "moyenne_par_set": 10.2,
-        "total": 337
+        "moyenne_par_set": 9.1,
+        "total": 430
       },
       "points_marques": {
-        "moyenne_par_set": 9.4,
-        "total": 309
+        "moyenne_par_set": 9.6,
+        "total": 449
       },
       "points_officiels": 1496,
       "sets": {
-        "gagnes": 12,
-        "perdus": 21,
-        "ratio": 0.36
+        "gagnes": 23,
+        "perdus": 24,
+        "ratio": 0.49
       }
     },
     "Jonathan PILARD": {
@@ -7260,6 +8189,10 @@
           "V": 1
         },
         "Christian PERRIER": {
+          "D": 0,
+          "V": 1
+        },
+        "Dimitri LEMOINE": {
           "D": 0,
           "V": 1
         },
@@ -7282,6 +8215,14 @@
         "Herve PRONO": {
           "D": 1,
           "V": 0
+        },
+        "Jean Roland TOUTOUYOUTE": {
+          "D": 0,
+          "V": 1
+        },
+        "Mathias TOUTOUYOUTE": {
+          "D": 0,
+          "V": 1
         },
         "Matthieu KEROUREDAN": {
           "D": 1,
@@ -7385,36 +8326,56 @@
           "journee": "J5_20260510",
           "match": "ST HERBLAIN T.T vs LAVAL BOURNY TT",
           "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "MARESCHE vs ST HERBLAIN T.T",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "MARESCHE vs ST HERBLAIN T.T",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "MARESCHE vs ST HERBLAIN T.T",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "MARESCHE vs ST HERBLAIN T.T",
+          "resultat": "V"
         }
       ],
       "licence": "4428770",
       "matches": {
-        "defaites": 7.0,
-        "taux_victoire": 50.0,
-        "total": 14.0,
-        "victoires": 7.0
+        "defaites": 7.5,
+        "taux_victoire": 57.1,
+        "total": 17.5,
+        "victoires": 10.0
       },
       "nom_complet": "Jonathan PILARD",
       "performance_classement": {
         "defaites_vs_moins_bons": 3,
-        "points_vs_meilleurs": 175,
+        "points_vs_meilleurs": 438,
         "points_vs_moins_bons": 1606,
-        "score": -1431,
-        "victoires_vs_meilleurs": 2
+        "score": -1168,
+        "victoires_vs_meilleurs": 4
       },
       "points_encaisses": {
         "moyenne_par_set": 8.7,
-        "total": 566
+        "total": 686
       },
       "points_marques": {
-        "moyenne_par_set": 9.5,
-        "total": 620
+        "moyenne_par_set": 9.7,
+        "total": 764
       },
       "points_officiels": 1396,
       "sets": {
-        "gagnes": 35,
-        "perdus": 30,
-        "ratio": 0.54
+        "gagnes": 46,
+        "perdus": 33,
+        "ratio": 0.58
       }
     },
     "Joël PELTIER": {
@@ -7625,6 +8586,14 @@
           "D": 1,
           "V": 0
         },
+        "Jean-Grégoire SAUZAY": {
+          "D": 0,
+          "V": 1
+        },
+        "Jonathan LAMBERT": {
+          "D": 1,
+          "V": 0
+        },
         "Julien DUGAST": {
           "D": 1,
           "V": 0
@@ -7640,6 +8609,10 @@
         "Raoul WEBER": {
           "D": 1,
           "V": 0
+        },
+        "Rodrigue LOINTIER": {
+          "D": 0,
+          "V": 1
         },
         "Sylvain DELHOMMEAU": {
           "D": 1,
@@ -7720,14 +8693,29 @@
           "journee": "J5_20260510",
           "match": "NANTES ST JO TT vs ST HERBLAIN T.T",
           "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ST SEBASTIEN",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ST SEBASTIEN",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ST SEBASTIEN",
+          "resultat": "V"
         }
       ],
       "licence": "4436333",
       "matches": {
-        "defaites": 10.5,
-        "taux_victoire": 16.0,
-        "total": 12.5,
-        "victoires": 2.0
+        "defaites": 11.5,
+        "taux_victoire": 25.8,
+        "total": 15.5,
+        "victoires": 4.0
       },
       "nom_complet": "Kevin DINCKEL",
       "performance_classement": {
@@ -7738,18 +8726,18 @@
         "victoires_vs_meilleurs": 1
       },
       "points_encaisses": {
-        "moyenne_par_set": 10.3,
-        "total": 568
+        "moyenne_par_set": 10.2,
+        "total": 670
       },
       "points_marques": {
-        "moyenne_par_set": 8.4,
-        "total": 461
+        "moyenne_par_set": 8.6,
+        "total": 569
       },
       "points_officiels": 999,
       "sets": {
-        "gagnes": 19,
-        "perdus": 36,
-        "ratio": 0.35
+        "gagnes": 26,
+        "perdus": 40,
+        "ratio": 0.39
       }
     },
     "Kevin JOUAN": {
@@ -7770,6 +8758,10 @@
           "D": 1,
           "V": 0
         },
+        "Frédéric MERLET": {
+          "D": 0,
+          "V": 1
+        },
         "Jean-Luc LE BOT": {
           "D": 0,
           "V": 1
@@ -7786,9 +8778,17 @@
           "D": 0,
           "V": 1
         },
+        "Richard CAILLAUD": {
+          "D": 0,
+          "V": 1
+        },
         "Romain MAHE": {
           "D": 1,
           "V": 0
+        },
+        "Sylvain REUILLE": {
+          "D": 0,
+          "V": 1
         }
       },
       "equipe": "ST HERBLAIN T.T",
@@ -7847,36 +8847,56 @@
           "journee": "J5_20260510",
           "match": "ST HERBLAIN T.T vs PETIT MARS",
           "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ST NAZAIRE LB",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ST NAZAIRE LB",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ST NAZAIRE LB",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ST NAZAIRE LB",
+          "resultat": "V"
         }
       ],
       "licence": "4424934",
       "matches": {
         "defaites": 4.0,
-        "taux_victoire": 60.0,
-        "total": 10.0,
-        "victoires": 6.0
+        "taux_victoire": 70.4,
+        "total": 13.5,
+        "victoires": 9.5
       },
       "nom_complet": "Kevin JOUAN",
       "performance_classement": {
         "defaites_vs_moins_bons": 4,
-        "points_vs_meilleurs": 0,
+        "points_vs_meilleurs": 165,
         "points_vs_moins_bons": 429,
-        "score": -429,
-        "victoires_vs_meilleurs": 0
+        "score": -264,
+        "victoires_vs_meilleurs": 2
       },
       "points_encaisses": {
         "moyenne_par_set": 8.4,
-        "total": 270
+        "total": 403
       },
       "points_marques": {
-        "moyenne_par_set": 10.1,
-        "total": 323
+        "moyenne_par_set": 10.4,
+        "total": 499
       },
       "points_officiels": 911,
       "sets": {
-        "gagnes": 20,
-        "perdus": 12,
-        "ratio": 0.62
+        "gagnes": 32,
+        "perdus": 16,
+        "ratio": 0.67
       }
     },
     "Laurine BELLAGAMBA": {
@@ -7981,6 +9001,10 @@
     },
     "Loyd FAIJAN": {
       "adversaires": {
+        "Aziliz JOUANNO": {
+          "D": 1,
+          "V": 0
+        },
         "Bertrand DUBOURG": {
           "D": 1,
           "V": 0
@@ -8005,6 +9029,10 @@
           "D": 0,
           "V": 1
         },
+        "Mathis MAILLET": {
+          "D": 1,
+          "V": 0
+        },
         "Nolane MENAGER": {
           "D": 1,
           "V": 0
@@ -8016,6 +9044,10 @@
         "Samuel HELBERT": {
           "D": 0,
           "V": 1
+        },
+        "Sylvain TARIOT": {
+          "D": 1,
+          "V": 0
         },
         "Tanguy ANCEAUX": {
           "D": 1,
@@ -8106,13 +9138,28 @@
           "journee": "J4_20260412",
           "match": "BRIERE vs ST HERBLAIN T.T (8)",
           "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "NORT SUR ERDRE vs ST HERBLAIN T.T",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "NORT SUR ERDRE vs ST HERBLAIN T.T",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "NORT SUR ERDRE vs ST HERBLAIN T.T",
+          "resultat": "D"
         }
       ],
       "licence": "4471567",
       "matches": {
-        "defaites": 6.0,
-        "taux_victoire": 55.6,
-        "total": 13.5,
+        "defaites": 9.0,
+        "taux_victoire": 45.5,
+        "total": 16.5,
         "victoires": 7.5
       },
       "nom_complet": "Loyd FAIJAN",
@@ -8124,18 +9171,18 @@
         "victoires_vs_meilleurs": 3
       },
       "points_encaisses": {
-        "moyenne_par_set": 9.3,
-        "total": 474
+        "moyenne_par_set": 9.6,
+        "total": 573
       },
       "points_marques": {
-        "moyenne_par_set": 9.6,
-        "total": 492
+        "moyenne_par_set": 9.1,
+        "total": 544
       },
       "points_officiels": 500,
       "sets": {
         "gagnes": 25,
-        "perdus": 26,
-        "ratio": 0.49
+        "perdus": 35,
+        "ratio": 0.42
       }
     },
     "Luan BRETON": {
@@ -8147,6 +9194,10 @@
         "Antoine COLAS": {
           "D": 1,
           "V": 0
+        },
+        "Charly ANNEAU": {
+          "D": 0,
+          "V": 1
         },
         "Clement ARCHETTO": {
           "D": 0,
@@ -8172,6 +9223,10 @@
           "D": 0,
           "V": 1
         },
+        "Loup BOUDESSEUL": {
+          "D": 1,
+          "V": 0
+        },
         "Mathys GORSON": {
           "D": 0,
           "V": 1
@@ -8185,6 +9240,10 @@
           "V": 1
         },
         "Régis HUARD": {
+          "D": 0,
+          "V": 1
+        },
+        "Sebastien MORINEAU": {
           "D": 0,
           "V": 1
         },
@@ -8302,43 +9361,75 @@
           "journee": "J5_20260510",
           "match": "BAUT (LE) vs ST HERBLAIN T.T (7)",
           "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST JULIEN TT vs ST HERBLAIN T.T (7)",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST JULIEN TT vs ST HERBLAIN T.T (7)",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST JULIEN TT vs ST HERBLAIN T.T (7)",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST JULIEN TT vs ST HERBLAIN T.T (7)",
+          "resultat": "V"
         }
       ],
       "licence": "4447355",
       "matches": {
-        "defaites": 7.5,
+        "defaites": 9.0,
         "taux_victoire": 57.1,
-        "total": 17.5,
-        "victoires": 10.0
+        "total": 21.0,
+        "victoires": 12.0
       },
       "nom_complet": "Luan BRETON",
       "performance_classement": {
-        "defaites_vs_moins_bons": 1,
+        "defaites_vs_moins_bons": 2,
         "points_vs_meilleurs": 199,
-        "points_vs_moins_bons": 79,
-        "score": 120,
+        "points_vs_moins_bons": 195,
+        "score": 4,
         "victoires_vs_meilleurs": 4
       },
       "points_encaisses": {
-        "moyenne_par_set": 9.2,
-        "total": 698
+        "moyenne_par_set": 9.1,
+        "total": 823
       },
       "points_marques": {
-        "moyenne_par_set": 9.9,
-        "total": 753
+        "moyenne_par_set": 9.8,
+        "total": 883
       },
       "points_officiels": 912,
       "sets": {
-        "gagnes": 39,
-        "perdus": 37,
-        "ratio": 0.51
+        "gagnes": 47,
+        "perdus": 43,
+        "ratio": 0.52
       }
     },
     "Luc GERAUDIE": {
       "adversaires": {
+        "Djamel GUELLIL": {
+          "D": 1,
+          "V": 0
+        },
+        "Maxence LE BRIS": {
+          "D": 1,
+          "V": 0
+        },
         "Quentin OUARY": {
           "D": 1,
           "V": 0
+        },
+        "Remy GAUDIN": {
+          "D": 0,
+          "V": 1
         },
         "Samuel MACE": {
           "D": 0,
@@ -8370,36 +9461,51 @@
           "journee": "J5_20260510",
           "match": "HERIC T.T. vs ST HERBLAIN T.T",
           "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ORVAULT SPORT vs ST HERBLAIN T.T.",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ORVAULT SPORT vs ST HERBLAIN T.T.",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ORVAULT SPORT vs ST HERBLAIN T.T.",
+          "resultat": "D"
         }
       ],
       "licence": "4439003",
       "matches": {
-        "defaites": 1.5,
-        "taux_victoire": 57.1,
-        "total": 3.5,
-        "victoires": 2.0
+        "defaites": 3.5,
+        "taux_victoire": 46.2,
+        "total": 6.5,
+        "victoires": 3.0
       },
       "nom_complet": "Luc GERAUDIE",
       "performance_classement": {
-        "defaites_vs_moins_bons": 1,
+        "defaites_vs_moins_bons": 3,
         "points_vs_meilleurs": 115,
-        "points_vs_moins_bons": 91,
-        "score": 24,
+        "points_vs_moins_bons": 524,
+        "score": -409,
         "victoires_vs_meilleurs": 1
       },
       "points_encaisses": {
         "moyenne_par_set": 9.2,
-        "total": 138
+        "total": 240
       },
       "points_marques": {
-        "moyenne_par_set": 9.5,
-        "total": 142
+        "moyenne_par_set": 9.2,
+        "total": 239
       },
       "points_officiels": 761,
       "sets": {
-        "gagnes": 7,
-        "perdus": 8,
-        "ratio": 0.47
+        "gagnes": 12,
+        "perdus": 14,
+        "ratio": 0.46
       }
     },
     "Ludovic PINEAU": {
@@ -8424,6 +9530,14 @@
           "D": 1,
           "V": 0
         },
+        "Jean-Grégoire SAUZAY": {
+          "D": 1,
+          "V": 0
+        },
+        "Jonathan LAMBERT": {
+          "D": 0,
+          "V": 1
+        },
         "Jérome FARCIS": {
           "D": 0,
           "V": 1
@@ -8437,6 +9551,10 @@
           "V": 0
         },
         "Raoul WEBER": {
+          "D": 0,
+          "V": 1
+        },
+        "Rodrigue LOINTIER": {
           "D": 0,
           "V": 1
         },
@@ -8566,36 +9684,56 @@
           "journee": "J5_20260510",
           "match": "NANTES ST JO TT vs ST HERBLAIN T.T",
           "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ST SEBASTIEN",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ST SEBASTIEN",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ST SEBASTIEN",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ST SEBASTIEN",
+          "resultat": "V"
         }
       ],
       "licence": "4428853",
       "matches": {
-        "defaites": 8.5,
-        "taux_victoire": 51.4,
-        "total": 17.5,
-        "victoires": 9.0
+        "defaites": 10.0,
+        "taux_victoire": 52.4,
+        "total": 21.0,
+        "victoires": 11.0
       },
       "nom_complet": "Ludovic PINEAU",
       "performance_classement": {
-        "defaites_vs_moins_bons": 2,
+        "defaites_vs_moins_bons": 3,
         "points_vs_meilleurs": 250,
-        "points_vs_moins_bons": 124,
-        "score": 126,
+        "points_vs_moins_bons": 411,
+        "score": -161,
         "victoires_vs_meilleurs": 4
       },
       "points_encaisses": {
-        "moyenne_par_set": 9.9,
-        "total": 842
+        "moyenne_par_set": 9.8,
+        "total": 960
       },
       "points_marques": {
         "moyenne_par_set": 8.7,
-        "total": 740
+        "total": 852
       },
       "points_officiels": 1088,
       "sets": {
-        "gagnes": 36,
-        "perdus": 49,
-        "ratio": 0.42
+        "gagnes": 43,
+        "perdus": 55,
+        "ratio": 0.44
       }
     },
     "Lukas MIROL": {
@@ -8608,6 +9746,10 @@
           "D": 0,
           "V": 1
         },
+        "Clément QUESTERBERT": {
+          "D": 0,
+          "V": 1
+        },
         "Cédric NENON": {
           "D": 0,
           "V": 1
@@ -8617,6 +9759,10 @@
           "V": 1
         },
         "Denis THEPENIER": {
+          "D": 0,
+          "V": 1
+        },
+        "Eric JAUNEAU": {
           "D": 0,
           "V": 1
         },
@@ -8757,36 +9903,51 @@
           "journee": "J5_20260510",
           "match": "ST HERBLAIN T.T vs A.S.H.",
           "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ST NAZAIRE LB",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ST NAZAIRE LB",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ST NAZAIRE LB",
+          "resultat": "V"
         }
       ],
       "licence": "4461149",
       "matches": {
         "defaites": 2.5,
-        "taux_victoire": 85.3,
-        "total": 17.0,
-        "victoires": 14.5
+        "taux_victoire": 87.2,
+        "total": 19.5,
+        "victoires": 17.0
       },
       "nom_complet": "Lukas MIROL",
       "performance_classement": {
         "defaites_vs_moins_bons": 0,
-        "points_vs_meilleurs": 1107,
+        "points_vs_meilleurs": 1115,
         "points_vs_moins_bons": 0,
-        "score": 1107,
-        "victoires_vs_meilleurs": 6
+        "score": 1115,
+        "victoires_vs_meilleurs": 7
       },
       "points_encaisses": {
-        "moyenne_par_set": 8.1,
-        "total": 585
+        "moyenne_par_set": 8.0,
+        "total": 673
       },
       "points_marques": {
-        "moyenne_par_set": 9.7,
-        "total": 701
+        "moyenne_par_set": 9.8,
+        "total": 820
       },
       "points_officiels": 722,
       "sets": {
-        "gagnes": 47,
-        "perdus": 25,
-        "ratio": 0.65
+        "gagnes": 56,
+        "perdus": 28,
+        "ratio": 0.67
       }
     },
     "Léo BOSSAVIT": {
@@ -8803,9 +9964,17 @@
           "D": 1,
           "V": 0
         },
+        "Gildas HERNOT": {
+          "D": 1,
+          "V": 0
+        },
         "Guillaume POULARD": {
           "D": 0,
           "V": 1
+        },
+        "Gwendal GUEDEU": {
+          "D": 1,
+          "V": 0
         },
         "Hugo LAFONTAINE": {
           "D": 1,
@@ -8826,6 +9995,10 @@
         "Sophie BEN MOUSSA": {
           "D": 0,
           "V": 1
+        },
+        "Théodore CONTI": {
+          "D": 1,
+          "V": 0
         }
       },
       "equipe": "ST HERBLAIN T.T",
@@ -8879,45 +10052,73 @@
           "journee": "J3_20260322",
           "match": "ST HERBLAIN T.T vs REZE TT",
           "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ORVAULT SPORT",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ORVAULT SPORT",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ORVAULT SPORT",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ORVAULT SPORT",
+          "resultat": "D"
         }
       ],
       "licence": "4466544",
       "matches": {
-        "defaites": 4.0,
-        "taux_victoire": 57.9,
-        "total": 9.5,
+        "defaites": 7.5,
+        "taux_victoire": 42.3,
+        "total": 13.0,
         "victoires": 5.5
       },
       "nom_complet": "Léo BOSSAVIT",
       "performance_classement": {
-        "defaites_vs_moins_bons": 1,
+        "defaites_vs_moins_bons": 2,
         "points_vs_meilleurs": 193,
-        "points_vs_moins_bons": 23,
-        "score": 170,
+        "points_vs_moins_bons": 102,
+        "score": 91,
         "victoires_vs_meilleurs": 2
       },
       "points_encaisses": {
-        "moyenne_par_set": 8.9,
-        "total": 328
+        "moyenne_par_set": 9.3,
+        "total": 491
       },
       "points_marques": {
-        "moyenne_par_set": 9.3,
-        "total": 343
+        "moyenne_par_set": 9.0,
+        "total": 475
       },
       "points_officiels": 579,
       "sets": {
-        "gagnes": 20,
-        "perdus": 17,
-        "ratio": 0.54
+        "gagnes": 24,
+        "perdus": 29,
+        "ratio": 0.45
       }
     },
     "Manoah NEGRE": {
       "adversaires": {
+        "Bastien NIZAN": {
+          "D": 1,
+          "V": 0
+        },
         "Christophe PRIEUR": {
           "D": 1,
           "V": 0
         },
         "Damien BOUINEAU": {
+          "D": 0,
+          "V": 1
+        },
+        "Fabien HAURAY": {
           "D": 0,
           "V": 1
         },
@@ -8936,6 +10137,10 @@
         "Pascal LEMAN": {
           "D": 0,
           "V": 1
+        },
+        "Paul DELAUNAY": {
+          "D": 1,
+          "V": 0
         },
         "Sayann ROBERT": {
           "D": 0,
@@ -9011,14 +10216,29 @@
           "journee": "J5_20260510",
           "match": "ST HERBLAIN T.T vs PETIT MARS",
           "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "NORT SUR ERDRE vs ST HERBLAIN T.T",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "NORT SUR ERDRE vs ST HERBLAIN T.T",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "NORT SUR ERDRE vs ST HERBLAIN T.T",
+          "resultat": "V"
         }
       ],
       "licence": "4457737",
       "matches": {
-        "defaites": 4.5,
-        "taux_victoire": 57.1,
-        "total": 10.5,
-        "victoires": 6.0
+        "defaites": 6.5,
+        "taux_victoire": 51.9,
+        "total": 13.5,
+        "victoires": 7.0
       },
       "nom_complet": "Manoah NEGRE",
       "performance_classement": {
@@ -9029,18 +10249,18 @@
         "victoires_vs_meilleurs": 2
       },
       "points_encaisses": {
-        "moyenne_par_set": 8.8,
-        "total": 379
+        "moyenne_par_set": 8.9,
+        "total": 481
       },
       "points_marques": {
-        "moyenne_par_set": 9.2,
-        "total": 396
+        "moyenne_par_set": 9.3,
+        "total": 504
       },
       "points_officiels": 1071,
       "sets": {
-        "gagnes": 22,
-        "perdus": 21,
-        "ratio": 0.51
+        "gagnes": 27,
+        "perdus": 27,
+        "ratio": 0.5
       }
     },
     "Marie Andree AURIGNY": {
@@ -9113,6 +10333,10 @@
     },
     "Maryline ORHAN": {
       "adversaires": {
+        "Anais DUCATILLON": {
+          "D": 0,
+          "V": 1
+        },
         "Christine CORNILLOT": {
           "D": 0,
           "V": 1
@@ -9120,6 +10344,10 @@
         "Florence DUPIN": {
           "D": 1,
           "V": 1
+        },
+        "Gaelle GUILLOUT": {
+          "D": 1,
+          "V": 0
         },
         "Isabelle GARNIER": {
           "D": 0,
@@ -9136,6 +10364,10 @@
         "Nathalie ESCRIBA": {
           "D": 1,
           "V": 0
+        },
+        "Valerie BRONSART": {
+          "D": 0,
+          "V": 1
         }
       },
       "equipe": "ST HERBLAIN T.T",
@@ -9199,36 +10431,51 @@
           "journee": "J4_20260412",
           "match": "ST PHILBERT vs ST HERBLAIN T.T",
           "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST BREVIN TT (2) vs ST HERBLAIN T.T",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST BREVIN TT (2) vs ST HERBLAIN T.T",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST BREVIN TT (2) vs ST HERBLAIN T.T",
+          "resultat": "V"
         }
       ],
       "licence": "4470504",
       "matches": {
-        "defaites": 3.5,
+        "defaites": 4.5,
         "taux_victoire": 66.7,
-        "total": 10.5,
-        "victoires": 7.0
+        "total": 13.5,
+        "victoires": 9.0
       },
       "nom_complet": "Maryline ORHAN",
       "performance_classement": {
         "defaites_vs_moins_bons": 0,
-        "points_vs_meilleurs": 108,
+        "points_vs_meilleurs": 121,
         "points_vs_moins_bons": 0,
-        "score": 108,
-        "victoires_vs_meilleurs": 2
+        "score": 121,
+        "victoires_vs_meilleurs": 3
       },
       "points_encaisses": {
-        "moyenne_par_set": 8.8,
-        "total": 380
+        "moyenne_par_set": 8.9,
+        "total": 509
       },
       "points_marques": {
-        "moyenne_par_set": 10.1,
-        "total": 435
+        "moyenne_par_set": 9.9,
+        "total": 564
       },
       "points_officiels": 500,
       "sets": {
-        "gagnes": 29,
-        "perdus": 14,
-        "ratio": 0.67
+        "gagnes": 36,
+        "perdus": 21,
+        "ratio": 0.63
       }
     },
     "Mathilde FAVRE": {
@@ -9245,9 +10492,17 @@
           "D": 1,
           "V": 0
         },
+        "Clément QUESTERBERT": {
+          "D": 0,
+          "V": 1
+        },
         "Célestin LECLERC GAUTIER": {
           "D": 1,
           "V": 0
+        },
+        "Eric JAUNEAU": {
+          "D": 0,
+          "V": 1
         },
         "Eric LEBEE": {
           "D": 1,
@@ -9348,14 +10603,29 @@
           "journee": "J4_20260412",
           "match": "BRIERE vs ST HERBLAIN T.T",
           "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ST NAZAIRE LB",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ST NAZAIRE LB",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ST NAZAIRE LB",
+          "resultat": "V"
         }
       ],
       "licence": "8523875",
       "matches": {
         "defaites": 12.5,
-        "taux_victoire": 0.0,
-        "total": 12.5,
-        "victoires": 0
+        "taux_victoire": 16.7,
+        "total": 15.0,
+        "victoires": 2.5
       },
       "nom_complet": "Mathilde FAVRE",
       "performance_classement": {
@@ -9366,18 +10636,81 @@
         "victoires_vs_meilleurs": 0
       },
       "points_encaisses": {
-        "moyenne_par_set": 10.8,
-        "total": 519
+        "moyenne_par_set": 10.3,
+        "total": 626
       },
       "points_marques": {
-        "moyenne_par_set": 8.4,
-        "total": 403
+        "moyenne_par_set": 8.8,
+        "total": 538
       },
       "points_officiels": 739,
       "sets": {
-        "gagnes": 9,
-        "perdus": 39,
-        "ratio": 0.19
+        "gagnes": 18,
+        "perdus": 43,
+        "ratio": 0.3
+      }
+    },
+    "Mathéo BEILVERT": {
+      "adversaires": {
+        "Gildas HERNOT": {
+          "D": 1,
+          "V": 0
+        },
+        "Gwendal GUEDEU": {
+          "D": 1,
+          "V": 0
+        },
+        "Théodore CONTI": {
+          "D": 0,
+          "V": 1
+        }
+      },
+      "equipe": "ST HERBLAIN T.T",
+      "journees": [
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ORVAULT SPORT",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ORVAULT SPORT",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ORVAULT SPORT",
+          "resultat": "D"
+        }
+      ],
+      "licence": "4474849",
+      "matches": {
+        "defaites": 2.0,
+        "taux_victoire": 33.3,
+        "total": 3.0,
+        "victoires": 1.0
+      },
+      "nom_complet": "Mathéo BEILVERT",
+      "performance_classement": {
+        "defaites_vs_moins_bons": 0,
+        "points_vs_meilleurs": 0,
+        "points_vs_moins_bons": 0,
+        "score": 0,
+        "victoires_vs_meilleurs": 0
+      },
+      "points_encaisses": {
+        "moyenne_par_set": 9.5,
+        "total": 124
+      },
+      "points_marques": {
+        "moyenne_par_set": 9.2,
+        "total": 120
+      },
+      "points_officiels": 515,
+      "sets": {
+        "gagnes": 6,
+        "perdus": 7,
+        "ratio": 0.46
       }
     },
     "Maxime DEYDIER": {
@@ -9557,6 +10890,14 @@
           "D": 0,
           "V": 1
         },
+        "Florian MERIAIS": {
+          "D": 1,
+          "V": 0
+        },
+        "Gerard VENDRE": {
+          "D": 0,
+          "V": 1
+        },
         "Jeremy LHUMEAU": {
           "D": 1,
           "V": 0
@@ -9572,6 +10913,10 @@
         "Olivier FIOT": {
           "D": 1,
           "V": 0
+        },
+        "Pascal BRIAND": {
+          "D": 0,
+          "V": 1
         },
         "Tilio MINIER": {
           "D": 0,
@@ -9639,36 +10984,56 @@
           "journee": "J5_20260510",
           "match": "HERIC T.T. vs ST HERBLAIN T.T",
           "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "COUERON vs ST HERBLAIN T.T",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "COUERON vs ST HERBLAIN T.T",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "COUERON vs ST HERBLAIN T.T",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "COUERON vs ST HERBLAIN T.T",
+          "resultat": "V"
         }
       ],
       "licence": "4441396",
       "matches": {
-        "defaites": 4.5,
-        "taux_victoire": 57.1,
-        "total": 10.5,
-        "victoires": 6.0
+        "defaites": 5.5,
+        "taux_victoire": 60.7,
+        "total": 14.0,
+        "victoires": 8.5
       },
       "nom_complet": "Michael BOSSARD",
       "performance_classement": {
         "defaites_vs_moins_bons": 2,
-        "points_vs_meilleurs": 145,
+        "points_vs_meilleurs": 159,
         "points_vs_moins_bons": 123,
-        "score": 22,
-        "victoires_vs_meilleurs": 3
+        "score": 36,
+        "victoires_vs_meilleurs": 4
       },
       "points_encaisses": {
         "moyenne_par_set": 8.8,
-        "total": 398
+        "total": 525
       },
       "points_marques": {
-        "moyenne_par_set": 9.2,
-        "total": 412
+        "moyenne_par_set": 9.3,
+        "total": 561
       },
       "points_officiels": 567,
       "sets": {
-        "gagnes": 25,
-        "perdus": 20,
-        "ratio": 0.56
+        "gagnes": 34,
+        "perdus": 26,
+        "ratio": 0.57
       }
     },
     "Mikaël COUTURIER": {
@@ -9693,6 +11058,10 @@
           "D": 0,
           "V": 1
         },
+        "Frédéric MERLET": {
+          "D": 0,
+          "V": 1
+        },
         "Gael LE BIHAN": {
           "D": 0,
           "V": 1
@@ -9714,6 +11083,14 @@
           "V": 1
         },
         "Nolan GEAIRON": {
+          "D": 0,
+          "V": 1
+        },
+        "Richard CAILLAUD": {
+          "D": 1,
+          "V": 0
+        },
+        "Sylvain REUILLE": {
           "D": 0,
           "V": 1
         },
@@ -9798,36 +11175,56 @@
           "journee": "J5_20260510",
           "match": "BAUT (LE) vs ST HERBLAIN T.T (7)",
           "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ST NAZAIRE LB",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ST NAZAIRE LB",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ST NAZAIRE LB",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ST NAZAIRE LB",
+          "resultat": "V"
         }
       ],
       "licence": "4424788",
       "matches": {
-        "defaites": 1.5,
-        "taux_victoire": 88.9,
-        "total": 13.5,
-        "victoires": 12.0
+        "defaites": 2.5,
+        "taux_victoire": 85.3,
+        "total": 17.0,
+        "victoires": 14.5
       },
       "nom_complet": "Mikaël COUTURIER",
       "performance_classement": {
         "defaites_vs_moins_bons": 0,
-        "points_vs_meilleurs": 0,
+        "points_vs_meilleurs": 147,
         "points_vs_moins_bons": 0,
-        "score": 0,
-        "victoires_vs_meilleurs": 0
+        "score": 147,
+        "victoires_vs_meilleurs": 1
       },
       "points_encaisses": {
-        "moyenne_par_set": 8.7,
-        "total": 537
+        "moyenne_par_set": 8.5,
+        "total": 691
       },
       "points_marques": {
-        "moyenne_par_set": 10.0,
-        "total": 622
+        "moyenne_par_set": 9.9,
+        "total": 804
       },
       "points_officiels": 832,
       "sets": {
-        "gagnes": 42,
-        "perdus": 20,
-        "ratio": 0.68
+        "gagnes": 53,
+        "perdus": 28,
+        "ratio": 0.65
       }
     },
     "Mikaël QUEMERE": {
@@ -9845,6 +11242,10 @@
           "V": 0
         },
         "Denis POTREL": {
+          "D": 1,
+          "V": 0
+        },
+        "Djamel GUELLIL": {
           "D": 1,
           "V": 0
         },
@@ -9869,6 +11270,14 @@
           "V": 1
         },
         "Maeva DUCRAY": {
+          "D": 0,
+          "V": 1
+        },
+        "Maxence LE BRIS": {
+          "D": 1,
+          "V": 0
+        },
+        "Remy GAUDIN": {
           "D": 0,
           "V": 1
         },
@@ -9962,36 +11371,56 @@
           "journee": "J5_20260510",
           "match": "ST HERBLAIN T.T (8) vs BRIVET",
           "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ORVAULT SPORT vs ST HERBLAIN T.T.",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ORVAULT SPORT vs ST HERBLAIN T.T.",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ORVAULT SPORT vs ST HERBLAIN T.T.",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ORVAULT SPORT vs ST HERBLAIN T.T.",
+          "resultat": "V"
         }
       ],
       "licence": "4466833",
       "matches": {
-        "defaites": 8.0,
+        "defaites": 10.0,
         "taux_victoire": 42.9,
-        "total": 14.0,
-        "victoires": 6.0
+        "total": 17.5,
+        "victoires": 7.5
       },
       "nom_complet": "Mikaël QUEMERE",
       "performance_classement": {
-        "defaites_vs_moins_bons": 0,
-        "points_vs_meilleurs": 249,
-        "points_vs_moins_bons": 0,
-        "score": 249,
-        "victoires_vs_meilleurs": 3
+        "defaites_vs_moins_bons": 2,
+        "points_vs_meilleurs": 261,
+        "points_vs_moins_bons": 15,
+        "score": 246,
+        "victoires_vs_meilleurs": 4
       },
       "points_encaisses": {
-        "moyenne_par_set": 9.2,
-        "total": 591
+        "moyenne_par_set": 9.3,
+        "total": 736
       },
       "points_marques": {
         "moyenne_par_set": 9.3,
-        "total": 597
+        "total": 732
       },
       "points_officiels": 552,
       "sets": {
-        "gagnes": 32,
-        "perdus": 32,
-        "ratio": 0.5
+        "gagnes": 38,
+        "perdus": 41,
+        "ratio": 0.48
       }
     },
     "Mouloud MOKRANI": {
@@ -10166,9 +11595,17 @@
           "D": 1,
           "V": 0
         },
+        "Clément QUESTERBERT": {
+          "D": 0,
+          "V": 1
+        },
         "Denis PINEL": {
           "D": 0,
           "V": 1
+        },
+        "Eric JAUNEAU": {
+          "D": 1,
+          "V": 0
         },
         "Francois BITAUD": {
           "D": 1,
@@ -10284,36 +11721,46 @@
           "journee": "J4_20260412",
           "match": "BRIERE vs ST HERBLAIN T.T",
           "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ST NAZAIRE LB",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ST NAZAIRE LB",
+          "resultat": "V"
         }
       ],
       "licence": "7511970",
       "matches": {
-        "defaites": 9.5,
-        "taux_victoire": 32.1,
-        "total": 14.0,
-        "victoires": 4.5
+        "defaites": 10.5,
+        "taux_victoire": 34.4,
+        "total": 16.0,
+        "victoires": 5.5
       },
       "nom_complet": "Nicolas COURONNE",
       "performance_classement": {
-        "defaites_vs_moins_bons": 1,
+        "defaites_vs_moins_bons": 2,
         "points_vs_meilleurs": 23,
-        "points_vs_moins_bons": 1,
-        "score": 22,
+        "points_vs_moins_bons": 22,
+        "score": 1,
         "victoires_vs_meilleurs": 1
       },
       "points_encaisses": {
-        "moyenne_par_set": 9.6,
-        "total": 656
+        "moyenne_par_set": 9.5,
+        "total": 713
       },
       "points_marques": {
         "moyenne_par_set": 9.0,
-        "total": 615
+        "total": 674
       },
       "points_officiels": 751,
       "sets": {
-        "gagnes": 29,
-        "perdus": 39,
-        "ratio": 0.43
+        "gagnes": 33,
+        "perdus": 42,
+        "ratio": 0.44
       }
     },
     "Nicolas ROUAUD": {
@@ -10342,6 +11789,14 @@
           "D": 0,
           "V": 1
         },
+        "Karl BRUHAIS": {
+          "D": 1,
+          "V": 0
+        },
+        "Laurent BOURGEON": {
+          "D": 0,
+          "V": 1
+        },
         "Maelle SCHLACHTER": {
           "D": 0,
           "V": 1
@@ -10357,6 +11812,10 @@
         "Remy GANACHE": {
           "D": 0,
           "V": 1
+        },
+        "Rudy MAURICE": {
+          "D": 1,
+          "V": 0
         },
         "Thibaut FOUGERE": {
           "D": 0,
@@ -10448,14 +11907,34 @@
           "journee": "J4_20260412",
           "match": "ST HERBLAIN T.T vs COUERON",
           "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs CHAPELAINE (LA)",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs CHAPELAINE (LA)",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs CHAPELAINE (LA)",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs CHAPELAINE (LA)",
+          "resultat": "D"
         }
       ],
       "licence": "4444052",
       "matches": {
-        "defaites": 5.0,
-        "taux_victoire": 64.3,
-        "total": 14.0,
-        "victoires": 9.0
+        "defaites": 7.5,
+        "taux_victoire": 57.1,
+        "total": 17.5,
+        "victoires": 10.0
       },
       "nom_complet": "Nicolas ROUAUD",
       "performance_classement": {
@@ -10466,27 +11945,39 @@
         "victoires_vs_meilleurs": 5
       },
       "points_encaisses": {
-        "moyenne_par_set": 9.1,
-        "total": 583
+        "moyenne_par_set": 9.2,
+        "total": 718
       },
       "points_marques": {
-        "moyenne_par_set": 9.7,
-        "total": 620
+        "moyenne_par_set": 9.5,
+        "total": 741
       },
       "points_officiels": 1081,
       "sets": {
-        "gagnes": 37,
-        "perdus": 27,
-        "ratio": 0.58
+        "gagnes": 42,
+        "perdus": 36,
+        "ratio": 0.54
       }
     },
     "Noam PELTIER BAZIN": {
       "adversaires": {
+        "Alain MARTINEAU": {
+          "D": 1,
+          "V": 0
+        },
         "Antonin DROTS": {
           "D": 1,
           "V": 0
         },
         "Brigitte GLEVAREC": {
+          "D": 1,
+          "V": 0
+        },
+        "Chris MOUQUET": {
+          "D": 0,
+          "V": 1
+        },
+        "Denis PESQUER": {
           "D": 1,
           "V": 0
         },
@@ -10570,36 +12061,56 @@
           "journee": "J5_20260510",
           "match": "ST HERBLAIN T.T vs A.S.H.",
           "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ORVAULT SPORT",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ORVAULT SPORT",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ORVAULT SPORT",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ORVAULT SPORT",
+          "resultat": "D"
         }
       ],
       "licence": "4456494",
       "matches": {
-        "defaites": 7.0,
-        "taux_victoire": 26.3,
-        "total": 9.5,
-        "victoires": 2.5
+        "defaites": 9.5,
+        "taux_victoire": 26.9,
+        "total": 13.0,
+        "victoires": 3.5
       },
       "nom_complet": "Noam PELTIER BAZIN",
       "performance_classement": {
-        "defaites_vs_moins_bons": 4,
+        "defaites_vs_moins_bons": 5,
         "points_vs_meilleurs": 59,
-        "points_vs_moins_bons": 351,
-        "score": -292,
+        "points_vs_moins_bons": 387,
+        "score": -328,
         "victoires_vs_meilleurs": 1
       },
       "points_encaisses": {
-        "moyenne_par_set": 9.9,
-        "total": 386
+        "moyenne_par_set": 9.8,
+        "total": 517
       },
       "points_marques": {
-        "moyenne_par_set": 9.2,
-        "total": 359
+        "moyenne_par_set": 8.8,
+        "total": 468
       },
       "points_officiels": 770,
       "sets": {
-        "gagnes": 16,
-        "perdus": 23,
-        "ratio": 0.41
+        "gagnes": 21,
+        "perdus": 32,
+        "ratio": 0.4
       }
     },
     "Olivier LOIZEL": {
@@ -10613,6 +12124,10 @@
           "V": 0
         },
         "Colin FARO LE BRUN": {
+          "D": 1,
+          "V": 0
+        },
+        "Dyklan BIRAIS": {
           "D": 1,
           "V": 0
         },
@@ -10635,6 +12150,14 @@
         "Lucie DUFRESNE": {
           "D": 1,
           "V": 0
+        },
+        "Lucien HALGAND": {
+          "D": 1,
+          "V": 0
+        },
+        "Mathis PASSELANDE": {
+          "D": 0,
+          "V": 1
         },
         "Nolane MENAGER": {
           "D": 1,
@@ -10761,14 +12284,34 @@
           "journee": "J5_20260510",
           "match": "ST HERBLAIN T.T vs MISSILLAC",
           "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "BRIERE (6) vs ST HERBLAIN T.T",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "BRIERE (6) vs ST HERBLAIN T.T",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "BRIERE (6) vs ST HERBLAIN T.T",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "BRIERE (6) vs ST HERBLAIN T.T",
+          "resultat": "V"
         }
       ],
       "licence": "9252735",
       "matches": {
-        "defaites": 16.0,
-        "taux_victoire": 5.9,
-        "total": 17.0,
-        "victoires": 1.0
+        "defaites": 18.5,
+        "taux_victoire": 9.8,
+        "total": 20.5,
+        "victoires": 2.0
       },
       "nom_complet": "Olivier LOIZEL",
       "performance_classement": {
@@ -10779,18 +12322,18 @@
         "victoires_vs_meilleurs": 0
       },
       "points_encaisses": {
-        "moyenne_par_set": 10.5,
-        "total": 711
+        "moyenne_par_set": 10.4,
+        "total": 872
       },
       "points_marques": {
-        "moyenne_par_set": 7.9,
-        "total": 537
+        "moyenne_par_set": 8.1,
+        "total": 680
       },
       "points_officiels": 500,
       "sets": {
-        "gagnes": 14,
-        "perdus": 54,
-        "ratio": 0.21
+        "gagnes": 19,
+        "perdus": 65,
+        "ratio": 0.23
       }
     },
     "Olivier NICOLAS": {
@@ -10799,11 +12342,23 @@
           "D": 1,
           "V": 0
         },
+        "Dyklan BIRAIS": {
+          "D": 1,
+          "V": 0
+        },
         "Guennady PORTEJOIE KALIN": {
           "D": 1,
           "V": 0
         },
         "Lucie DUFRESNE": {
+          "D": 1,
+          "V": 0
+        },
+        "Lucien HALGAND": {
+          "D": 1,
+          "V": 0
+        },
+        "Mathis PASSELANDE": {
           "D": 1,
           "V": 0
         },
@@ -10856,36 +12411,51 @@
           "journee": "J2_20260308",
           "match": "BAUT (LE) vs ST HERBLAIN T.T",
           "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "BRIERE (6) vs ST HERBLAIN T.T",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "BRIERE (6) vs ST HERBLAIN T.T",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "BRIERE (6) vs ST HERBLAIN T.T",
+          "resultat": "D"
         }
       ],
       "licence": "4438819",
       "matches": {
-        "defaites": 5.5,
-        "taux_victoire": 15.4,
-        "total": 6.5,
+        "defaites": 8.5,
+        "taux_victoire": 10.5,
+        "total": 9.5,
         "victoires": 1.0
       },
       "nom_complet": "Olivier NICOLAS",
       "performance_classement": {
-        "defaites_vs_moins_bons": 1,
+        "defaites_vs_moins_bons": 3,
         "points_vs_meilleurs": 0,
-        "points_vs_moins_bons": 14,
-        "score": -14,
+        "points_vs_moins_bons": 37,
+        "score": -37,
         "victoires_vs_meilleurs": 0
       },
       "points_encaisses": {
-        "moyenne_par_set": 9.9,
-        "total": 257
+        "moyenne_par_set": 10.3,
+        "total": 413
       },
       "points_marques": {
-        "moyenne_par_set": 7.3,
-        "total": 190
+        "moyenne_par_set": 8.0,
+        "total": 321
       },
       "points_officiels": 514,
       "sets": {
-        "gagnes": 7,
-        "perdus": 19,
-        "ratio": 0.27
+        "gagnes": 12,
+        "perdus": 28,
+        "ratio": 0.3
       }
     },
     "Pascal MOREAU": {
@@ -10909,6 +12479,14 @@
         "Frederic NOEL": {
           "D": 0,
           "V": 1
+        },
+        "Gildas HERNOT": {
+          "D": 1,
+          "V": 0
+        },
+        "Gwendal GUEDEU": {
+          "D": 1,
+          "V": 0
         },
         "Jean-Pierre GLEVAREC": {
           "D": 1,
@@ -10935,6 +12513,10 @@
           "V": 0
         },
         "Thomas CLEMENT": {
+          "D": 0,
+          "V": 1
+        },
+        "Théodore CONTI": {
           "D": 0,
           "V": 1
         }
@@ -11005,14 +12587,34 @@
           "journee": "J5_20260510",
           "match": "ST HERBLAIN T.T vs A.S.H.",
           "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ORVAULT SPORT",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ORVAULT SPORT",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ORVAULT SPORT",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ORVAULT SPORT",
+          "resultat": "V"
         }
       ],
       "licence": "4420119",
       "matches": {
-        "defaites": 6.0,
-        "taux_victoire": 52.0,
-        "total": 12.5,
-        "victoires": 6.5
+        "defaites": 8.5,
+        "taux_victoire": 46.9,
+        "total": 16.0,
+        "victoires": 7.5
       },
       "nom_complet": "Pascal MOREAU",
       "performance_classement": {
@@ -11023,18 +12625,18 @@
         "victoires_vs_meilleurs": 3
       },
       "points_encaisses": {
-        "moyenne_par_set": 9.6,
-        "total": 519
+        "moyenne_par_set": 9.7,
+        "total": 658
       },
       "points_marques": {
-        "moyenne_par_set": 9.2,
-        "total": 495
+        "moyenne_par_set": 9.0,
+        "total": 613
       },
       "points_officiels": 524,
       "sets": {
-        "gagnes": 26,
-        "perdus": 28,
-        "ratio": 0.48
+        "gagnes": 31,
+        "perdus": 37,
+        "ratio": 0.46
       }
     },
     "Patrick MIRAULT": {
@@ -11206,6 +12808,10 @@
           "D": 0,
           "V": 1
         },
+        "Bastien NIZAN": {
+          "D": 1,
+          "V": 0
+        },
         "Christian GUISNEL": {
           "D": 1,
           "V": 0
@@ -11226,6 +12832,10 @@
           "D": 1,
           "V": 0
         },
+        "Fabien HAURAY": {
+          "D": 0,
+          "V": 1
+        },
         "Fabien VIOLEAU": {
           "D": 1,
           "V": 0
@@ -11243,6 +12853,10 @@
           "V": 0
         },
         "Olivier GIRAUDINEAU": {
+          "D": 1,
+          "V": 0
+        },
+        "Paul DELAUNAY": {
           "D": 1,
           "V": 0
         },
@@ -11350,36 +12964,56 @@
           "journee": "J5_20260510",
           "match": "ST HERBLAIN T.T vs PETIT MARS",
           "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "NORT SUR ERDRE vs ST HERBLAIN T.T",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "NORT SUR ERDRE vs ST HERBLAIN T.T",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "NORT SUR ERDRE vs ST HERBLAIN T.T",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "NORT SUR ERDRE vs ST HERBLAIN T.T",
+          "resultat": "D"
         }
       ],
       "licence": "447825",
       "matches": {
-        "defaites": 10.5,
-        "taux_victoire": 36.4,
-        "total": 16.5,
-        "victoires": 6.0
+        "defaites": 13.0,
+        "taux_victoire": 35.0,
+        "total": 20.0,
+        "victoires": 7.0
       },
       "nom_complet": "Patrick PINEAU",
       "performance_classement": {
-        "defaites_vs_moins_bons": 5,
+        "defaites_vs_moins_bons": 6,
         "points_vs_meilleurs": 0,
-        "points_vs_moins_bons": 612,
-        "score": -612,
+        "points_vs_moins_bons": 660,
+        "score": -660,
         "victoires_vs_meilleurs": 0
       },
       "points_encaisses": {
         "moyenne_par_set": 9.7,
-        "total": 696
+        "total": 827
       },
       "points_marques": {
         "moyenne_par_set": 8.8,
-        "total": 630
+        "total": 745
       },
       "points_officiels": 1224,
       "sets": {
-        "gagnes": 31,
-        "perdus": 41,
-        "ratio": 0.43
+        "gagnes": 35,
+        "perdus": 50,
+        "ratio": 0.41
       }
     },
     "Pierre GERBAUD": {
@@ -11569,11 +13203,23 @@
           "D": 0,
           "V": 1
         },
+        "Franck DESTOUCHES": {
+          "D": 0,
+          "V": 1
+        },
+        "Jean-Pierre MICHEL": {
+          "D": 0,
+          "V": 1
+        },
         "Kevin THEDREZ": {
           "D": 0,
           "V": 1
         },
         "Ludovic PILARD": {
+          "D": 0,
+          "V": 1
+        },
+        "Nolan BOISSEAU": {
           "D": 0,
           "V": 1
         },
@@ -11631,14 +13277,34 @@
           "journee": "J4_20260412",
           "match": "ST HERBLAIN T.T (7) vs CHATEAUBRIANT",
           "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ORVAULT SPORT vs ST HERBLAIN T.T.",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ORVAULT SPORT vs ST HERBLAIN T.T.",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ORVAULT SPORT vs ST HERBLAIN T.T.",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ORVAULT SPORT vs ST HERBLAIN T.T.",
+          "resultat": "V"
         }
       ],
       "licence": "4457726",
       "matches": {
         "defaites": 2.5,
-        "taux_victoire": 64.3,
-        "total": 7.0,
-        "victoires": 4.5
+        "taux_victoire": 76.2,
+        "total": 10.5,
+        "victoires": 8.0
       },
       "nom_complet": "Quentin LEMETTE",
       "performance_classement": {
@@ -11649,22 +13315,26 @@
         "victoires_vs_meilleurs": 1
       },
       "points_encaisses": {
-        "moyenne_par_set": 9.0,
-        "total": 314
+        "moyenne_par_set": 8.7,
+        "total": 435
       },
       "points_marques": {
-        "moyenne_par_set": 9.9,
-        "total": 347
+        "moyenne_par_set": 10.1,
+        "total": 507
       },
       "points_officiels": 755,
       "sets": {
-        "gagnes": 19,
-        "perdus": 16,
-        "ratio": 0.54
+        "gagnes": 31,
+        "perdus": 19,
+        "ratio": 0.62
       }
     },
     "Regis CERCIER": {
       "adversaires": {
+        "Baptiste BRELET": {
+          "D": 1,
+          "V": 0
+        },
         "Cedric DOCEUL": {
           "D": 1,
           "V": 0
@@ -11705,6 +13375,10 @@
           "D": 1,
           "V": 0
         },
+        "Patrick DIAVET": {
+          "D": 0,
+          "V": 1
+        },
         "Quentin OUARY": {
           "D": 1,
           "V": 0
@@ -11716,6 +13390,10 @@
         "Sebastien CREQUER": {
           "D": 0,
           "V": 1
+        },
+        "Sébastien BERTHEREAU": {
+          "D": 1,
+          "V": 0
         },
         "Thierry BOURMAUD": {
           "D": 0,
@@ -11802,36 +13480,51 @@
           "journee": "J5_20260510",
           "match": "HERIC T.T. vs ST HERBLAIN T.T",
           "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "COUERON vs ST HERBLAIN T.T",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "COUERON vs ST HERBLAIN T.T",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "COUERON vs ST HERBLAIN T.T",
+          "resultat": "V"
         }
       ],
       "licence": "442422",
       "matches": {
-        "defaites": 8.0,
-        "taux_victoire": 46.7,
-        "total": 15.0,
-        "victoires": 7.0
+        "defaites": 10.0,
+        "taux_victoire": 44.4,
+        "total": 18.0,
+        "victoires": 8.0
       },
       "nom_complet": "Regis CERCIER",
       "performance_classement": {
-        "defaites_vs_moins_bons": 1,
+        "defaites_vs_moins_bons": 3,
         "points_vs_meilleurs": 484,
-        "points_vs_moins_bons": 2,
-        "score": 482,
+        "points_vs_moins_bons": 11,
+        "score": 473,
         "victoires_vs_meilleurs": 4
       },
       "points_encaisses": {
-        "moyenne_par_set": 9.2,
-        "total": 555
+        "moyenne_par_set": 9.3,
+        "total": 645
       },
       "points_marques": {
         "moyenne_par_set": 8.8,
-        "total": 528
+        "total": 609
       },
       "points_officiels": 672,
       "sets": {
-        "gagnes": 29,
-        "perdus": 31,
-        "ratio": 0.48
+        "gagnes": 32,
+        "perdus": 37,
+        "ratio": 0.46
       }
     },
     "Remi LETORT": {
@@ -11848,7 +13541,19 @@
           "D": 0,
           "V": 1
         },
+        "Jean-Grégoire SAUZAY": {
+          "D": 0,
+          "V": 1
+        },
+        "Jonathan LAMBERT": {
+          "D": 0,
+          "V": 1
+        },
         "Louis LEBEAUPIN": {
+          "D": 0,
+          "V": 1
+        },
+        "Rodrigue LOINTIER": {
           "D": 0,
           "V": 1
         },
@@ -11902,14 +13607,34 @@
           "journee": "J4_20260412",
           "match": "ST HERBLAIN T.T vs PALLET (LE)",
           "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ST SEBASTIEN",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ST SEBASTIEN",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ST SEBASTIEN",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ST SEBASTIEN",
+          "resultat": "V"
         }
       ],
       "licence": "4436251",
       "matches": {
-        "defaites": 1.0,
+        "defaites": 1.5,
         "taux_victoire": 85.7,
-        "total": 7.0,
-        "victoires": 6.0
+        "total": 10.5,
+        "victoires": 9.0
       },
       "nom_complet": "Remi LETORT",
       "performance_classement": {
@@ -11920,18 +13645,18 @@
         "victoires_vs_meilleurs": 0
       },
       "points_encaisses": {
-        "moyenne_par_set": 8.3,
-        "total": 248
+        "moyenne_par_set": 8.0,
+        "total": 336
       },
       "points_marques": {
-        "moyenne_par_set": 9.3,
-        "total": 280
+        "moyenne_par_set": 9.5,
+        "total": 398
       },
       "points_officiels": 1447,
       "sets": {
-        "gagnes": 19,
-        "perdus": 11,
-        "ratio": 0.63
+        "gagnes": 28,
+        "perdus": 14,
+        "ratio": 0.67
       }
     },
     "Robert BOQUIER": {
@@ -11953,6 +13678,10 @@
           "V": 0
         },
         "Daniel FRIGGI": {
+          "D": 1,
+          "V": 0
+        },
+        "Frédéric MERLET": {
           "D": 1,
           "V": 0
         },
@@ -11980,9 +13709,17 @@
           "D": 1,
           "V": 0
         },
+        "Richard CAILLAUD": {
+          "D": 1,
+          "V": 0
+        },
         "Romain MAHE": {
           "D": 0,
           "V": 1
+        },
+        "Sylvain REUILLE": {
+          "D": 1,
+          "V": 0
         }
       },
       "equipe": "ST HERBLAIN T.T",
@@ -12046,40 +13783,59 @@
           "journee": "J5_20260510",
           "match": "ST HERBLAIN T.T vs PETIT MARS",
           "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ST NAZAIRE LB",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ST NAZAIRE LB",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ST NAZAIRE LB",
+          "resultat": "D"
         }
       ],
       "licence": "442924",
       "matches": {
-        "defaites": 7.0,
-        "taux_victoire": 41.7,
-        "total": 12.0,
+        "defaites": 10.0,
+        "taux_victoire": 33.3,
+        "total": 15.0,
         "victoires": 5.0
       },
       "nom_complet": "Robert BOQUIER",
       "performance_classement": {
-        "defaites_vs_moins_bons": 5,
+        "defaites_vs_moins_bons": 6,
         "points_vs_meilleurs": 17,
-        "points_vs_moins_bons": 625,
-        "score": -608,
+        "points_vs_moins_bons": 887,
+        "score": -870,
         "victoires_vs_meilleurs": 1
       },
       "points_encaisses": {
-        "moyenne_par_set": 9.0,
-        "total": 398
+        "moyenne_par_set": 9.4,
+        "total": 525
       },
       "points_marques": {
-        "moyenne_par_set": 8.4,
-        "total": 370
+        "moyenne_par_set": 8.3,
+        "total": 466
       },
       "points_officiels": 968,
       "sets": {
-        "gagnes": 19,
-        "perdus": 25,
-        "ratio": 0.43
+        "gagnes": 22,
+        "perdus": 34,
+        "ratio": 0.39
       }
     },
     "Robin GAVROY": {
       "adversaires": {
+        "Ambroise PERROCHEAU": {
+          "D": 1,
+          "V": 0
+        },
         "Benjamin DAVIAU": {
           "D": 0,
           "V": 1
@@ -12088,9 +13844,17 @@
           "D": 1,
           "V": 0
         },
+        "Kilian VIGOUROUX": {
+          "D": 0,
+          "V": 1
+        },
         "Laurent LE MESLE": {
           "D": 0,
           "V": 1
+        },
+        "Timothe CRILOUX": {
+          "D": 1,
+          "V": 0
         }
       },
       "equipe": "ST HERBLAIN T.T (8)",
@@ -12114,40 +13878,59 @@
           "journee": "J2_20260308",
           "match": "ST HERBLAIN T.T (8) vs PRESQU ILE (5)",
           "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs CHAPELAINE (LA)",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs CHAPELAINE (LA)",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs CHAPELAINE (LA)",
+          "resultat": "D"
         }
       ],
       "licence": "4466478",
       "matches": {
-        "defaites": 1.5,
-        "taux_victoire": 57.1,
-        "total": 3.5,
-        "victoires": 2.0
+        "defaites": 3.5,
+        "taux_victoire": 46.2,
+        "total": 6.5,
+        "victoires": 3.0
       },
       "nom_complet": "Robin GAVROY",
       "performance_classement": {
         "defaites_vs_moins_bons": 0,
-        "points_vs_meilleurs": 45,
+        "points_vs_meilleurs": 490,
         "points_vs_moins_bons": 0,
-        "score": 45,
-        "victoires_vs_meilleurs": 1
+        "score": 490,
+        "victoires_vs_meilleurs": 2
       },
       "points_encaisses": {
-        "moyenne_par_set": 8.7,
-        "total": 148
+        "moyenne_par_set": 9.1,
+        "total": 264
       },
       "points_marques": {
-        "moyenne_par_set": 8.8,
-        "total": 149
+        "moyenne_par_set": 8.3,
+        "total": 241
       },
       "points_officiels": 571,
       "sets": {
-        "gagnes": 9,
-        "perdus": 8,
-        "ratio": 0.53
+        "gagnes": 13,
+        "perdus": 16,
+        "ratio": 0.45
       }
     },
     "Selyan TIFRA": {
       "adversaires": {
+        "Adrien BERTEREAU BRULEZ": {
+          "D": 0,
+          "V": 1
+        },
         "Bertrand FOUCAUD": {
           "D": 0,
           "V": 1
@@ -12159,6 +13942,14 @@
         "Denis BRICAUD": {
           "D": 1,
           "V": 0
+        },
+        "Eric RETAILLEAU": {
+          "D": 0,
+          "V": 1
+        },
+        "Franck LANDRIU": {
+          "D": 0,
+          "V": 1
         },
         "Gerald ELBAZ": {
           "D": 0,
@@ -12295,14 +14086,34 @@
           "journee": "J5_20260510",
           "match": "NANTES ST JO TT vs ST HERBLAIN T.T",
           "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ST SEBASTIEN",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ST SEBASTIEN",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ST SEBASTIEN",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs ST SEBASTIEN",
+          "resultat": "V"
         }
       ],
       "licence": "4442554",
       "matches": {
-        "defaites": 7.5,
-        "taux_victoire": 53.1,
-        "total": 16.0,
-        "victoires": 8.5
+        "defaites": 8.0,
+        "taux_victoire": 59.0,
+        "total": 19.5,
+        "victoires": 11.5
       },
       "nom_complet": "Selyan TIFRA",
       "performance_classement": {
@@ -12313,18 +14124,18 @@
         "victoires_vs_meilleurs": 4
       },
       "points_encaisses": {
-        "moyenne_par_set": 9.3,
-        "total": 698
+        "moyenne_par_set": 9.2,
+        "total": 839
       },
       "points_marques": {
-        "moyenne_par_set": 9.4,
-        "total": 703
+        "moyenne_par_set": 9.5,
+        "total": 867
       },
       "points_officiels": 1048,
       "sets": {
-        "gagnes": 39,
-        "perdus": 36,
-        "ratio": 0.52
+        "gagnes": 50,
+        "perdus": 41,
+        "ratio": 0.55
       }
     },
     "Simon DURAND": {
@@ -12449,6 +14260,10 @@
           "D": 1,
           "V": 0
         },
+        "Dimitri LEMOINE": {
+          "D": 1,
+          "V": 0
+        },
         "Dominique LHOTELIER": {
           "D": 0,
           "V": 1
@@ -12462,6 +14277,14 @@
           "V": 1
         },
         "Herve PRONO": {
+          "D": 0,
+          "V": 1
+        },
+        "Jason ALLUSSE": {
+          "D": 0,
+          "V": 1
+        },
+        "Jean Roland TOUTOUYOUTE": {
           "D": 0,
           "V": 1
         },
@@ -12591,36 +14414,56 @@
           "journee": "J5_20260510",
           "match": "ST HERBLAIN T.T vs LAVAL BOURNY TT",
           "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "MARESCHE vs ST HERBLAIN T.T",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "MARESCHE vs ST HERBLAIN T.T",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "MARESCHE vs ST HERBLAIN T.T",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "MARESCHE vs ST HERBLAIN T.T",
+          "resultat": "D"
         }
       ],
       "licence": "4929714",
       "matches": {
-        "defaites": 10.5,
-        "taux_victoire": 40.0,
-        "total": 17.5,
-        "victoires": 7.0
+        "defaites": 11.5,
+        "taux_victoire": 45.2,
+        "total": 21.0,
+        "victoires": 9.5
       },
       "nom_complet": "Soren GUYON",
       "performance_classement": {
         "defaites_vs_moins_bons": 1,
-        "points_vs_meilleurs": 1218,
+        "points_vs_meilleurs": 1432,
         "points_vs_moins_bons": 1270,
-        "score": -52,
-        "victoires_vs_meilleurs": 6
+        "score": 162,
+        "victoires_vs_meilleurs": 8
       },
       "points_encaisses": {
-        "moyenne_par_set": 9.8,
-        "total": 807
+        "moyenne_par_set": 9.7,
+        "total": 927
       },
       "points_marques": {
-        "moyenne_par_set": 9.3,
-        "total": 762
+        "moyenne_par_set": 9.5,
+        "total": 911
       },
       "points_officiels": 1270,
       "sets": {
-        "gagnes": 35,
-        "perdus": 47,
-        "ratio": 0.43
+        "gagnes": 44,
+        "perdus": 52,
+        "ratio": 0.46
       }
     },
     "Thibaud LEVEQUE": {
@@ -12634,6 +14477,10 @@
           "V": 1
         },
         "Bastien BRIAND": {
+          "D": 0,
+          "V": 1
+        },
+        "Bastien NIZAN": {
           "D": 0,
           "V": 1
         },
@@ -12653,6 +14500,10 @@
           "D": 1,
           "V": 0
         },
+        "Fabien HAURAY": {
+          "D": 0,
+          "V": 1
+        },
         "Herve HUNEAU": {
           "D": 1,
           "V": 0
@@ -12668,6 +14519,10 @@
         "Kevin MENEUX": {
           "D": 0,
           "V": 1
+        },
+        "Paul DELAUNAY": {
+          "D": 1,
+          "V": 0
         },
         "Romain GUYONNEAU": {
           "D": 0,
@@ -12755,40 +14610,64 @@
           "journee": "J5_20260510",
           "match": "ST HERBLAIN T.T vs PETIT MARS",
           "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "NORT SUR ERDRE vs ST HERBLAIN T.T",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "NORT SUR ERDRE vs ST HERBLAIN T.T",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "NORT SUR ERDRE vs ST HERBLAIN T.T",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "NORT SUR ERDRE vs ST HERBLAIN T.T",
+          "resultat": "V"
         }
       ],
       "licence": "4440313",
       "matches": {
-        "defaites": 4.0,
-        "taux_victoire": 71.4,
-        "total": 14.0,
-        "victoires": 10.0
+        "defaites": 5.5,
+        "taux_victoire": 68.6,
+        "total": 17.5,
+        "victoires": 12.0
       },
       "nom_complet": "Thibaud LEVEQUE",
       "performance_classement": {
-        "defaites_vs_moins_bons": 0,
-        "points_vs_meilleurs": 296,
-        "points_vs_moins_bons": 0,
-        "score": 296,
-        "victoires_vs_meilleurs": 3
+        "defaites_vs_moins_bons": 1,
+        "points_vs_meilleurs": 561,
+        "points_vs_moins_bons": 142,
+        "score": 419,
+        "victoires_vs_meilleurs": 4
       },
       "points_encaisses": {
-        "moyenne_par_set": 8.8,
-        "total": 557
+        "moyenne_par_set": 8.9,
+        "total": 689
       },
       "points_marques": {
-        "moyenne_par_set": 9.8,
-        "total": 618
+        "moyenne_par_set": 9.7,
+        "total": 750
       },
       "points_officiels": 1318,
       "sets": {
-        "gagnes": 38,
-        "perdus": 25,
-        "ratio": 0.6
+        "gagnes": 44,
+        "perdus": 33,
+        "ratio": 0.57
       }
     },
     "Thibault PERRIDY": {
       "adversaires": {
+        "Anthony RABBY": {
+          "D": 0,
+          "V": 1
+        },
         "Aurelien HATTAT": {
           "D": 1,
           "V": 0
@@ -12813,6 +14692,10 @@
           "D": 0,
           "V": 1
         },
+        "Maxime DUBE": {
+          "D": 0,
+          "V": 1
+        },
         "Nicolas GRELET": {
           "D": 0,
           "V": 1
@@ -12822,6 +14705,10 @@
           "V": 1
         },
         "Paul Marie POULAIN": {
+          "D": 1,
+          "V": 0
+        },
+        "Thomas HERBAIN": {
           "D": 1,
           "V": 0
         }
@@ -12887,14 +14774,34 @@
           "journee": "J5_20260510",
           "match": "ST HERBLAIN T.T vs PALLET (LE)",
           "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST MELAIZE vs ST HERBLAIN T.T",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST MELAIZE vs ST HERBLAIN T.T",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST MELAIZE vs ST HERBLAIN T.T",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST MELAIZE vs ST HERBLAIN T.T",
+          "resultat": "D"
         }
       ],
       "licence": "4930744",
       "matches": {
-        "defaites": 4.0,
-        "taux_victoire": 61.9,
-        "total": 10.5,
-        "victoires": 6.5
+        "defaites": 5.0,
+        "taux_victoire": 64.3,
+        "total": 14.0,
+        "victoires": 9.0
       },
       "nom_complet": "Thibault PERRIDY",
       "performance_classement": {
@@ -12906,17 +14813,17 @@
       },
       "points_encaisses": {
         "moyenne_par_set": 8.1,
-        "total": 364
+        "total": 494
       },
       "points_marques": {
-        "moyenne_par_set": 9.7,
-        "total": 437
+        "moyenne_par_set": 10.0,
+        "total": 607
       },
       "points_officiels": 1483,
       "sets": {
-        "gagnes": 28,
-        "perdus": 17,
-        "ratio": 0.62
+        "gagnes": 39,
+        "perdus": 22,
+        "ratio": 0.64
       }
     },
     "Thierry BODIN": {
@@ -13093,9 +15000,21 @@
           "D": 0,
           "V": 1
         },
+        "Jason ALLUSSE": {
+          "D": 0,
+          "V": 1
+        },
+        "Jean Roland TOUTOUYOUTE": {
+          "D": 0,
+          "V": 1
+        },
         "Kevin MENEUX": {
           "D": 0,
           "V": 1
+        },
+        "Mathias TOUTOUYOUTE": {
+          "D": 1,
+          "V": 0
         },
         "Matthieu KEROUREDAN": {
           "D": 1,
@@ -13227,36 +15146,56 @@
           "journee": "J5_20260510",
           "match": "ST HERBLAIN T.T vs LAVAL BOURNY TT",
           "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "MARESCHE vs ST HERBLAIN T.T",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "MARESCHE vs ST HERBLAIN T.T",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "MARESCHE vs ST HERBLAIN T.T",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "MARESCHE vs ST HERBLAIN T.T",
+          "resultat": "D"
         }
       ],
       "licence": "8524585",
       "matches": {
-        "defaites": 7.0,
-        "taux_victoire": 60.0,
-        "total": 17.5,
-        "victoires": 10.5
+        "defaites": 8.0,
+        "taux_victoire": 61.9,
+        "total": 21.0,
+        "victoires": 13.0
       },
       "nom_complet": "Valentin SALLE",
       "performance_classement": {
         "defaites_vs_moins_bons": 1,
-        "points_vs_meilleurs": 1320,
+        "points_vs_meilleurs": 1596,
         "points_vs_moins_bons": 6,
-        "score": 1314,
-        "victoires_vs_meilleurs": 8
+        "score": 1590,
+        "victoires_vs_meilleurs": 10
       },
       "points_encaisses": {
-        "moyenne_par_set": 9.5,
-        "total": 797
+        "moyenne_par_set": 9.3,
+        "total": 902
       },
       "points_marques": {
-        "moyenne_par_set": 9.7,
-        "total": 815
+        "moyenne_par_set": 9.8,
+        "total": 955
       },
       "points_officiels": 1239,
       "sets": {
-        "gagnes": 41,
-        "perdus": 43,
-        "ratio": 0.49
+        "gagnes": 51,
+        "perdus": 46,
+        "ratio": 0.53
       }
     },
     "Victoire FLEURY": {
@@ -13337,6 +15276,10 @@
           "D": 1,
           "V": 0
         },
+        "Charly ANNEAU": {
+          "D": 1,
+          "V": 0
+        },
         "Clement ARCHETTO": {
           "D": 1,
           "V": 0
@@ -13354,6 +15297,10 @@
           "V": 1
         },
         "Kevin GARNIER": {
+          "D": 1,
+          "V": 0
+        },
+        "Loup BOUDESSEUL": {
           "D": 1,
           "V": 0
         },
@@ -13376,6 +15323,10 @@
         "Régis HUARD": {
           "D": 1,
           "V": 0
+        },
+        "Sebastien MORINEAU": {
+          "D": 0,
+          "V": 1
         },
         "Simon PICHET": {
           "D": 1,
@@ -13486,36 +15437,56 @@
           "journee": "J5_20260510",
           "match": "BAUT (LE) vs ST HERBLAIN T.T (7)",
           "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST JULIEN TT vs ST HERBLAIN T.T (7)",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST JULIEN TT vs ST HERBLAIN T.T (7)",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST JULIEN TT vs ST HERBLAIN T.T (7)",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST JULIEN TT vs ST HERBLAIN T.T (7)",
+          "resultat": "D"
         }
       ],
       "licence": "4438083",
       "matches": {
-        "defaites": 8.0,
-        "taux_victoire": 52.9,
-        "total": 17.0,
-        "victoires": 9.0
+        "defaites": 10.5,
+        "taux_victoire": 48.8,
+        "total": 20.5,
+        "victoires": 10.0
       },
       "nom_complet": "Vincent CAROFF",
       "performance_classement": {
-        "defaites_vs_moins_bons": 2,
+        "defaites_vs_moins_bons": 4,
         "points_vs_meilleurs": 95,
-        "points_vs_moins_bons": 140,
-        "score": -45,
+        "points_vs_moins_bons": 353,
+        "score": -258,
         "victoires_vs_meilleurs": 1
       },
       "points_encaisses": {
-        "moyenne_par_set": 9.3,
-        "total": 752
+        "moyenne_par_set": 9.4,
+        "total": 883
       },
       "points_marques": {
-        "moyenne_par_set": 9.5,
-        "total": 770
+        "moyenne_par_set": 9.3,
+        "total": 873
       },
       "points_officiels": 895,
       "sets": {
-        "gagnes": 39,
-        "perdus": 42,
-        "ratio": 0.48
+        "gagnes": 43,
+        "perdus": 51,
+        "ratio": 0.46
       }
     },
     "Vincent GUYADER": {
@@ -13536,6 +15507,14 @@
           "D": 1,
           "V": 0
         },
+        "Charles GIRARD PECARRERE": {
+          "D": 0,
+          "V": 1
+        },
+        "Julien ADAMO": {
+          "D": 0,
+          "V": 1
+        },
         "Jérôme HAIS": {
           "D": 0,
           "V": 1
@@ -13549,6 +15528,10 @@
           "V": 0
         },
         "Matthieu BOSSARD": {
+          "D": 0,
+          "V": 1
+        },
+        "Regis GREAU": {
           "D": 0,
           "V": 1
         },
@@ -13613,14 +15596,29 @@
           "journee": "J3_20260322",
           "match": "ANCENIS TT vs ST HERBLAIN T.T (7)",
           "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST JULIEN TT vs ST HERBLAIN T.T (7)",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST JULIEN TT vs ST HERBLAIN T.T (7)",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST JULIEN TT vs ST HERBLAIN T.T (7)",
+          "resultat": "V"
         }
       ],
       "licence": "5615323",
       "matches": {
         "defaites": 4.5,
-        "taux_victoire": 55.0,
-        "total": 10.0,
-        "victoires": 5.5
+        "taux_victoire": 65.4,
+        "total": 13.0,
+        "victoires": 8.5
       },
       "nom_complet": "Vincent GUYADER",
       "performance_classement": {
@@ -13631,22 +15629,26 @@
         "victoires_vs_meilleurs": 3
       },
       "points_encaisses": {
-        "moyenne_par_set": 9.0,
-        "total": 452
+        "moyenne_par_set": 8.4,
+        "total": 505
       },
       "points_marques": {
-        "moyenne_par_set": 9.3,
-        "total": 466
+        "moyenne_par_set": 9.6,
+        "total": 575
       },
       "points_officiels": 777,
       "sets": {
-        "gagnes": 27,
-        "perdus": 23,
-        "ratio": 0.54
+        "gagnes": 36,
+        "perdus": 24,
+        "ratio": 0.6
       }
     },
     "Vincent MONET": {
       "adversaires": {
+        "Baptiste BRELET": {
+          "D": 0,
+          "V": 1
+        },
         "Cedric DOCEUL": {
           "D": 1,
           "V": 0
@@ -13692,6 +15694,14 @@
           "V": 1
         },
         "Olivier FIOT": {
+          "D": 1,
+          "V": 0
+        },
+        "Patrick DIAVET": {
+          "D": 0,
+          "V": 1
+        },
+        "Sébastien BERTHEREAU": {
           "D": 1,
           "V": 0
         }
@@ -13767,40 +15777,64 @@
           "journee": "J5_20260510",
           "match": "HERIC T.T. vs ST HERBLAIN T.T",
           "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "COUERON vs ST HERBLAIN T.T",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "COUERON vs ST HERBLAIN T.T",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "COUERON vs ST HERBLAIN T.T",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "COUERON vs ST HERBLAIN T.T",
+          "resultat": "D"
         }
       ],
       "licence": "4434731",
       "matches": {
-        "defaites": 10.0,
-        "taux_victoire": 23.1,
-        "total": 13.0,
-        "victoires": 3.0
+        "defaites": 11.5,
+        "taux_victoire": 30.3,
+        "total": 16.5,
+        "victoires": 5.0
       },
       "nom_complet": "Vincent MONET",
       "performance_classement": {
         "defaites_vs_moins_bons": 4,
-        "points_vs_meilleurs": 39,
+        "points_vs_meilleurs": 49,
         "points_vs_moins_bons": 331,
-        "score": -292,
-        "victoires_vs_meilleurs": 1
+        "score": -282,
+        "victoires_vs_meilleurs": 2
       },
       "points_encaisses": {
-        "moyenne_par_set": 9.8,
-        "total": 470
+        "moyenne_par_set": 9.6,
+        "total": 612
       },
       "points_marques": {
-        "moyenne_par_set": 8.1,
-        "total": 387
+        "moyenne_par_set": 8.4,
+        "total": 535
       },
       "points_officiels": 660,
       "sets": {
-        "gagnes": 14,
-        "perdus": 34,
-        "ratio": 0.29
+        "gagnes": 22,
+        "perdus": 42,
+        "ratio": 0.34
       }
     },
     "Vincent NOGUES": {
       "adversaires": {
+        "Ambroise PERROCHEAU": {
+          "D": 1,
+          "V": 0
+        },
         "Antoine LE POTTIER": {
           "D": 1,
           "V": 0
@@ -13829,6 +15863,10 @@
           "D": 1,
           "V": 0
         },
+        "Kilian VIGOUROUX": {
+          "D": 1,
+          "V": 0
+        },
         "Maelle SCHLACHTER": {
           "D": 1,
           "V": 0
@@ -13842,6 +15880,10 @@
           "V": 0
         },
         "Sylvain BONVALET": {
+          "D": 1,
+          "V": 0
+        },
+        "Timothe CRILOUX": {
           "D": 1,
           "V": 0
         },
@@ -13921,36 +15963,56 @@
           "journee": "J5_20260510",
           "match": "BLAIN TTC vs ST HERBLAIN T.T",
           "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs CHAPELAINE (LA)",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs CHAPELAINE (LA)",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs CHAPELAINE (LA)",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "ST HERBLAIN T.T vs CHAPELAINE (LA)",
+          "resultat": "D"
         }
       ],
       "licence": "4423332",
       "matches": {
-        "defaites": 9.5,
-        "taux_victoire": 26.9,
-        "total": 13.0,
+        "defaites": 13.0,
+        "taux_victoire": 21.2,
+        "total": 16.5,
         "victoires": 3.5
       },
       "nom_complet": "Vincent NOGUES",
       "performance_classement": {
-        "defaites_vs_moins_bons": 0,
+        "defaites_vs_moins_bons": 2,
         "points_vs_meilleurs": 98,
-        "points_vs_moins_bons": 0,
-        "score": 98,
+        "points_vs_moins_bons": 213,
+        "score": -115,
         "victoires_vs_meilleurs": 1
       },
       "points_encaisses": {
         "moyenne_par_set": 9.8,
-        "total": 528
+        "total": 678
       },
       "points_marques": {
-        "moyenne_par_set": 8.3,
-        "total": 447
+        "moyenne_par_set": 8.0,
+        "total": 553
       },
       "points_officiels": 944,
       "sets": {
-        "gagnes": 19,
-        "perdus": 35,
-        "ratio": 0.35
+        "gagnes": 22,
+        "perdus": 47,
+        "ratio": 0.32
       }
     },
     "Yann COUTAUD": {
@@ -14167,6 +16229,14 @@
           "D": 1,
           "V": 0
         },
+        "Florian MERIAIS": {
+          "D": 1,
+          "V": 0
+        },
+        "Gerard VENDRE": {
+          "D": 0,
+          "V": 1
+        },
         "Laurent LELOUP": {
           "D": 0,
           "V": 1
@@ -14182,6 +16252,10 @@
         "Pacome ROUGÉ": {
           "D": 1,
           "V": 0
+        },
+        "Pascal BRIAND": {
+          "D": 0,
+          "V": 1
         },
         "Pierre HUBER": {
           "D": 1,
@@ -14276,36 +16350,51 @@
           "journee": "J4_20260412",
           "match": "ST HERBLAIN T.T vs GRANDCHAMP",
           "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "COUERON vs ST HERBLAIN T.T",
+          "resultat": "V"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "COUERON vs ST HERBLAIN T.T",
+          "resultat": "D"
+        },
+        {
+          "journee": "J6_20260531",
+          "match": "COUERON vs ST HERBLAIN T.T",
+          "resultat": "V"
         }
       ],
       "licence": "4454373",
       "matches": {
-        "defaites": 12.5,
-        "taux_victoire": 7.4,
-        "total": 13.5,
-        "victoires": 1.0
+        "defaites": 13.5,
+        "taux_victoire": 18.2,
+        "total": 16.5,
+        "victoires": 3.0
       },
       "nom_complet": "Yvan PENEAU",
       "performance_classement": {
-        "defaites_vs_moins_bons": 3,
+        "defaites_vs_moins_bons": 4,
         "points_vs_meilleurs": 0,
-        "points_vs_moins_bons": 259,
-        "score": -259,
+        "points_vs_moins_bons": 282,
+        "score": -282,
         "victoires_vs_meilleurs": 0
       },
       "points_encaisses": {
-        "moyenne_par_set": 10.3,
-        "total": 629
+        "moyenne_par_set": 10.1,
+        "total": 734
       },
       "points_marques": {
-        "moyenne_par_set": 8.7,
-        "total": 532
+        "moyenne_par_set": 8.9,
+        "total": 649
       },
       "points_officiels": 636,
       "sets": {
-        "gagnes": 18,
-        "perdus": 43,
-        "ratio": 0.3
+        "gagnes": 25,
+        "perdus": 48,
+        "ratio": 0.34
       }
     }
   },
@@ -14334,7 +16423,7 @@
           "fichier": "TTSH03.json",
           "score_a": 10,
           "score_x": 10,
-          "vainqueur": "X"
+          "vainqueur": "N"
         },
         {
           "equipe_a": "ST HERBLAIN T.T",
@@ -14437,7 +16526,7 @@
           "fichier": "TTSH02.json",
           "score_a": 7,
           "score_x": 7,
-          "vainqueur": "X"
+          "vainqueur": "N"
         },
         {
           "equipe_a": "ST HERBLAIN T.T",
@@ -14445,7 +16534,7 @@
           "fichier": "TTSH03.json",
           "score_a": 10,
           "score_x": 10,
-          "vainqueur": "X"
+          "vainqueur": "N"
         },
         {
           "equipe_a": "ST NAZAIRE TT",
@@ -14453,7 +16542,7 @@
           "fichier": "TTSH04.json",
           "score_a": 10,
           "score_x": 10,
-          "vainqueur": "X"
+          "vainqueur": "N"
         },
         {
           "equipe_a": "MOUZILLON",
@@ -14477,7 +16566,7 @@
           "fichier": "TTSH07.json",
           "score_a": 10,
           "score_x": 10,
-          "vainqueur": "X"
+          "vainqueur": "N"
         },
         {
           "equipe_a": "ST HERBLAIN T.T (8)",
@@ -14509,7 +16598,7 @@
           "fichier": "TTSH11.json",
           "score_a": 5,
           "score_x": 5,
-          "vainqueur": "X"
+          "vainqueur": "N"
         },
         {
           "equipe_a": "BAUT (LE)",
@@ -14548,7 +16637,7 @@
           "fichier": "TTSH02.json",
           "score_a": 7,
           "score_x": 7,
-          "vainqueur": "X"
+          "vainqueur": "N"
         },
         {
           "equipe_a": "ST SEBASTIEN",
@@ -14564,7 +16653,7 @@
           "fichier": "TTSH04.json",
           "score_a": 10,
           "score_x": 10,
-          "vainqueur": "X"
+          "vainqueur": "N"
         },
         {
           "equipe_a": "ST HERBLAIN T.T",
@@ -14580,7 +16669,7 @@
           "fichier": "TTSH06.json",
           "score_a": 10,
           "score_x": 10,
-          "vainqueur": "X"
+          "vainqueur": "N"
         },
         {
           "equipe_a": "ANCENIS TT",
@@ -14636,7 +16725,7 @@
           "fichier": "TTSHF01.json",
           "score_a": 5,
           "score_x": 5,
-          "vainqueur": "X"
+          "vainqueur": "N"
         }
       ],
       "nuls": 4,
@@ -14715,7 +16804,7 @@
           "fichier": "TTSH09.json",
           "score_a": 10,
           "score_x": 10,
-          "vainqueur": "X"
+          "vainqueur": "N"
         },
         {
           "equipe_a": "BOUAYE",
@@ -14739,7 +16828,7 @@
           "fichier": "TTSH12.json",
           "score_a": 1,
           "score_x": 0,
-          "vainqueur": "X"
+          "vainqueur": "A"
         },
         {
           "equipe_a": "ST PHILBERT",
@@ -14762,7 +16851,7 @@
           "fichier": "TTSH01.json",
           "score_a": 7,
           "score_x": 7,
-          "vainqueur": "X"
+          "vainqueur": "N"
         },
         {
           "equipe_a": "ST HERBLAIN T.T",
@@ -14826,7 +16915,7 @@
           "fichier": "TTSH09.json",
           "score_a": 10,
           "score_x": 10,
-          "vainqueur": "X"
+          "vainqueur": "N"
         },
         {
           "equipe_a": "ST HERBLAIN T.T",
@@ -14864,12 +16953,123 @@
       "nuls": 2,
       "victoires_a": 5,
       "victoires_x": 6
+    },
+    "J6_20260531": {
+      "matches": [
+        {
+          "equipe_a": "MARESCHE",
+          "equipe_x": "ST HERBLAIN T.T",
+          "fichier": "TTSH01.json",
+          "score_a": 6,
+          "score_x": 8,
+          "vainqueur": "X"
+        },
+        {
+          "equipe_a": "ST MELAIZE",
+          "equipe_x": "ST HERBLAIN T.T",
+          "fichier": "TTSH02.json",
+          "score_a": 4,
+          "score_x": 10,
+          "vainqueur": "X"
+        },
+        {
+          "equipe_a": "NORT SUR ERDRE",
+          "equipe_x": "ST HERBLAIN T.T",
+          "fichier": "TTSH03.json",
+          "score_a": 15,
+          "score_x": 5,
+          "vainqueur": "A"
+        },
+        {
+          "equipe_a": "ST HERBLAIN T.T",
+          "equipe_x": "CHAPELAINE (LA)",
+          "fichier": "TTSH04.json",
+          "score_a": 6,
+          "score_x": 14,
+          "vainqueur": "X"
+        },
+        {
+          "equipe_a": "ST HERBLAIN T.T",
+          "equipe_x": "ST SEBASTIEN",
+          "fichier": "TTSH05.json",
+          "score_a": 15,
+          "score_x": 5,
+          "vainqueur": "A"
+        },
+        {
+          "equipe_a": "ST HERBLAIN T.T",
+          "equipe_x": "ST NAZAIRE LB",
+          "fichier": "TTSH06.json",
+          "score_a": 12,
+          "score_x": 8,
+          "vainqueur": "A"
+        },
+        {
+          "equipe_a": "ST JULIEN TT",
+          "equipe_x": "ST HERBLAIN T.T (7)",
+          "fichier": "TTSH07.json",
+          "score_a": 4,
+          "score_x": 16,
+          "vainqueur": "X"
+        },
+        {
+          "equipe_a": "ORVAULT SPORT",
+          "equipe_x": "ST HERBLAIN T.T.",
+          "fichier": "TTSH08.json",
+          "score_a": 7,
+          "score_x": 13,
+          "vainqueur": "X"
+        },
+        {
+          "equipe_a": "COUERON",
+          "equipe_x": "ST HERBLAIN T.T",
+          "fichier": "TTSH09.json",
+          "score_a": 9,
+          "score_x": 11,
+          "vainqueur": "X"
+        },
+        {
+          "equipe_a": "ST HERBLAIN T.T",
+          "equipe_x": "ORVAULT SPORT",
+          "fichier": "TTSH10.json",
+          "score_a": 4,
+          "score_x": 16,
+          "vainqueur": "X"
+        },
+        {
+          "equipe_a": "ST HERBLAIN T.T",
+          "equipe_x": "CARQUEFOU TT",
+          "fichier": "TTSH11.json",
+          "score_a": 10,
+          "score_x": 0,
+          "vainqueur": "A"
+        },
+        {
+          "equipe_a": "BRIERE (6)",
+          "equipe_x": "ST HERBLAIN T.T",
+          "fichier": "TTSH12.json",
+          "score_a": 6,
+          "score_x": 4,
+          "vainqueur": "A"
+        },
+        {
+          "equipe_a": "ST BREVIN TT (2)",
+          "equipe_x": "ST HERBLAIN T.T",
+          "fichier": "TTSHF01.json",
+          "score_a": 5,
+          "score_x": 5,
+          "vainqueur": "N"
+        }
+      ],
+      "nuls": 1,
+      "victoires_a": 5,
+      "victoires_x": 7
     }
   },
   "totaux": {
-    "nombre_joueurs": 92,
-    "nombre_journees": 5,
-    "nombre_matches": 65,
-    "nombre_rencontres": 1080
+    "nombre_joueurs": 93,
+    "nombre_journees": 6,
+    "nombre_matches": 78,
+    "nombre_rencontres": 1285
   }
 }

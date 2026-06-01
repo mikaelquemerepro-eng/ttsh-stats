@@ -1,0 +1,37 @@
+{
+  "division": "D44 P2MD4",
+  "poule": "P2MD4 Poule 3",
+  "equipes": {
+    "equipe_a": {
+      "nom": "ST HERBLAIN T.T",
+      "joueurs": [
+        {
+          "lettre": "A",
+          "nom": "PELTIER",
+          "prenom": "Joël",
+          "points": 500,
+          "licence": "4460885"
+        },
+        {
+          "lettre": "B",
+          "nom": "MOKRANI",
+          "prenom": "Mouloud",
+          "points": 500,
+          "licence": "4446392"
+        }
+      ]
+    },
+    "equipe_x": {
+      "nom": "CARQUEFOU TT",
+      "joueurs": []
+    }
+  },
+  "resultat_global": {
+    "equipe_a": 10,
+    "equipe_x": 0,
+    "vainqueur": "A"
+  },
+  "rencontres": [],
+  "expected_matches": 10,
+  "equipe_ttsh": "TTSH11"
+}
