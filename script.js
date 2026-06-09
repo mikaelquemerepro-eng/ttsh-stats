@@ -1016,7 +1016,7 @@ function showTeamOverview(sortedTeams) {
         return { bgColor, textColor, label };
     }
     
-    let html = '<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px;">';
+    let html = '<div class="team-overview-grid">';
     
     sortedTeams.forEach(team => {
         // Calculer la couleur de fond en fonction des résultats
@@ -1036,19 +1036,19 @@ function showTeamOverview(sortedTeams) {
         const divStyle = getDivisionStyle(team.division);
         
         html += `
-            <div class="stat-card team-card-clickable" onclick="showSingleTeamStats('${team.name.replace(/'/g, "\\'")}');" style="padding: 0; overflow: hidden; background: ${bgGradient};">
-                <div style="padding: 20px 20px 15px 20px; text-align: center;">
-                    <h3 style="margin: 0 0 10px 0; font-size: 1.4em; color: #1f2937; font-weight: 700;">${escapeHtml(team.name)}</h3>
-                    <div style="display: inline-block; padding: 4px 12px; background: ${divStyle.bgColor}; color: ${divStyle.textColor}; border-radius: 12px; font-size: 0.75em; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 6px;">${divStyle.label}</div>
-                    <div style="font-size: 0.8em; color: #6b7280; font-weight: 500; margin-top: 4px;">${escapeHtml(team.poule || '')}</div>
+            <div class="stat-card team-card-clickable team-overview-card" onclick="showSingleTeamStats('${team.name.replace(/'/g, "\\'")}');" style="padding: 0; overflow: hidden; background: ${bgGradient};">
+                <div class="team-overview-head" style="padding: 20px 20px 15px 20px; text-align: center;">
+                    <h3 class="team-overview-name" style="margin: 0 0 10px 0; font-size: 1.4em; color: #1f2937; font-weight: 700;">${escapeHtml(team.name)}</h3>
+                    <div class="team-overview-division" style="display: inline-block; padding: 4px 12px; background: ${divStyle.bgColor}; color: ${divStyle.textColor}; border-radius: 12px; font-size: 0.75em; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 6px;">${divStyle.label}</div>
+                    <div class="team-overview-poule" style="font-size: 0.8em; color: #6b7280; font-weight: 500; margin-top: 4px;">${escapeHtml(team.poule || '')}</div>
                 </div>
                 
-                <div style="padding: 15px 20px 20px 20px; background: rgba(255,255,255,0.7); backdrop-filter: blur(10px);">
-                    <div style="font-size: 0.8em; font-weight: 600; color: #4b5563; margin-bottom: 10px; text-align: center; text-transform: uppercase; letter-spacing: 0.5px;">Derniers résultats</div>
-                    <div style="display: flex; gap: 6px; justify-content: center; flex-wrap: wrap;">
+                <div class="team-overview-last-results" style="padding: 15px 20px 20px 20px; background: rgba(255,255,255,0.7); backdrop-filter: blur(10px);">
+                    <div class="team-overview-last-label" style="font-size: 0.8em; font-weight: 600; color: #4b5563; margin-bottom: 10px; text-align: center; text-transform: uppercase; letter-spacing: 0.5px;">Derniers résultats</div>
+                    <div class="team-overview-result-list" style="display: flex; gap: 6px; justify-content: center; flex-wrap: wrap;">
                         ${team.opponents.slice(-5).map(m => {
                             const color = m.result === 'V' ? '#10b981' : (m.result === 'D' ? '#ef4444' : '#f59e0b');
-                            return `<div style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; background: ${color}; color: white; border-radius: 6px; font-size: 1em; font-weight: 700; box-shadow: 0 2px 4px rgba(0,0,0,0.1);" title="${escapeHtml(m.opponent)} (${m.score})">${m.result}</div>`;
+                            return `<div class="team-overview-result-dot" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; background: ${color}; color: white; border-radius: 6px; font-size: 1em; font-weight: 700; box-shadow: 0 2px 4px rgba(0,0,0,0.1);" title="${escapeHtml(m.opponent)} (${m.score})">${m.result}</div>`;
                         }).join('')}
                     </div>
                 </div>
@@ -1126,18 +1126,18 @@ function showSingleTeamStats(teamName) {
     }
     
     let html = `
-        <div style="max-width: 1200px; margin: 0 auto;">
-            <button onclick="displayTeamStatistics()" style="margin-bottom: 20px; padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.95em; transition: background 0.3s;" onmouseover="this.style.background='#5568d3'" onmouseout="this.style.background='#667eea'">
+        <div class="team-detail-page" style="max-width: 1200px; margin: 0 auto;">
+            <button class="team-detail-back" onclick="displayTeamStatistics()" style="margin-bottom: 20px; padding: 10px 20px; background: #667eea; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.95em; transition: background 0.3s;" onmouseover="this.style.background='#5568d3'" onmouseout="this.style.background='#667eea'">
                 ← Retour aux équipes
             </button>
             
-            <div style="margin-bottom: 25px; padding: 25px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 10px; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-                <h2 style="margin: 0 0 15px 0; font-size: 2em;">${escapeHtml(team.name)}</h2>
-                <div style="margin-bottom: 20px; opacity: 0.95;">
+            <div class="team-detail-hero" style="margin-bottom: 25px; padding: 25px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 10px; color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                <h2 class="team-detail-title" style="margin: 0 0 15px 0; font-size: 2em;">${escapeHtml(team.name)}</h2>
+                <div class="team-detail-meta" style="margin-bottom: 20px; opacity: 0.95;">
                     ${getDivisionBadge(team.division)}
                     <span style="font-size: 0.95em; opacity: 0.9;">${escapeHtml(team.poule || '')}</span>
                 </div>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; text-align: center;">
+                <div class="team-detail-kpis" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; text-align: center;">
                     <div>
                         <div style="font-size: 12px; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px;">Matchs d'équipe</div>
                         <div style="font-size: 32px; font-weight: bold; margin: 5px 0;">${team.matches.victoires}-${team.matches.nuls}-${team.matches.defaites}</div>
@@ -1169,28 +1169,28 @@ function showSingleTeamStats(teamName) {
             const detailsId = `match-details-${teamName}-${matchIdx}`;
             
             html += `
-                <div style="margin-bottom: 15px; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; background: white;">
-                    <div style="padding: 15px; background: ${resultBg}; border-left: 4px solid ${resultColor}; display: flex; justify-content: space-between; align-items: center; cursor: pointer;" onclick="toggleMatchDetails('${detailsId}')">
-                        <div style="flex: 1;">
-                            <div style="font-weight: 700; font-size: 16px; color: #333; margin-bottom: 4px;">
+                <div class="team-match-card" style="margin-bottom: 15px; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; background: white;">
+                    <div class="team-match-header" style="padding: 15px; background: ${resultBg}; border-left: 4px solid ${resultColor}; display: flex; justify-content: space-between; align-items: center; cursor: pointer;" onclick="toggleMatchDetails('${detailsId}')">
+                        <div class="team-match-opponent" style="flex: 1;">
+                            <div class="team-match-opponent-name" style="font-weight: 700; font-size: 16px; color: #333; margin-bottom: 4px;">
                                 ${escapeHtml(match.opponent)}
                             </div>
-                            <div style="font-size: 13px; color: #666;">${match.journee} • ${match.isSTH_A ? '🏠 Domicile' : '✈️ Extérieur'}</div>
+                            <div class="team-match-context" style="font-size: 13px; color: #666;">${match.journee} • ${match.isSTH_A ? '🏠 Domicile' : '✈️ Extérieur'}</div>
                         </div>
-                        <div style="text-align: right; margin-right: 15px;">
-                            <div style="font-size: 24px; font-weight: bold; color: ${resultColor}; margin-bottom: 4px;">${match.score}</div>
-                            <div style="display: inline-block; padding: 4px 12px; background: ${resultColor}; color: white; border-radius: 4px; font-weight: 600; font-size: 12px;">
+                        <div class="team-match-score-block" style="text-align: right; margin-right: 15px;">
+                            <div class="team-match-score" style="font-size: 24px; font-weight: bold; color: ${resultColor}; margin-bottom: 4px;">${match.score}</div>
+                            <div class="team-match-result-badge" style="display: inline-block; padding: 4px 12px; background: ${resultColor}; color: white; border-radius: 4px; font-weight: 600; font-size: 12px;">
                                 ${match.result === 'V' ? 'VICTOIRE' : (match.result === 'D' ? 'DÉFAITE' : 'NUL')}
                             </div>
                         </div>
-                        <div style="font-size: 20px; color: #667eea; transition: transform 0.3s;">
+                        <div class="team-match-chevron" style="font-size: 20px; color: #667eea;">
                             <span id="${detailsId}-icon">▼</span>
                         </div>
                     </div>
             `;
             
             if (match.rencontres && match.rencontres.length > 0) {
-                html += `<div id="${detailsId}" style="display: none; padding: 15px; background: #f9fafb; border-top: 1px solid #e5e7eb;">`;
+                html += `<div id="${detailsId}" class="team-match-details" style="display: none; padding: 15px; background: #f9fafb; border-top: 1px solid #e5e7eb;">`;
                 
                 match.rencontres.forEach((r, idx) => {
                     if (!r.joueur_a || !r.joueur_x) return;
@@ -1286,15 +1286,14 @@ function showSingleTeamStats(teamName) {
 function toggleMatchDetails(detailsId) {
     const detailsDiv = document.getElementById(detailsId);
     const icon = document.getElementById(detailsId + '-icon');
+    if (!detailsDiv || !icon) return;
     
     if (detailsDiv.style.display === 'none') {
         detailsDiv.style.display = 'block';
-        icon.style.transform = 'rotate(180deg)';
-        icon.textContent = '▲';
+        icon.classList.add('open');
     } else {
         detailsDiv.style.display = 'none';
-        icon.style.transform = 'rotate(0deg)';
-        icon.textContent = '▼';
+        icon.classList.remove('open');
     }
 }
 
