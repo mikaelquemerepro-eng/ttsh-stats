@@ -461,6 +461,47 @@ header p {
     margin-left: 10px;
 }
 
+.team-match-details .rencontre-sets-scroll {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: visible;
+    padding-bottom: 2px;
+}
+
+.team-match-details .rencontre-sets-scroll .set-score,
+.team-match-details .rencontre-sets-scroll .rencontre-result {
+    flex: 0 0 auto;
+    white-space: nowrap;
+}
+
+.team-match-details .rencontre-item {
+    min-width: 620px;
+    grid-template-columns: 40px minmax(260px, 1fr) auto;
+    align-items: center;
+}
+
+.team-match-details .rencontre-players {
+    white-space: nowrap;
+}
+
+.team-match-details .rencontre-sets-scroll {
+    margin-top: 0;
+}
+
+.team-match-details {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.team-match-details .rencontre-grid {
+    min-width: 620px;
+}
+
 .stats-table {
     width: 100%;
     border-collapse: collapse;
@@ -948,6 +989,21 @@ header p {
 
     .team-match-context {
         font-size: 0.78em !important;
+    }
+
+    .team-match-details .rencontre-item {
+        min-width: 560px;
+        grid-template-columns: 30px minmax(220px, 1fr) auto;
+        align-items: center;
+    }
+
+    .team-match-details {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .team-match-details .rencontre-grid {
+        min-width: 560px;
     }
     
     /* Rencontre items */

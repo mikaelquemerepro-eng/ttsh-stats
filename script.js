@@ -1260,7 +1260,7 @@ function showSingleTeamStats(teamName) {
                             <div class="rencontre-players">
                                 ${joueurAName} <span class="vs">vs</span> ${joueurXName}
                             </div>
-                            <div class="rencontre-sets">
+                            <div class="rencontre-sets rencontre-sets-scroll">
                                 ${sets}
                                 <span class="rencontre-result">${result}</span>
                             </div>
