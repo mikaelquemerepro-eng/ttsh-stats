@@ -420,7 +420,7 @@ function updatePhaseSelectorLabels() {
 
 function getDefaultDisplayMode(saison) {
     const phases = saison?.phases || {};
-    const activePhase = Object.entries(phases).find(([, phase]) => phase.disponible && phase.statut === 'en_cours');
+    const activePhase = Object.entries(phases).find(([, phase]) => phase.statut === 'en_cours');
     if (activePhase) return activePhase[0];
 
     const availablePhase = Object.entries(phases).find(([, phase]) => phase.disponible);
