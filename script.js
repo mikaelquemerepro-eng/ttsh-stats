@@ -382,6 +382,35 @@ function seasonHasData(saison) {
     return Object.values(saison.phases || {}).some(p => p.disponible);
 }
 
+function renderMobileContextChoice(type) {
+    const select = document.getElementById(type === 'season' ? 'season-select' : 'display-mode');
+    const trigger = document.getElementById(`mobile-${type}-trigger`);
+    const list = document.getElementById(`mobile-${type}-list`);
+    if (!select || !trigger || !list) return;
+    trigger.textContent = select.options[select.selectedIndex]?.textContent || 'Choisir';
+    list.replaceChildren(...Array.from(select.options).map(option => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.textContent = option.textContent;
+        button.className = option.value === select.value ? 'selected' : '';
+        button.addEventListener('click', () => {
+            select.value = option.value;
+            list.classList.remove('open');
+            trigger.setAttribute('aria-expanded', 'false');
+            renderMobileContextChoice(type);
+            type === 'season' ? changeSeason(option.value) : changeDisplayMode(option.value);
+        });
+        return button;
+    }));
+}
+
+function toggleMobileContextChoice(type) {
+    const list = document.getElementById(`mobile-${type}-list`);
+    const trigger = document.getElementById(`mobile-${type}-trigger`);
+    const open = list.classList.toggle('open');
+    trigger.setAttribute('aria-expanded', String(open));
+}
+
 function populateSeasonSelector() {
     const select = document.getElementById('season-select');
     if (!select || !seasonsIndex) return;
@@ -396,6 +425,7 @@ function populateSeasonSelector() {
         option.selected = saison.id === currentSeason;
         select.appendChild(option);
     });
+    renderMobileContextChoice('season');
 
     const wrapper = document.getElementById('season-selector');
     if (wrapper && seasonsIndex.saisons.length < 2) {
@@ -416,6 +446,7 @@ function updatePhaseSelectorLabels() {
         option.textContent = `${phase.libelle} (${phase.statut_libelle})`;
         option.disabled = false;
     });
+    renderMobileContextChoice('phase');
 }
 
 function getDefaultDisplayMode(saison) {
@@ -3695,3 +3726,5 @@ document.addEventListener('keydown', function(event) {
 
 // Load data on page load
 initSeasons().then(loadData);
+document.getElementById('mobile-season-trigger')?.addEventListener('click', () => toggleMobileContextChoice('season'));
+document.getElementById('mobile-phase-trigger')?.addEventListener('click', () => toggleMobileContextChoice('phase'));

@@ -47,6 +47,11 @@
     font-size: 0.85em;
 }
 
+.mobile-context-trigger,
+.mobile-context-list {
+    display: none;
+}
+
 .empty-statistics-state {
     min-height: 320px;
     display: flex;
@@ -109,6 +114,34 @@
     .context-label {
         padding-bottom: 0;
     }
+
+    .context-field > select {
+        display: none;
+    }
+
+    .mobile-context-trigger {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        min-height: 44px;
+        padding: 10px 13px;
+        border: 1px solid #cbd5e1;
+        border-radius: 7px;
+        background: #fff;
+        color: #26364a;
+        cursor: pointer;
+        text-align: left;
+        font-size: .95em;
+        font-weight: 600;
+    }
+
+    .mobile-context-trigger::after { content: "⌄"; color: #4f46e5; font-size: 1.25em; }
+    .mobile-context-trigger[aria-expanded="true"] { border-color: #4f46e5; box-shadow: 0 0 0 3px rgba(79, 70, 229, .15); }
+    .mobile-context-list { position: relative; z-index: 5; display: none; gap: 3px; margin-top: 6px; padding: 5px; border: 1px solid #d6dbe5; border-radius: 7px; background: #fff; box-shadow: 0 8px 20px rgba(31, 41, 55, .14); }
+    .mobile-context-list.open { display: grid; }
+    .mobile-context-list button { min-height: 40px; padding: 8px 10px; border: 0; border-radius: 5px; background: #fff; color: #26364a; cursor: pointer; text-align: left; font-size: .9em; }
+    .mobile-context-list button.selected, .mobile-context-list button:hover { background: #eef2ff; color: #3730a3; font-weight: 700; }
 }
 * {
     margin: 0;
@@ -148,6 +181,13 @@ header p {
     font-size: 1.2em;
     opacity: 0.9;
 }
+
+.site-brand { display:grid; grid-template-columns:56px minmax(0, 1fr); align-items:center; gap:12px; width:min(620px, 100%); margin:0 auto; text-align:left; }
+.site-brand img { display:block; width:56px; height:56px; object-fit:contain; }
+.site-brand h1 { margin-bottom:8px; }
+.site-brand > div { min-width:0; }
+.section-title { display:flex; align-items:center; gap:10px; }
+.section-title-logo { width:36px; height:36px; object-fit:contain; }
 
 .nav-tabs {
     display: flex;
@@ -1356,3 +1396,14 @@ header p {
         grid-template-columns: 1fr !important;
     }
 }
+
+/* Saison et phase utilisent la meme interaction sur desktop et mobile. */
+.display-context .context-field { position:relative; }
+.display-context .context-field > select { display:none; }
+.display-context .mobile-context-trigger { display:flex; align-items:center; justify-content:space-between; width:100%; min-height:42px; padding:9px 12px; border:1px solid #cbd5e1; border-radius:6px; background:#fff; color:#26364a; cursor:pointer; text-align:left; font-size:.95em; font-weight:600; }
+.display-context .mobile-context-trigger::after { content:"⌄"; color:#4f46e5; font-size:1.2em; }
+.display-context .mobile-context-trigger[aria-expanded="true"] { border-color:#4f46e5; box-shadow:0 0 0 3px rgba(79,70,229,.15); }
+.display-context .mobile-context-list { display:none; position:absolute; z-index:20; top:100%; left:0; right:0; gap:3px; margin-top:6px; padding:5px; border:1px solid #d6dbe5; border-radius:7px; background:#fff; box-shadow:0 8px 20px rgba(31,41,55,.14); }
+.display-context .mobile-context-list.open { display:grid; }
+.display-context .mobile-context-list button { min-height:40px; padding:8px 10px; border:0; border-radius:5px; background:#fff; color:#26364a; cursor:pointer; text-align:left; font-size:.9em; }
+.display-context .mobile-context-list button.selected, .display-context .mobile-context-list button:hover { background:#eef2ff; color:#3730a3; font-weight:700; }

@@ -10,15 +10,15 @@
 <body>
     <div class="container" id="main-content">
         <header>
-            <h1>🏓 ST HERBLAIN T.T</h1>
-            <p>Résultats des matchs de tennis de table</p>
+            <div class="site-brand"><img src="ttsh-logo.webp?v=2" alt="Logo ST HERBLAIN T.T"><div><h1>ST HERBLAIN T.T</h1><p>Résultats des matchs de tennis de table</p></div></div>
         </header>
-        
         <section class="display-context" aria-label="Saison et affichage">
             <div class="context-label">Saison :</div>
             <div class="context-field" id="season-selector">
                 <label class="visually-hidden" for="season-select">Saison</label>
                 <select id="season-select" onchange="changeSeason(this.value)"></select>
+                <button class="mobile-context-trigger" id="mobile-season-trigger" type="button" aria-expanded="false"></button>
+                <div class="mobile-context-list" id="mobile-season-list"></div>
             </div>
             <div class="context-field">
                 <label class="visually-hidden" for="display-mode">Phase</label>
@@ -27,6 +27,8 @@
                     <option value="phase2">📈 Phase 2 (en cours)</option>
                     <option value="saison">🏁 Saison consolidée (P1 + P2)</option>
                 </select>
+                <button class="mobile-context-trigger" id="mobile-phase-trigger" type="button" aria-expanded="false"></button>
+                <div class="mobile-context-list" id="mobile-phase-list"></div>
             </div>
             <div id="phase-info" class="phase-context-info"><span id="phase-description">Affichage de la phase en cours</span></div>
         </section>
@@ -80,7 +82,7 @@
             
             <!-- Section Stats Club -->
             <div id="stats-club" class="main-section">
-                <h2 class="section-title">🏆 Statistiques du club ST HERBLAIN T.T</h2>
+                <h2 class="section-title">🏆 Statistiques du club <img class="section-title-logo" src="ttsh-logo.webp?v=2" alt=""> ST HERBLAIN T.T</h2>
                 <div id="stats-club-content">
                     <p style="text-align: center; color: #999; padding: 40px;">Chargement des statistiques...</p>
                 </div>
