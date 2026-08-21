@@ -1,0 +1,425 @@
+{
+  "division": "D44 D1 SENIORS Féminin",
+  "equipe_ttsh": "TTSHF01",
+  "equipes": {
+    "equipe_a": {
+      "joueurs": [
+        {
+          "lettre": "A",
+          "licence": "4472711",
+          "nom": "DUPIN",
+          "points": 500,
+          "prenom": "Florence"
+        },
+        {
+          "lettre": "B",
+          "licence": "4471346",
+          "nom": "GARNIER",
+          "points": 500,
+          "prenom": "Isabelle"
+        },
+        {
+          "lettre": "C",
+          "licence": "4462715",
+          "nom": "JAVEL",
+          "points": 545,
+          "prenom": "Marie Pierre"
+        }
+      ],
+      "nom": "ST PHILBERT"
+    },
+    "equipe_x": {
+      "joueurs": [
+        {
+          "lettre": "X",
+          "licence": "4475182",
+          "nom": "BELLAGAMBA",
+          "points": 500,
+          "prenom": "Laurine"
+        },
+        {
+          "lettre": "Y",
+          "licence": "319256",
+          "nom": "MARIE",
+          "points": 765,
+          "prenom": "Fanny"
+        },
+        {
+          "lettre": "Z",
+          "licence": "4470504",
+          "nom": "ORHAN",
+          "points": 500,
+          "prenom": "Maryline"
+        }
+      ],
+      "nom": "ST HERBLAIN T.T"
+    }
+  },
+  "expected_matches": 10,
+  "poule": null,
+  "rencontres": [
+    {
+      "joueur_a": {
+        "lettre": "A",
+        "nom": "DUPIN",
+        "prenom": "Florence"
+      },
+      "joueur_x": {
+        "lettre": "X",
+        "nom": "BELLAGAMBA",
+        "prenom": "Laurine"
+      },
+      "numero": 1,
+      "score_match": "1-0",
+      "sets": [
+        {
+          "equipe_a": 11,
+          "equipe_x": 9,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 5,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 12,
+          "equipe_x": 10,
+          "gagnant": "A"
+        }
+      ],
+      "type": "simple",
+      "vainqueur": "A"
+    },
+    {
+      "joueur_a": {
+        "lettre": "B",
+        "nom": "GARNIER",
+        "prenom": "Isabelle"
+      },
+      "joueur_x": {
+        "lettre": "Y",
+        "nom": "MARIE",
+        "prenom": "Fanny"
+      },
+      "numero": 2,
+      "score_match": "0-1",
+      "sets": [
+        {
+          "equipe_a": 5,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 3,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 5,
+          "equipe_x": 11,
+          "gagnant": "X"
+        }
+      ],
+      "type": "simple",
+      "vainqueur": "X"
+    },
+    {
+      "joueur_a": {
+        "lettre": "C",
+        "nom": "JAVEL",
+        "prenom": "Marie Pierre"
+      },
+      "joueur_x": {
+        "lettre": "Z",
+        "nom": "ORHAN",
+        "prenom": "Maryline"
+      },
+      "numero": 3,
+      "score_match": "0-1",
+      "sets": [
+        {
+          "equipe_a": 7,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 7,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 6,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 7,
+          "equipe_x": 11,
+          "gagnant": "X"
+        }
+      ],
+      "type": "simple",
+      "vainqueur": "X"
+    },
+    {
+      "joueur_a": {
+        "lettre": "B",
+        "nom": "GARNIER",
+        "prenom": "Isabelle"
+      },
+      "joueur_x": {
+        "lettre": "X",
+        "nom": "BELLAGAMBA",
+        "prenom": "Laurine"
+      },
+      "numero": 4,
+      "score_match": "0-1",
+      "sets": [
+        {
+          "equipe_a": 11,
+          "equipe_x": 9,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 7,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 6,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 0,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 5,
+          "equipe_x": 11,
+          "gagnant": "X"
+        }
+      ],
+      "type": "simple",
+      "vainqueur": "X"
+    },
+    {
+      "joueur_a": {
+        "joueur2": {
+          "nom": "JAVEL",
+          "prenom": "Marie Pierre"
+        },
+        "lettre": "A/C",
+        "nom": "DUPIN",
+        "prenom": "Florence"
+      },
+      "joueur_x": {
+        "joueur2": {
+          "nom": "ORHAN",
+          "prenom": "Maryline"
+        },
+        "lettre": "X/Z",
+        "nom": "BELLAGAMBA",
+        "prenom": "Laurine"
+      },
+      "numero": 5,
+      "score_match": "0-1",
+      "sets": [
+        {
+          "equipe_a": 9,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 9,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 3,
+          "equipe_x": 11,
+          "gagnant": "X"
+        }
+      ],
+      "type": "double",
+      "vainqueur": "X"
+    },
+    {
+      "joueur_a": {
+        "lettre": "A",
+        "nom": "DUPIN",
+        "prenom": "Florence"
+      },
+      "joueur_x": {
+        "lettre": "Z",
+        "nom": "ORHAN",
+        "prenom": "Maryline"
+      },
+      "numero": 6,
+      "score_match": "1-0",
+      "sets": [
+        {
+          "equipe_a": 11,
+          "equipe_x": 9,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 5,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 12,
+          "equipe_x": 10,
+          "gagnant": "A"
+        }
+      ],
+      "type": "simple",
+      "vainqueur": "A"
+    },
+    {
+      "joueur_a": {
+        "lettre": "C",
+        "nom": "JAVEL",
+        "prenom": "Marie Pierre"
+      },
+      "joueur_x": {
+        "lettre": "Y",
+        "nom": "MARIE",
+        "prenom": "Fanny"
+      },
+      "numero": 7,
+      "score_match": "0-1",
+      "sets": [
+        {
+          "equipe_a": 10,
+          "equipe_x": 12,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 10,
+          "equipe_x": 12,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 3,
+          "equipe_x": 11,
+          "gagnant": "X"
+        }
+      ],
+      "type": "simple",
+      "vainqueur": "X"
+    },
+    {
+      "joueur_a": {
+        "lettre": "B",
+        "nom": "GARNIER",
+        "prenom": "Isabelle"
+      },
+      "joueur_x": {
+        "lettre": "Z",
+        "nom": "ORHAN",
+        "prenom": "Maryline"
+      },
+      "numero": 8,
+      "score_match": "0-1",
+      "sets": [
+        {
+          "equipe_a": 9,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 13,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 4,
+          "equipe_x": 11,
+          "gagnant": "X"
+        }
+      ],
+      "type": "simple",
+      "vainqueur": "X"
+    },
+    {
+      "joueur_a": {
+        "lettre": "C",
+        "nom": "JAVEL",
+        "prenom": "Marie Pierre"
+      },
+      "joueur_x": {
+        "lettre": "X",
+        "nom": "BELLAGAMBA",
+        "prenom": "Laurine"
+      },
+      "numero": 9,
+      "score_match": "0-1",
+      "sets": [
+        {
+          "equipe_a": 1,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 8,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 9,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 8,
+          "equipe_x": 11,
+          "gagnant": "X"
+        }
+      ],
+      "type": "simple",
+      "vainqueur": "X"
+    },
+    {
+      "joueur_a": {
+        "lettre": "A",
+        "nom": "DUPIN",
+        "prenom": "Florence"
+      },
+      "joueur_x": {
+        "lettre": "Y",
+        "nom": "MARIE",
+        "prenom": "Fanny"
+      },
+      "numero": 10,
+      "score_match": "0-1",
+      "sets": [
+        {
+          "equipe_a": 3,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 8,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 5,
+          "equipe_x": 11,
+          "gagnant": "X"
+        }
+      ],
+      "type": "simple",
+      "vainqueur": "X"
+    }
+  ],
+  "resultat_global": {
+    "equipe_a": 2,
+    "equipe_x": 8,
+    "vainqueur": "X"
+  }
+}

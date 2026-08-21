@@ -1,19 +1,39 @@
 let allData = {};
 let currentStatsJournee = 'all';
-let currentDisplayMode = 'phase2';  // 'phase1' ou 'phase2' (combined désactivé)
+let currentDisplayMode = 'phase1';
+let currentTeamsPhaseView = 'phase1';
 let teamDataPhase1 = null;  // Cache pour données équipes P1
 let teamDataPhase2 = null;  // Cache pour données équipes P2
+let seasonsIndex = null;    // Contenu de seasons.json
+let currentSeason = null;   // Saison affichée (ex: '2025-2026')
+
+// Préfixe toutes les ressources de données par la saison affichée
+function seasonUrl(path) {
+    return currentSeason ? `${currentSeason}/${path}` : path;
+}
 
 // Map des fichiers de statistiques selon le mode
 const statsFilesByMode = {
     'phase1': 'statistiques_p1_seule.json',
-    'phase2': 'statistiques_p2_seule.json'
+    'phase2': 'statistiques_p2_seule.json',
+    'saison': null
 };
 
 const modeDescriptions = {
-    // 'phase1': '🔒 Affichage de la Phase 1 seule (données bloquées)',
-    // 'phase2': '📈 Affichage de la Phase 2 seule (données en cours de calcul)'
+    'phase1': 'Affichage de la Phase 1 uniquement',
+    'phase2': 'Affichage de la Phase 2 uniquement',
+    'saison': 'Affichage consolidé de la saison (Phase 1 + Phase 2)'
 };
+
+function emptyStatisticsState(title = 'Statistiques à venir', message = 'Les données apparaîtront dès que cette phase aura commencé.') {
+    return `
+        <div class="empty-statistics-state" role="status">
+            <div class="empty-statistics-visual" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+            <h3>${title}</h3>
+            <p>${message}</p>
+        </div>
+    `;
+}
 
 // Fonction de validation des données
 function validateMatchData(data) {
@@ -28,7 +48,21 @@ function validateMatchData(data) {
 }
 
 function validateStatsData(data) {
-    return data && data.joueurs && typeof data.joueurs === 'object';
+    return data && typeof data === 'object' && !Array.isArray(data);
+}
+
+function normalizeStatsData(data) {
+    const stats = validateStatsData(data) ? data : {};
+    return {
+        ...stats,
+        joueurs: stats.joueurs && typeof stats.joueurs === 'object' ? stats.joueurs : {},
+        equipes: stats.equipes && typeof stats.equipes === 'object' ? stats.equipes : {},
+        journees: stats.journees && typeof stats.journees === 'object' ? stats.journees : {},
+        totaux: stats.totaux && typeof stats.totaux === 'object' ? stats.totaux : {
+            nombre_journees: 0,
+            nombre_rencontres: 0
+        }
+    };
 }
 
 // Fonction de sanitization pour innerHTML
@@ -47,6 +81,85 @@ function normalizePlayerNameString(prenom, nom) {
         part.charAt(0).toUpperCase() + part.slice(1).toLowerCase()
     ).join('-');
     return `${prenomNormalized} ${nomUpper}`;
+}
+
+function getJourneeDomKey(journeeId) {
+    return journeeId.toLowerCase().replace(/[^a-z0-9]/g, '-');
+}
+
+function formatJourneeLabel(journeeId) {
+    let phaseLabel = '';
+    let rawJournee = journeeId;
+
+    if (journeeId.startsWith('P1::')) {
+        phaseLabel = 'P1 • ';
+        rawJournee = journeeId.slice(4);
+    } else if (journeeId.startsWith('P2::')) {
+        phaseLabel = 'P2 • ';
+        rawJournee = journeeId.slice(4);
+    }
+
+    const match = rawJournee.match(/J(\d+)_(\d{4})(\d{2})(\d{2})/);
+    if (!match) return `${phaseLabel}${rawJournee}`;
+
+    return `${phaseLabel}J${match[1]} - ${match[4]}/${match[3]}/${match[2]}`;
+}
+
+function mergeStatsData(phase1Data, phase2Data) {
+    const merged = {
+        joueurs: {},
+        totaux: {
+            nombre_rencontres: 0,
+            nombre_journees: 0
+        },
+        journees: {}
+    };
+
+    const mergeFrom = (source) => {
+        if (!source) return;
+
+        Object.entries(source.joueurs || {}).forEach(([nom, player]) => {
+            if (!merged.joueurs[nom]) {
+                merged.joueurs[nom] = {
+                    licence: player.licence || '',
+                    nom_complet: player.nom_complet || nom,
+                    points_officiels: player.points_officiels || 0,
+                    matches: { total: 0, victoires: 0, defaites: 0, taux_victoire: 0 },
+                    sets: { gagnes: 0, perdus: 0, total: 0, ratio: 0 },
+                    performance_classement: { score: 0 }
+                };
+            }
+
+            const target = merged.joueurs[nom];
+            target.licence ||= player.licence || '';
+            target.nom_complet ||= player.nom_complet || nom;
+            target.points_officiels = Math.max(target.points_officiels, player.points_officiels || 0);
+            target.matches.total += player.matches?.total || 0;
+            target.matches.victoires += player.matches?.victoires || 0;
+            target.matches.defaites += player.matches?.defaites || 0;
+            target.sets.gagnes += player.sets?.gagnes || 0;
+            target.sets.perdus += player.sets?.perdus || 0;
+            target.performance_classement.score += player.performance_classement?.score || 0;
+
+        });
+
+        merged.totaux.nombre_rencontres += source.totaux?.nombre_rencontres || 0;
+        merged.totaux.nombre_journees += source.totaux?.nombre_journees || 0;
+        Object.assign(merged.journees, source.journees || {});
+    };
+
+    mergeFrom(phase1Data);
+    mergeFrom(phase2Data);
+
+    Object.values(merged.joueurs).forEach(player => {
+        player.sets.total = player.sets.gagnes + player.sets.perdus;
+        player.sets.ratio = player.sets.total > 0 ? player.sets.gagnes / player.sets.total : 0;
+        player.matches.taux_victoire = player.matches.total > 0
+            ? Math.round((player.matches.victoires / player.matches.total) * 100)
+            : 0;
+    });
+
+    return merged;
 }
 
 // Récupère le ratio de sets utilisé en départage de tri.
@@ -103,53 +216,79 @@ async function loadVersionInfo() {
 
 async function loadData() {
     try {
-        // Charger d'abord les statistiques pour connaître les journées disponibles
-        const statsFile = statsFilesByMode[currentDisplayMode] || 'statistiques.json';
-        const statsResponse = await fetch(statsFile);
-        if (!statsResponse.ok) {
-            throw new Error(`Erreur lors du chargement des statistiques (${statsFile})`);
-        }
-        
-        const statsData = await statsResponse.json();
-        
-        // Validation des données
-        if (!validateStatsData(statsData)) {
-            throw new Error('Données de statistiques invalides');
-        }
-        
-        allData['statistiques'] = statsData;
-        
-        // En parallèle, charger les données P1 et P2 séparement pour les équipes
-        loadTeamDataByPhase();
-        
-        // Extraire les journées uniques des données de joueurs
-        const journees = new Set();
-        Object.values(statsData.joueurs).forEach(joueur => {
-            if (joueur.journees && Array.isArray(joueur.journees)) {
-                joueur.journees.forEach(j => journees.add(j.journee));
-            }
-        });
-        
-        // Trier les journées par ordre chronologique
-        const journeesArray = Array.from(journees).sort();
-        
-        // Déterminer le préfixe de chemin selon la phase
-        const journeePathPrefix = currentDisplayMode === 'phase1' ? 'phase1/' : 'phase2/';
-        
-        // Charger les données de chaque journée
-        for (const journee of journeesArray) {
-            try {
-                const journeePath = `${journeePathPrefix}${journee}/tous_les_matchs.json`;
-                const response = await fetch(journeePath);
-                if (response.ok) {
+        const loadStatsFile = async (file) => {
+            const response = await fetch(file);
+            if (!response.ok) return null;
+            const raw = await response.text();
+            if (!raw.trim()) return normalizeStatsData({});
+            return normalizeStatsData(JSON.parse(raw));
+        };
+
+        const loadJourneesForStats = async (statsData, pathPrefix, keyPrefix = '') => {
+            if (!statsData?.journees) return [];
+
+            const ordered = Object.keys(statsData.journees).sort();
+            for (const journee of ordered) {
+                try {
+                    const response = await fetch(seasonUrl(`${pathPrefix}${journee}/tous_les_matchs.json`));
+                    if (!response.ok) continue;
+
                     const data = await response.json();
-                    if (validateMatchData(data)) {
-                        allData[journee] = data;
-                    }
+                    if (!validateMatchData(data)) continue;
+
+                    const key = keyPrefix ? `${keyPrefix}::${journee}` : journee;
+                    allData[key] = data;
+                } catch (e) {
+                    // Ignorer les journées non disponibles
                 }
-            } catch (e) {
-                // Ignorer les journées non disponibles
             }
+
+            return ordered.map(j => keyPrefix ? `${keyPrefix}::${j}` : j);
+        };
+
+        allData = {};
+        cachedTeamStats = null;
+        let journeesArray = [];
+
+        if (currentDisplayMode === 'saison') {
+            const [statsP1, statsP2] = await Promise.all([
+                loadStatsFile(seasonUrl('statistiques_p1_seule.json')),
+                loadStatsFile(seasonUrl('statistiques_p2_seule.json'))
+            ]);
+
+            teamDataPhase1 = statsP1 || normalizeStatsData({});
+            teamDataPhase2 = statsP2 || normalizeStatsData({});
+
+            if (teamDataPhase1) {
+                await loadJourneesForPhase(teamDataPhase1, 'phase1');
+            }
+            if (teamDataPhase2) {
+                await loadJourneesForPhase(teamDataPhase2, 'phase2');
+            }
+
+            allData['statistiques'] = mergeStatsData(teamDataPhase1, teamDataPhase2);
+
+            const p1Journees = statsP1 ? await loadJourneesForStats(statsP1, 'phase1/', 'P1') : [];
+            const p2Journees = statsP2 ? await loadJourneesForStats(statsP2, 'phase2/', 'P2') : [];
+            journeesArray = [...p1Journees, ...p2Journees];
+        } else {
+            const statsFile = statsFilesByMode[currentDisplayMode] || 'statistiques.json';
+            const statsData = await loadStatsFile(seasonUrl(statsFile)) || normalizeStatsData({});
+
+            allData['statistiques'] = statsData;
+            journeesArray = await loadJourneesForStats(
+                statsData,
+                currentDisplayMode === 'phase1' ? 'phase1/' : 'phase2/'
+            );
+
+            if (currentDisplayMode === 'phase1') {
+                currentTeamsPhaseView = 'phase1';
+            } else if (currentDisplayMode === 'phase2') {
+                currentTeamsPhaseView = 'phase2';
+            }
+
+            // Charger les deux phases en cache pour l'onglet équipes
+            loadTeamDataByPhase();
         }
         
         // Créer dynamiquement les onglets de journées
@@ -177,7 +316,7 @@ async function loadData() {
 async function loadTeamDataByPhase() {
     // Charger les données P1 pour les équipes
     try {
-        const response1 = await fetch('statistiques_p1_seule.json');
+        const response1 = await fetch(seasonUrl('statistiques_p1_seule.json'));
         if (response1.ok) {
             teamDataPhase1 = await response1.json();
             // Charger aussi les journées de Phase 1
@@ -189,7 +328,7 @@ async function loadTeamDataByPhase() {
     
     // Charger les données P2 pour les équipes
     try {
-        const response2 = await fetch('statistiques_p2_seule.json');
+        const response2 = await fetch(seasonUrl('statistiques_p2_seule.json'));
         if (response2.ok) {
             teamDataPhase2 = await response2.json();
             // Charger aussi les journées de Phase 2
@@ -214,7 +353,7 @@ async function loadJourneesForPhase(statsData, phase) {
     for (const journeeId of Object.keys(statsData.journees)) {
         try {
             const journeePath = `${pathPrefix}${journeeId}/tous_les_matchs.json`;
-            const response = await fetch(journeePath);
+            const response = await fetch(seasonUrl(journeePath));
             if (response.ok) {
                 const data = await response.json();
                 if (Array.isArray(data)) {
@@ -225,6 +364,94 @@ async function loadJourneesForPhase(statsData, phase) {
             // Ignorer les journées non disponibles
         }
     }
+}
+
+async function loadSeasonsIndex() {
+    try {
+        const response = await fetch('seasons.json');
+        if (!response.ok) return null;
+        const data = await response.json();
+        if (!data || !Array.isArray(data.saisons) || data.saisons.length === 0) return null;
+        return data;
+    } catch (e) {
+        return null;
+    }
+}
+
+function seasonHasData(saison) {
+    return Object.values(saison.phases || {}).some(p => p.disponible);
+}
+
+function populateSeasonSelector() {
+    const select = document.getElementById('season-select');
+    if (!select || !seasonsIndex) return;
+
+    select.textContent = '';
+    seasonsIndex.saisons.forEach(saison => {
+        const option = document.createElement('option');
+        option.value = saison.id;
+        const suffix = seasonHasData(saison) ? '' : ' — sans données';
+        option.textContent = `${saison.libelle} (${saison.statut_libelle})${suffix}`;
+        option.disabled = false;
+        option.selected = saison.id === currentSeason;
+        select.appendChild(option);
+    });
+
+    const wrapper = document.getElementById('season-selector');
+    if (wrapper && seasonsIndex.saisons.length < 2) {
+        wrapper.style.display = 'none';
+    }
+}
+
+function updatePhaseSelectorLabels() {
+    const select = document.getElementById('display-mode');
+    if (!select || !seasonsIndex) return;
+
+    const saison = seasonsIndex.saisons.find(s => s.id === currentSeason);
+    if (!saison) return;
+
+    Array.from(select.options).forEach(option => {
+        const phase = saison.phases?.[option.value];
+        if (!phase) return;
+        option.textContent = `${phase.libelle} (${phase.statut_libelle})`;
+        option.disabled = false;
+    });
+}
+
+function getDefaultDisplayMode(saison) {
+    const phases = saison?.phases || {};
+    const activePhase = Object.entries(phases).find(([, phase]) => phase.disponible && phase.statut === 'en_cours');
+    if (activePhase) return activePhase[0];
+
+    const availablePhase = Object.entries(phases).find(([, phase]) => phase.disponible);
+    return availablePhase ? availablePhase[0] : 'saison';
+}
+
+async function initSeasons() {
+    seasonsIndex = await loadSeasonsIndex();
+    if (!seasonsIndex) return;
+
+    const preferred = seasonsIndex.saisons.find(s => s.id === seasonsIndex.saison_courante);
+    currentSeason = (preferred || seasonsIndex.saisons[0]).id;
+
+    populateSeasonSelector();
+    updatePhaseSelectorLabels();
+    const saison = seasonsIndex.saisons.find(s => s.id === currentSeason);
+    currentDisplayMode = getDefaultDisplayMode(saison);
+    currentTeamsPhaseView = currentDisplayMode;
+    const displaySelect = document.getElementById('display-mode');
+    if (displaySelect) displaySelect.value = currentDisplayMode;
+}
+
+async function changeSeason(seasonId) {
+    if (!seasonId || seasonId === currentSeason) return;
+
+    currentSeason = seasonId;
+    teamDataPhase1 = null;
+    teamDataPhase2 = null;
+    updatePhaseSelectorLabels();
+    const saison = seasonsIndex.saisons.find(s => s.id === currentSeason);
+    await changeDisplayMode(getDefaultDisplayMode(saison));
 }
 
 async function changeDisplayMode(mode) {
@@ -390,27 +617,30 @@ function createJourneesTabs(journees) {
     sidebarTabs.innerHTML = '';
     subContent.innerHTML = '';
     
+    if (journees.length === 0) {
+        subContent.innerHTML = emptyStatisticsState('Journées à venir', 'Les journées et les résultats apparaîtront dès que cette phase aura commencé.');
+        return;
+    }
+
     // Créer un onglet et une section pour chaque journée
     journees.forEach((journee, index) => {
-        // Formater la date (ex: J1_20250921 -> J1 - 21/09/2025)
-        const match = journee.match(/J(\d+)_(\d{4})(\d{2})(\d{2})/);
-        const label = match ? 
-            `J${match[1]} - ${match[4]}/${match[3]}/${match[2]}` : 
-            journee;
-        
-        // Créer l'onglet
+        const label = formatJourneeLabel(journee);
+
         const tab = document.createElement('button');
         tab.className = 'sidebar-tab' + (index === 0 ? ' active' : '');
         tab.textContent = label;
         tab.onclick = function() { showJournee(journee, this); };
         sidebarTabs.appendChild(tab);
+    });
         
+    // Créer les sections de contenu
+    journees.forEach((journee, index) => {
         // Créer la section de contenu
         const section = document.createElement('div');
         section.id = journee;
         section.className = 'journee-section' + (index === 0 ? ' active' : '');
         
-        const journeeKey = journee.toLowerCase().replace('_', '-');
+        const journeeKey = getJourneeDomKey(journee);
         
         section.innerHTML = `
             <div class="stats-grid">
@@ -467,35 +697,96 @@ function createStatsJourneeTabs(journees) {
     if (!container) return;
     
     container.innerHTML = '';
-    
-    // Bouton "Toutes journées"
-    const allBtn = document.createElement('button');
-    allBtn.className = 'nav-tab active';
-    allBtn.textContent = '🌐 Toutes journées';
-    allBtn.onclick = function() { showStatsJournee('all', this); };
-    container.appendChild(allBtn);
-    
-    // Boutons pour chaque journée
-    journees.forEach(journee => {
-        const match = journee.match(/J(\d+)_(\d{4})(\d{2})(\d{2})/);
-        const label = match ? 
-            `J${match[1]} - ${match[4]}/${match[3]}/${match[2]}` : 
-            journee;
-        
+    const createButton = (label, journeeId, isActive = false, isHtml = false) => {
         const btn = document.createElement('button');
-        btn.className = 'nav-tab';
-        btn.textContent = label;
-        btn.onclick = function() { showStatsJournee(journee, this); };
-        container.appendChild(btn);
+        btn.className = isActive ? 'nav-tab active' : 'nav-tab';
+        if (isHtml) {
+            btn.innerHTML = label;
+            btn.classList.add('stats-tab-two-lines');
+        } else {
+            btn.textContent = label;
+        }
+        btn.onclick = function() { showStatsJournee(journeeId, this); };
+        return btn;
+    };
+
+    const formatJourneeTwoLines = (journeeId) => {
+        const raw = (journeeId.startsWith('P1::') || journeeId.startsWith('P2::'))
+            ? journeeId.slice(4)
+            : journeeId;
+        const match = raw.match(/J(\d+)_(\d{4})(\d{2})(\d{2})/);
+        if (!match) {
+            return { top: raw, bottom: '' };
+        }
+        return {
+            top: `J${match[1]}`,
+            bottom: `${match[4]}/${match[3]}/${match[2]}`
+        };
+    };
+
+    if (currentDisplayMode === 'saison') {
+        container.classList.add('season-three-rows');
+
+        const allLine = document.createElement('div');
+        allLine.className = 'stats-all-line';
+        allLine.appendChild(createButton('🌐 Toutes journées', 'all', true));
+        container.appendChild(allLine);
+
+        const createPhaseLine = (prefix, title) => {
+            const phaseLine = document.createElement('div');
+            phaseLine.className = 'stats-phase-line';
+
+            const phaseLabel = document.createElement('button');
+            phaseLabel.className = 'stats-phase-label nav-tab';
+            phaseLabel.textContent = title;
+            phaseLabel.onclick = function() {
+                showStatsJournee(prefix === 'P1' ? 'phase1_all' : 'phase2_all', this);
+            };
+
+            const tabs = document.createElement('div');
+            tabs.className = 'nav-tabs stats-journee-row-tabs';
+
+            journees.filter(j => j.startsWith(`${prefix}::`)).forEach(journee => {
+                const split = formatJourneeTwoLines(journee);
+                const htmlLabel = `<span class="stats-tab-top">${split.top}</span><span class="stats-tab-bottom">${split.bottom}</span>`;
+                tabs.appendChild(createButton(htmlLabel, journee, false, true));
+            });
+
+            phaseLine.appendChild(phaseLabel);
+            phaseLine.appendChild(tabs);
+            container.appendChild(phaseLine);
+        };
+
+        createPhaseLine('P1', 'Phase 1');
+        createPhaseLine('P2', 'Phase 2');
+        return;
+    }
+
+    container.classList.remove('season-three-rows');
+    container.appendChild(createButton('🌐 Toutes journées', 'all', true));
+
+    // Boutons pour chaque journée (modes phase simple)
+    journees.forEach(journee => {
+        const split = formatJourneeTwoLines(journee);
+        const htmlLabel = `<span class="stats-tab-top">${split.top}</span><span class="stats-tab-bottom">${split.bottom}</span>`;
+        container.appendChild(createButton(htmlLabel, journee, false, true));
     });
 }
 
 function showStatsJournee(journeeId, element) {
     // Update tabs
-    const parent = element.parentElement;
-    parent.querySelectorAll('.nav-tab').forEach(tab => {
-        tab.classList.remove('active');
-    });
+    const container = document.getElementById('stats-journee-tabs');
+    if (container) {
+        container.querySelectorAll('.nav-tab').forEach(tab => {
+            tab.classList.remove('active');
+        });
+    } else {
+        const parent = element.parentElement;
+        parent.querySelectorAll('.nav-tab').forEach(tab => {
+            tab.classList.remove('active');
+        });
+    }
+
     element.classList.add('active');
     
     currentStatsJournee = journeeId;
@@ -603,9 +894,13 @@ function calculateJourneeStats(journeeId, countDoublesAsOne = true) {
                     if (!isTTSH) return;
                     
                     const nomComplet = normalizePlayerNameString(joueur.prenom, joueur.nom);
+                    const licence = String(joueurData.licence || '').trim();
+                    const playerKey = licence ? `licence:${licence}` : `nom:${nomComplet}`;
                     
-                    if (!joueurs[nomComplet]) {
-                        joueurs[nomComplet] = {
+                    if (!joueurs[playerKey]) {
+                        joueurs[playerKey] = {
+                            nom: nomComplet,
+                            licence,
                             points_officiels: joueurData.points,
                             matches: { total: 0, victoires: 0, defaites: 0, taux_victoire: 0 },
                             sets: { gagnes: 0, perdus: 0, total: 0, ratio: 0 },
@@ -613,7 +908,10 @@ function calculateJourneeStats(journeeId, countDoublesAsOne = true) {
                         };
                     }
                     
-                    const stats = joueurs[nomComplet];
+                    const stats = joueurs[playerKey];
+                    if (nomComplet.includes('-') && !stats.nom.includes('-')) {
+                        stats.nom = nomComplet;
+                    }
                     // Pour les doubles, compter 0.5 ou 1 selon le paramètre
                     const matchValue = (rencontre.type === 'double' && !countDoublesAsOne) ? 0.5 : 1;
                     stats.matches.total += matchValue;
@@ -698,8 +996,8 @@ function calculateJourneeStats(journeeId, countDoublesAsOne = true) {
         }
     });
     
-    return Object.entries(joueurs).map(([nom, data]) => ({
-        nom: nom,
+    return Object.entries(joueurs).map(([playerKey, data]) => ({
+        playerKey,
         ...data
     }));
 }
@@ -708,6 +1006,8 @@ function displayStatistics(journeeFilter = 'all') {
     if (!allData['statistiques']) {
         return;
     }
+
+    currentStatsJournee = journeeFilter;
     
     const stats = allData['statistiques'];
     let joueurs = stats.joueurs;
@@ -716,6 +1016,46 @@ function displayStatistics(journeeFilter = 'all') {
     // IMPORTANT: ici on garde doubles=0.5 pour les tableaux
     if (journeeFilter !== 'all' && allData[journeeFilter]) {
         joueurs = calculateJourneeStats(journeeFilter, false); // false = doubles comptent 0.5
+    } else if (journeeFilter === 'phase1_all' || journeeFilter === 'phase2_all') {
+        const prefix = journeeFilter === 'phase1_all' ? 'P1::' : 'P2::';
+        const mergedPlayers = {};
+
+        Object.keys(allData)
+            .filter(k => k.startsWith(prefix))
+            .forEach(journeeId => {
+                const dayStats = calculateJourneeStats(journeeId, false);
+                dayStats.forEach(player => {
+                    if (!mergedPlayers[player.playerKey]) {
+                        mergedPlayers[player.playerKey] = {
+                            playerKey: player.playerKey,
+                            nom: player.nom,
+                            licence: player.licence,
+                            points_officiels: player.points_officiels || 0,
+                            matches: { total: 0, victoires: 0, defaites: 0, taux_victoire: 0 },
+                            sets: { gagnes: 0, perdus: 0, total: 0, ratio: 0 },
+                            performance_classement: { score: 0 }
+                        };
+                    }
+
+                    const target = mergedPlayers[player.playerKey];
+                    target.points_officiels = Math.max(target.points_officiels, player.points_officiels || 0);
+                    target.matches.total += player.matches.total || 0;
+                    target.matches.victoires += player.matches.victoires || 0;
+                    target.matches.defaites += player.matches.defaites || 0;
+                    target.sets.gagnes += player.sets.gagnes || 0;
+                    target.sets.perdus += player.sets.perdus || 0;
+                    target.performance_classement.score += player.performance_classement?.score || 0;
+                });
+            });
+
+        joueurs = Object.values(mergedPlayers).map(player => {
+            player.sets.total = player.sets.gagnes + player.sets.perdus;
+            player.sets.ratio = player.sets.total > 0 ? player.sets.gagnes / player.sets.total : 0;
+            player.matches.taux_victoire = player.matches.total > 0
+                ? Math.round((player.matches.victoires / player.matches.total) * 100)
+                : 0;
+            return player;
+        });
     } else {
         // Pour 'all', convertir l'objet statistiques en tableau avec nom
         joueurs = Object.entries(joueurs).map(([nom, data]) => ({
@@ -725,7 +1065,7 @@ function displayStatistics(journeeFilter = 'all') {
     }
     
     // Filtrer les joueurs avec au moins 3 matches (ou 1 si journée spécifique)
-    const minMatches = journeeFilter === 'all' ? 3 : 1;
+    const minMatches = (journeeFilter === 'all' || journeeFilter === 'phase1_all' || journeeFilter === 'phase2_all') ? 3 : 1;
     const joueursArray = joueurs.filter(j => j.matches.total >= minMatches);
     
     // Trier par victoires, perf classement, puis ratio sets en cas d'égalité
@@ -735,13 +1075,24 @@ function displayStatistics(journeeFilter = 'all') {
     if (!container) {
         return;
     }
+    if (Object.keys(stats.joueurs || {}).length === 0 && Object.keys(stats.journees || {}).length === 0) {
+        container.innerHTML = emptyStatisticsState();
+        return;
+    }
     
     let journeeTitle = 'Toutes journées confondues';
     if (journeeFilter !== 'all') {
-        const match = journeeFilter.match(/J(\d+)_(\d{4})(\d{2})(\d{2})/);
-        journeeTitle = match ? `Journée ${match[1]} - ${match[4]}/${match[3]}/${match[2]}` : journeeFilter;
+        if (journeeFilter === 'phase1_all') {
+            journeeTitle = 'Phase 1 - Toutes journées';
+        } else if (journeeFilter === 'phase2_all') {
+            journeeTitle = 'Phase 2 - Toutes journées';
+        } else {
+            journeeTitle = formatJourneeLabel(journeeFilter);
+        }
     }
-    const minMatchesText = journeeFilter === 'all' ? '(minimum 3 matches)' : '';
+    const minMatchesText = (journeeFilter === 'all' || journeeFilter === 'phase1_all' || journeeFilter === 'phase2_all')
+        ? '(minimum 3 matches)'
+        : '';
     
     let html = `
         <h3 style="color: #667eea; margin-bottom: 20px;">🏆 Classement des joueurs - ${journeeTitle} ${minMatchesText}</h3>
@@ -772,7 +1123,7 @@ function displayStatistics(journeeFilter = 'all') {
         const perfSign = perfScore > 0 ? '+' : '';
         
         html += `
-            <tr onclick="showPlayerDetail('${joueur.nom.replace(/'/g, "\\'")}');" style="cursor: pointer;">
+            <tr onclick="showPlayerDetail('${joueur.nom.replace(/'/g, "\\'")}', '${joueur.licence || ''}');" style="cursor: pointer;">
                 <td class="rank">${index + 1}</td>
                 <td class="player-name-cell">${escapeHtml(joueur.nom)}</td>
                 <td><span class="stats-badge badge-info">${joueur.points_officiels} pts</span></td>
@@ -930,50 +1281,73 @@ function collectTeamStatistics() {
 }
 
 function displayTeamStatistics() {
-    // Afficher les équipes de la phase actuelle
     const container = document.getElementById('stats-equipes-content');
-    
-    // Déterminer quelles phases sont disponibles
-    const phase1Available = teamDataPhase1 !== null && teamDataPhase1._journeeData;
-    const phase2Available = teamDataPhase2 !== null && teamDataPhase2._journeeData;
-    
-    // Sélectionner la donnée appropriée selon le mode
-    let teamData = null;
-    
-    // En Phase 1
-    if (currentDisplayMode === 'phase1' && phase1Available) {
-        teamData = teamDataPhase1;
-    } 
-    // En Phase 2
-    else if (currentDisplayMode === 'phase2' && phase2Available) {
-        teamData = teamDataPhase2;
-    }
-    else {
-        container.innerHTML = '<p style="text-align: center; padding: 40px; color: #999;">Aucune donnée disponible</p>';
+    if (!container) return;
+
+    if (currentDisplayMode === 'saison') {
+        container.innerHTML = `
+            <div style="text-align: center; margin-bottom: 20px;">
+                <span style="font-weight: 600; color: #4b5563; margin-right: 10px;">Résultats bruts équipes :</span>
+                <button class="nav-tab ${currentTeamsPhaseView === 'phase1' ? 'active' : ''}" onclick="setTeamPhaseView('phase1')">Phase 1</button>
+                <button class="nav-tab ${currentTeamsPhaseView === 'phase2' ? 'active' : ''}" onclick="setTeamPhaseView('phase2')">Phase 2</button>
+            </div>
+            <div id="team-phase-content"></div>
+        `;
+        renderTeamStatisticsByPhase(currentTeamsPhaseView);
         return;
     }
-    
-    // Collecter les stats d'équipe depuis les données de phase chargées
+
+    renderTeamStatisticsByPhase(currentDisplayMode);
+}
+
+function setTeamPhaseView(phase) {
+    currentTeamsPhaseView = phase;
+    displayTeamStatistics();
+}
+
+function renderTeamStatisticsByPhase(phase) {
+    const seasonContainer = document.getElementById('team-phase-content');
+    const directContainer = document.getElementById('stats-equipes-content');
+    const container = seasonContainer || directContainer;
+    if (!container) return;
+
+    const phase1Available = teamDataPhase1 !== null && teamDataPhase1._journeeData;
+    const phase2Available = teamDataPhase2 !== null && teamDataPhase2._journeeData;
+
+    let teamData = null;
+
+    if (phase === 'phase1' && phase1Available) {
+        teamData = teamDataPhase1;
+    } else if (phase === 'phase2' && phase2Available) {
+        teamData = teamDataPhase2;
+    } else {
+        container.innerHTML = emptyStatisticsState('Statistiques équipes à venir', 'Les équipes seront affichées dès les premières rencontres de cette phase.');
+        return;
+    }
+
+    if (Object.keys(teamData?.equipes || {}).length === 0 && Object.keys(teamData?._journeeData || {}).length === 0) {
+        container.innerHTML = emptyStatisticsState('Statistiques équipes à venir', 'Les équipes seront affichées dès les premières rencontres de cette phase.');
+        return;
+    }
+
     const teamStats = collectTeamStatisticsForPhase(teamData);
-    
+
     if (Object.keys(teamStats).length === 0) {
         container.innerHTML = '<p style="text-align: center; padding: 40px;">Aucune donnée disponible</p>';
         return;
     }
-    
-    // Trier les équipes par numéro
+
     const sortedTeams = Object.values(teamStats).sort((a, b) => {
         const numA = parseInt(a.name.replace('TTSH', ''));
         const numB = parseInt(b.name.replace('TTSH', ''));
         return numA - numB;
     });
-    
-    // Afficher la grille de cartes cliquables
+
     showTeamOverview(sortedTeams);
 }
 
 function showTeamOverview(sortedTeams) {
-    const container = document.getElementById('stats-equipes-content');
+    const container = document.getElementById('team-phase-content') || document.getElementById('stats-equipes-content');
     
     // Fonction pour obtenir le badge et la couleur de la division
     function getDivisionStyle(division) {
@@ -1061,17 +1435,18 @@ function showTeamOverview(sortedTeams) {
 }
 
 function showSingleTeamStats(teamName) {
-    // Obtenir les données de la phase actuelle
     let teamData = null;
-    
-    if (currentDisplayMode === 'phase1' && teamDataPhase1) {
+
+    const selectedPhase = currentDisplayMode === 'saison' ? currentTeamsPhaseView : currentDisplayMode;
+    if (selectedPhase === 'phase1' && teamDataPhase1) {
         teamData = teamDataPhase1;
-    } else if (currentDisplayMode === 'phase2' && teamDataPhase2) {
+    } else if (selectedPhase === 'phase2' && teamDataPhase2) {
         teamData = teamDataPhase2;
     }
     
     if (!teamData) {
-        document.getElementById('stats-equipes-content').innerHTML = '<p style="text-align: center; padding: 40px; color: #999;">Aucune donnée disponible</p>';
+        const fallbackContainer = document.getElementById('team-phase-content') || document.getElementById('stats-equipes-content');
+        fallbackContainer.innerHTML = '<p style="text-align: center; padding: 40px; color: #999;">Aucune donnée disponible</p>';
         return;
     }
     
@@ -1079,11 +1454,12 @@ function showSingleTeamStats(teamName) {
     const team = teamStats[teamName];
     
     if (!team) {
-        document.getElementById('stats-equipes-content').innerHTML = '<p style="text-align: center; padding: 40px; color: #999;">Équipe non trouvée</p>';
+        const fallbackContainer = document.getElementById('team-phase-content') || document.getElementById('stats-equipes-content');
+        fallbackContainer.innerHTML = '<p style="text-align: center; padding: 40px; color: #999;">Équipe non trouvée</p>';
         return;
     }
-    
-    const container = document.getElementById('stats-equipes-content');
+
+    const container = document.getElementById('team-phase-content') || document.getElementById('stats-equipes-content');
     
     const tauxVictoire = team.matches.total > 0 ? 
         Math.round((team.matches.victoires / team.matches.total) * 100) : 0;
@@ -1297,6 +1673,172 @@ function toggleMatchDetails(detailsId) {
     }
 }
 
+function computeSeasonPodiums() {
+    const playerSignals = {};
+
+    const ensurePlayer = (name) => {
+        if (!playerSignals[name]) {
+            playerSignals[name] = {
+                simpleTotal: 0,
+                simpleWins: 0,
+                upsetWins: 0,
+                perfScore: 0,
+                clutchWins: 0,
+                clutchLosses: 0,
+                dayResults: {}
+            };
+        }
+        return playerSignals[name];
+    };
+
+    const processSimpleRencontre = (rencontre, match, journeeId) => {
+        if (!rencontre || rencontre.type !== 'simple') return;
+
+        const equipeA = match.equipes.equipe_a;
+        const equipeX = match.equipes.equipe_x;
+        const isHerblainA = equipeA.nom && (equipeA.nom.includes('HERBLAIN') || equipeA.nom.includes('TTSH'));
+        const isHerblainX = equipeX.nom && (equipeX.nom.includes('HERBLAIN') || equipeX.nom.includes('TTSH'));
+        if (!isHerblainA && !isHerblainX) return;
+
+        const herblainSide = isHerblainA ? 'A' : 'X';
+        const herblainTeam = isHerblainA ? equipeA : equipeX;
+        const opponentTeam = isHerblainA ? equipeX : equipeA;
+        const herblainPlayer = herblainSide === 'A' ? rencontre.joueur_a : rencontre.joueur_x;
+        const opponentPlayer = herblainSide === 'A' ? rencontre.joueur_x : rencontre.joueur_a;
+
+        if (!herblainPlayer || !opponentPlayer) return;
+        if (typeof herblainPlayer !== 'object' || typeof opponentPlayer !== 'object') return;
+        if (!herblainPlayer.nom || !herblainPlayer.prenom || !opponentPlayer.nom || !opponentPlayer.prenom) return;
+
+        const playerData = herblainTeam.joueurs?.find(j => j.lettre === herblainPlayer.lettre);
+        const opponentData = opponentTeam.joueurs?.find(j => j.lettre === opponentPlayer.lettre);
+        const playerName = normalizePlayerNameString(herblainPlayer.prenom, herblainPlayer.nom);
+        const signal = ensurePlayer(playerName);
+
+        const playerPoints = playerData?.points || 0;
+        const opponentPoints = opponentData?.points || 0;
+
+        let playerSetsWon = 0;
+        let opponentSetsWon = 0;
+        if (Array.isArray(rencontre.sets)) {
+            rencontre.sets.forEach(set => {
+                const a = set.equipe_a || set.score_a || 0;
+                const x = set.equipe_x || set.score_x || 0;
+                if (herblainSide === 'A') {
+                    if (a > x) playerSetsWon++;
+                    else if (x > a) opponentSetsWon++;
+                } else {
+                    if (x > a) playerSetsWon++;
+                    else if (a > x) opponentSetsWon++;
+                }
+            });
+        }
+
+        const totalSets = playerSetsWon + opponentSetsWon;
+        const won = playerSetsWon > opponentSetsWon;
+
+        signal.simpleTotal++;
+        if (won) signal.simpleWins++;
+
+        if (won && opponentPoints > playerPoints) {
+            signal.upsetWins++;
+            signal.perfScore += (opponentPoints - playerPoints);
+        } else if (!won && opponentPoints < playerPoints) {
+            signal.perfScore -= (playerPoints - opponentPoints);
+        }
+
+        if (totalSets === 5) {
+            if (won) signal.clutchWins++;
+            else signal.clutchLosses++;
+        }
+
+        if (!signal.dayResults[journeeId]) {
+            signal.dayResults[journeeId] = { wins: 0, losses: 0 };
+        }
+        if (won) signal.dayResults[journeeId].wins++;
+        else signal.dayResults[journeeId].losses++;
+    };
+
+    Object.entries(allData).forEach(([journeeId, matches]) => {
+        if (journeeId.startsWith('statistiques') || !Array.isArray(matches)) return;
+        matches.forEach(match => {
+            (match.rencontres || []).forEach(rencontre => processSimpleRencontre(rencontre, match, journeeId));
+        });
+    });
+
+    const toArray = Object.entries(playerSignals)
+        .map(([nom, s]) => {
+            const dayValues = Object.values(s.dayResults);
+            const daysPlayed = dayValues.length;
+            const positiveDays = dayValues.filter(d => d.wins >= d.losses).length;
+            const winRate = s.simpleTotal > 0 ? (s.simpleWins / s.simpleTotal) * 100 : 0;
+
+            // Régularité = fréquence de journées positives + volume + fiabilité générale
+            const regularityScore = daysPlayed > 0
+                ? (positiveDays / daysPlayed) * 100 + Math.min(daysPlayed * 3, 30) + (winRate * 0.2)
+                : 0;
+
+            // Force de caractère = performances en 5 sets + victoires en underdog
+            const characterScore = (s.clutchWins * 3) - s.clutchLosses + s.upsetWins;
+
+            return {
+                nom,
+                upsetWins: s.upsetWins,
+                perfScore: s.perfScore,
+                daysPlayed,
+                positiveDays,
+                regularityScore,
+                clutchWins: s.clutchWins,
+                clutchLosses: s.clutchLosses,
+                characterScore,
+                winRate
+            };
+        })
+        .filter(p => p.daysPlayed > 0);
+
+    return {
+        plusFort: [...toArray]
+            .sort((a, b) => b.upsetWins - a.upsetWins || b.perfScore - a.perfScore || b.winRate - a.winRate)
+            .slice(0, 3),
+        regularite: [...toArray]
+            .filter(p => p.daysPlayed >= 3)
+            .sort((a, b) => b.regularityScore - a.regularityScore || b.positiveDays - a.positiveDays || b.winRate - a.winRate)
+            .slice(0, 3),
+        caractere: [...toArray]
+            .sort((a, b) => b.characterScore - a.characterScore || b.clutchWins - a.clutchWins || b.upsetWins - a.upsetWins)
+            .slice(0, 3)
+    };
+}
+
+function renderSeasonPodiumBlock(title, icon, players, detailBuilder) {
+    if (!players || players.length === 0) {
+        return `
+            <div class="chart-container" style="margin-top: 30px;">
+                <h3>${icon} ${title}</h3>
+                <p style="color: #777; margin: 10px 0 0 0;">Pas assez de données.</p>
+            </div>
+        `;
+    }
+
+    const medals = ['🥇', '🥈', '🥉'];
+    const rows = players.map((player, idx) => `
+        <div onclick="showPlayerDetail('${player.nom.replace(/'/g, "\\'")}', '${player.licence || ''}', true)" style="display: flex; align-items: center; gap: 14px; padding: 12px 14px; margin-bottom: 10px; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 10px; cursor: pointer;">
+            <div style="font-size: 1.4em; width: 34px; text-align: center;">${medals[idx] || '🏅'}</div>
+            <div style="flex: 1;">
+                <div style="font-weight: 700; color: #1f2937;">${escapeHtml(player.nom)}</div>
+                <div style="font-size: 0.9em; color: #4b5563;">${detailBuilder(player)}</div>
+            </div>
+        </div>
+    `).join('');
+
+    return `
+        <div class="chart-container" style="margin-top: 30px;">
+            <h3>${icon} ${title}</h3>
+            <div style="padding-top: 8px;">${rows}</div>
+        </div>
+    `;
+}
+
 function displayClubStatistics() {
     if (!allData['statistiques']) {
         return;
@@ -1304,6 +1846,13 @@ function displayClubStatistics() {
     
     const stats = allData['statistiques'];
     const joueurs = stats.joueurs;
+    const hasMatches = Object.keys(allData).some(key => key !== 'statistiques' && Array.isArray(allData[key]) && allData[key].length > 0);
+    const container = document.getElementById('stats-club-content');
+    if (!container) return;
+    if (Object.keys(joueurs || {}).length === 0 && !hasMatches) {
+        container.innerHTML = emptyStatisticsState('Statistiques club à venir', 'Le bilan du club sera disponible après les premières rencontres.');
+        return;
+    }
     
     // Calculer les victoires/défaites/nuls sur les rencontres d'équipe
     let matchsEquipe = { victoires: 0, nuls: 0, defaites: 0, total: 0 };
@@ -1338,9 +1887,33 @@ function displayClubStatistics() {
         }
     });
     
-    const container = document.getElementById('stats-club-content');
-    if (!container) {
-        return;
+    let seasonPodiumsHtml = '';
+    if (currentDisplayMode === 'saison') {
+        const podiums = computeSeasonPodiums();
+        seasonPodiumsHtml = `
+            <div class="chart-container" style="margin-top: 30px;">
+                <h3>🏁 Podiums Saison Consolidée</h3>
+                <p style="color: #555; margin: 6px 0 0 0;">Nouveaux critères: perf contre plus forts, régularité d'une journée à l'autre, et force de caractère dans les matchs serrés.</p>
+            </div>
+            ${renderSeasonPodiumBlock(
+                'Exploit contre plus fort',
+                '⚡',
+                podiums.plusFort,
+                (p) => `${p.upsetWins} victoire(s) vs mieux classé | Perf ${p.perfScore > 0 ? '+' : ''}${p.perfScore}`
+            )}
+            ${renderSeasonPodiumBlock(
+                'Régularité',
+                '🎯',
+                podiums.regularite,
+                (p) => `${p.positiveDays}/${p.daysPlayed} journées positives | Score ${p.regularityScore.toFixed(1)}`
+            )}
+            ${renderSeasonPodiumBlock(
+                'Force de caractère',
+                '🔥',
+                podiums.caractere,
+                (p) => `${p.clutchWins} victoire(s) en 5 sets, ${p.clutchLosses} défaite(s) en 5 sets | Score ${p.characterScore}`
+            )}
+        `;
     }
     
     let html = `
@@ -1385,6 +1958,8 @@ function displayClubStatistics() {
                 </div>
             </div>
         </div>
+
+        ${seasonPodiumsHtml}
         
         <!-- Top 5 des joueurs -->
         <div class="chart-container" style="margin-top: 30px;">
@@ -1458,7 +2033,7 @@ function displayTop5Players() {
                        'rgba(100, 100, 100, 0.05)';
         
         html += `
-            <div style="display: flex; align-items: center; padding: 12px; margin-bottom: 10px; background: ${bgColor}; border-radius: 8px; border-left: 4px solid #667eea; cursor: pointer;" onclick="showPlayerDetail('${joueur.nom.replace(/'/g, "\\'")}'\, true)">
+            <div style="display: flex; align-items: center; padding: 12px; margin-bottom: 10px; background: ${bgColor}; border-radius: 8px; border-left: 4px solid #667eea; cursor: pointer;" onclick="showPlayerDetail('${joueur.nom.replace(/'/g, "\\'")}', '${joueur.licence || ''}', true)">
                 <div style="font-size: 1.5em; margin-right: 15px;">${medal}</div>
                 <div style="flex: 1;">
                     <div style="font-weight: bold; color: #333;">${escapeHtml(joueur.nom)}</div>
@@ -1843,7 +2418,7 @@ function updateTableRows(joueursArray) {
         const perfSign = perfScore > 0 ? '+' : '';
         
         html += `
-            <tr onclick="showPlayerDetail('${joueur.nom.replace(/'/g, "\\'")}');" style="cursor: pointer;">
+            <tr onclick="showPlayerDetail('${joueur.nom.replace(/'/g, "\\'")}', '${joueur.licence || ''}');" style="cursor: pointer;">
                 <td class="rank">${index + 1}</td>
                 <td class="player-name-cell">${escapeHtml(joueur.nom)}</td>
                 <td><span class="stats-badge badge-info">${joueur.points_officiels} pts</span></td>
@@ -1890,7 +2465,7 @@ function displayMVPForJournee(journeeId, journeeKey) {
     
     // Create MVP card
     container.innerHTML = `
-        <div class="mvp-card" onclick="showPlayerDetail('${mvp.nom.replace(/'/g, "\\'")}')">
+        <div class="mvp-card" onclick="showPlayerDetail('${mvp.nom.replace(/'/g, "\\'")}', '${mvp.licence || ''}')">
             <div style="display: flex; align-items: center; justify-content: space-between;">
                 <div style="flex: 1;">
                     <div style="font-size: 14px; color: rgba(255,255,255,0.8); margin-bottom: 5px;">
@@ -1961,7 +2536,7 @@ function displayTop3ForJournee(journeeId, journeeKey) {
         const perfSign = perfScore >= 0 ? '+' : '';
         
         html += `
-            <div onclick="showPlayerDetail('${player.nom.replace(/'/g, "\\'")}')">
+            <div onclick="showPlayerDetail('${player.nom.replace(/'/g, "\\'")}', '${player.licence || ''}')">
                 <div style="background: ${bgColor}; border-radius: 12px; padding: 15px; cursor: pointer; transition: transform 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.1);" 
                      onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 6px 12px rgba(0,0,0,0.15)';" 
                      onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 6px rgba(0,0,0,0.1)';">
@@ -1997,7 +2572,7 @@ function displayMatches(journeeId) {
         return;
     }
     
-    const journeeKey = journeeId.toLowerCase().replace('_', '-');
+    const journeeKey = getJourneeDomKey(journeeId);
     const matchesContainer = document.getElementById(`matches-${journeeKey}`);
     
     if (!matchesContainer) {
@@ -2104,7 +2679,7 @@ function displayMatches(journeeId) {
 }
 
 function createSetDistributionChart(journeeId, matches) {
-    const journeeKey = journeeId.toLowerCase().replace('_', '-');
+    const journeeKey = getJourneeDomKey(journeeId);
     const canvasId = `chart-${journeeKey}`;
     
     // Compter les victoires et défaites par nombre de sets joués
@@ -2597,44 +3172,113 @@ function closeModal() {
     document.getElementById('matchModal').classList.remove('active');
 }
 
+function applyPlayerHistoryFilters(modalBody) {
+    if (!modalBody) return;
+
+    const showSimple = modalBody.querySelector('#filter-simple')?.checked ?? true;
+    const showDouble = modalBody.querySelector('#filter-double')?.checked ?? true;
+    const showWins = modalBody.querySelector('#filter-wins')?.checked ?? true;
+    const showLosses = modalBody.querySelector('#filter-losses')?.checked ?? true;
+
+    const rows = [...modalBody.querySelectorAll('.player-history-row')];
+    rows.forEach(row => {
+        const matchType = row.dataset.type;
+        const outcome = row.dataset.outcome;
+        const typeVisible = (matchType === 'simple' && showSimple) || (matchType === 'double' && showDouble);
+        const outcomeVisible = (outcome === 'win' && showWins) || (outcome === 'loss' && showLosses);
+        const visible = typeVisible && outcomeVisible;
+
+        row.style.display = visible ? 'flex' : 'none';
+        row.dataset.visible = visible ? '1' : '0';
+    });
+
+    const cards = [...modalBody.querySelectorAll('.match-card')];
+    let visibleCards = 0;
+    cards.forEach(card => {
+        const visibleRows = card.querySelectorAll('.player-history-row[data-visible="1"]').length;
+        card.style.display = visibleRows > 0 ? '' : 'none';
+        if (visibleRows > 0) visibleCards += 1;
+    });
+
+    const visibleRows = rows.filter(row => row.dataset.visible === '1').length;
+    const filterCount = modalBody.querySelector('#history-filter-count');
+    const filterMatches = modalBody.querySelector('#history-filter-matches');
+    const emptyState = modalBody.querySelector('#history-filter-empty');
+    if (filterCount) filterCount.textContent = String(visibleRows);
+    if (filterMatches) filterMatches.textContent = String(visibleCards);
+    if (emptyState) emptyState.style.display = visibleRows > 0 ? 'none' : 'block';
+}
+
+function bindPlayerHistoryFilters(modalBody) {
+    if (!modalBody) return;
+    modalBody.querySelectorAll('.player-history-filter').forEach(input => {
+        input.addEventListener('change', () => applyPlayerHistoryFilters(modalBody));
+    });
+    applyPlayerHistoryFilters(modalBody);
+}
+
 // Fonction helper pour normaliser les noms de joueurs
 function normalizePlayerName(joueur) {
     return normalizePlayerNameString(joueur.prenom, joueur.nom);
 }
 
-function showPlayerDetail(playerName, forceAll = false) {
+function getPlayerData(joueur, teamPlayers, letter = joueur.lettre) {
+    const letters = String(letter || '').split('/');
+    return teamPlayers.find(player => letters.includes(player.lettre)) ||
+        teamPlayers.find(player =>
+            player.prenom === joueur.prenom && player.nom === joueur.nom
+        );
+}
+
+function getPlayerKey(joueur, teamPlayers, letter) {
+    const playerData = getPlayerData(joueur, teamPlayers, letter);
+    const licence = String(playerData?.licence || '').trim();
+    return licence ? `licence:${licence}` : `nom:${normalizePlayerName(joueur)}`;
+}
+
+function getSecondPlayerKey(joueur, teamPlayers) {
+    const secondLetter = String(joueur.lettre || '').split('/')[1];
+    return joueur.joueur2 ? getPlayerKey(joueur.joueur2, teamPlayers, secondLetter) : '';
+}
+
+function showPlayerDetail(playerName, playerLicence = '', forceAll = false) {
     // Respecter le filtre de journée actif (sauf si forceAll)
     const displayJournee = forceAll ? 'all' : currentStatsJournee;
+    const playerKey = playerLicence ? `licence:${playerLicence}` : `nom:${playerName}`;
+    const phasePrefix = displayJournee === 'phase1_all' ? 'P1::' :
+        displayJournee === 'phase2_all' ? 'P2::' : '';
     
     // Récupérer les stats en fonction de la journée sélectionnée
     let joueur;
-    if (displayJournee === 'all') {
+    if (displayJournee === 'all' || phasePrefix) {
         // Pour "all", calculer les stats depuis les matchs bruts pour compter les doubles comme 1
         const allJourneesStats = {};
         
         // Calculer pour chaque journée chargée (sauf 'statistiques')
-        Object.keys(allData).filter(k => k !== 'statistiques').forEach(journeeId => {
+        Object.keys(allData)
+            .filter(k => k !== 'statistiques' && (!phasePrefix || k.startsWith(phasePrefix)))
+            .forEach(journeeId => {
             if (allData[journeeId]) {
                 const journeeStatsArray = calculateJourneeStats(journeeId);
                 journeeStatsArray.forEach(stats => {
-                    const nom = stats.nom;
-                    if (!allJourneesStats[nom]) {
-                        allJourneesStats[nom] = {
+                    if (!allJourneesStats[stats.playerKey]) {
+                        allJourneesStats[stats.playerKey] = {
+                            nom: stats.nom,
                             points_officiels: stats.points_officiels,
                             matches: { total: 0, victoires: 0, defaites: 0, taux_victoire: 0 },
                             sets: { gagnes: 0, perdus: 0, total: 0, ratio: 0 },
                             performance_classement: { score: 0 }
                         };
                     }
-                    allJourneesStats[nom].matches.total += stats.matches.total;
-                    allJourneesStats[nom].matches.victoires += stats.matches.victoires;
-                    allJourneesStats[nom].matches.defaites += stats.matches.defaites;
-                    allJourneesStats[nom].sets.gagnes += stats.sets.gagnes;
-                    allJourneesStats[nom].sets.perdus += stats.sets.perdus;
-                    allJourneesStats[nom].performance_classement.score += (stats.performance_classement?.score || 0);
+                    allJourneesStats[stats.playerKey].matches.total += stats.matches.total;
+                    allJourneesStats[stats.playerKey].matches.victoires += stats.matches.victoires;
+                    allJourneesStats[stats.playerKey].matches.defaites += stats.matches.defaites;
+                    allJourneesStats[stats.playerKey].sets.gagnes += stats.sets.gagnes;
+                    allJourneesStats[stats.playerKey].sets.perdus += stats.sets.perdus;
+                    allJourneesStats[stats.playerKey].performance_classement.score += (stats.performance_classement?.score || 0);
                 });
             }
-        });
+            });
         
         // Recalculer les ratios
         Object.values(allJourneesStats).forEach(stats => {
@@ -2644,11 +3288,11 @@ function showPlayerDetail(playerName, forceAll = false) {
                 Math.round((stats.matches.victoires / stats.matches.total) * 100) : 0;
         });
         
-        joueur = allJourneesStats[playerName];
+        joueur = allJourneesStats[playerKey];
     } else {
         // Calculer les stats pour la journée spécifique
         const journeeStatsArray = calculateJourneeStats(currentStatsJournee);
-        joueur = journeeStatsArray.find(p => p.nom === playerName);
+        joueur = journeeStatsArray.find(p => p.playerKey === playerKey);
     }
     
     if (!joueur) {
@@ -2659,9 +3303,10 @@ function showPlayerDetail(playerName, forceAll = false) {
     const modalBody = document.getElementById('modal-body');
     
     let journeeTitle = '';
-    if (displayJournee !== 'all') {
-        const match = displayJournee.match(/J(\d+)_(\d{4})(\d{2})(\d{2})/);
-        journeeTitle = match ? ` - Journée ${match[1]}` : ` - ${displayJournee}`;
+    if (phasePrefix) {
+        journeeTitle = displayJournee === 'phase1_all' ? ' - Phase 1' : ' - Phase 2';
+    } else if (displayJournee !== 'all') {
+        journeeTitle = ` - ${formatJourneeLabel(displayJournee)}`;
     }
     
     document.getElementById('modal-title').innerHTML = 
@@ -2704,18 +3349,16 @@ function showPlayerDetail(playerName, forceAll = false) {
     Object.entries(allData).forEach(([journeeId, matches]) => {
         if (journeeId === 'statistiques') return;
         
-        // Si on est sur une journée spécifique, filtrer uniquement cette journée
-        if (displayJournee !== 'all' && journeeId !== displayJournee) return;
+        // Filtrer la journée ou la phase actuellement affichée.
+        if (phasePrefix && !journeeId.startsWith(phasePrefix)) return;
+        if (!phasePrefix && displayJournee !== 'all' && journeeId !== displayJournee) return;
         
         matches.forEach((match, matchIndex) => {
             const equipeA = match.equipes.equipe_a;
             const equipeX = match.equipes.equipe_x;
             
-            // Vérifier si le joueur a participé - normaliser les noms pour la comparaison
-            const normalizePlayerName = (j) => normalizePlayerNameString(j.prenom, j.nom);
-            
-            const playerInA = equipeA.joueurs.some(j => normalizePlayerName(j) === playerName);
-            const playerInX = equipeX.joueurs.some(j => normalizePlayerName(j) === playerName);
+            const playerInA = equipeA.joueurs.some(j => getPlayerKey(j, equipeA.joueurs) === playerKey);
+            const playerInX = equipeX.joueurs.some(j => getPlayerKey(j, equipeX.joueurs) === playerKey);
             
             if (playerInA || playerInX) {
                 const playerTeam = playerInA ? 'A' : 'X';
@@ -2725,26 +3368,20 @@ function showPlayerDetail(playerName, forceAll = false) {
                 
                 // Récupérer les détails des rencontres du joueur (si disponibles)
                 const playerMatches = match.rencontres ? match.rencontres.filter(rencontre => {
-                    const joueurA = normalizePlayerName(rencontre.joueur_a);
-                    const joueurX = normalizePlayerName(rencontre.joueur_x);
+                    const joueurAKey = getPlayerKey(rencontre.joueur_a, equipeA.joueurs);
+                    const joueurXKey = getPlayerKey(rencontre.joueur_x, equipeX.joueurs);
                     
                     // Pour les simples
                     if (rencontre.type === 'simple') {
-                        return joueurA === playerName || joueurX === playerName;
+                        return joueurAKey === playerKey || joueurXKey === playerKey;
                     }
                     
                     // Pour les doubles
                     if (rencontre.type === 'double') {
-                        const joueurA2 = rencontre.joueur_a.joueur2 ? normalizePlayerName({
-                            nom: rencontre.joueur_a.joueur2.nom,
-                            prenom: rencontre.joueur_a.joueur2.prenom
-                        }) : null;
-                        const joueurX2 = rencontre.joueur_x.joueur2 ? normalizePlayerName({
-                            nom: rencontre.joueur_x.joueur2.nom,
-                            prenom: rencontre.joueur_x.joueur2.prenom
-                        }) : null;
-                        return joueurA === playerName || joueurX === playerName || 
-                               joueurA2 === playerName || joueurX2 === playerName;
+                        const joueurA2Key = getSecondPlayerKey(rencontre.joueur_a, equipeA.joueurs);
+                        const joueurX2Key = getSecondPlayerKey(rencontre.joueur_x, equipeX.joueurs);
+                        return joueurAKey === playerKey || joueurXKey === playerKey ||
+                               joueurA2Key === playerKey || joueurX2Key === playerKey;
                     }
                     
                     return false;
@@ -2776,6 +3413,8 @@ function showPlayerDetail(playerName, forceAll = false) {
                     isVictory,
                     playerTeam,
                     equipeTTSH: match.equipe_ttsh || '',
+                    equipeAPlayers: equipeA.joueurs,
+                    equipeXPlayers: equipeX.joueurs,
                     playerMatches
                 });
             }
@@ -2815,6 +3454,31 @@ function showPlayerDetail(playerName, forceAll = false) {
                 <strong>${totalParties} match(s) individuel(s)</strong> dans ${allMatches.length} rencontre(s) 
                 <span style="margin-left: 15px;">• ${totalSimples} simple(s) • ${totalDoubles} double(s)</span>
             </div>`;
+
+            html += `
+                <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 14px; padding: 10px 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px;">
+                    <label style="display: inline-flex; align-items: center; gap: 6px; cursor: pointer;">
+                        <input id="filter-simple" class="player-history-filter" type="checkbox" checked>
+                        <span>Simples</span>
+                    </label>
+                    <label style="display: inline-flex; align-items: center; gap: 6px; cursor: pointer;">
+                        <input id="filter-double" class="player-history-filter" type="checkbox" checked>
+                        <span>Doubles</span>
+                    </label>
+                    <label style="display: inline-flex; align-items: center; gap: 6px; cursor: pointer;">
+                        <input id="filter-wins" class="player-history-filter" type="checkbox" checked>
+                        <span>Victoires</span>
+                    </label>
+                    <label style="display: inline-flex; align-items: center; gap: 6px; cursor: pointer;">
+                        <input id="filter-losses" class="player-history-filter" type="checkbox" checked>
+                        <span>Defaites</span>
+                    </label>
+                    <div style="margin-left: auto; color: #475569; font-size: 13px;">
+                        Affichage: <strong id="history-filter-count">${totalParties}</strong> partie(s) dans <strong id="history-filter-matches">${allMatches.length}</strong> rencontre(s)
+                    </div>
+                </div>
+                <p id="history-filter-empty" style="display: none; color: #999; text-align: center; padding: 8px 0 16px;">Aucune partie ne correspond aux filtres.</p>
+            `;
             
             allMatches.forEach(match => {
                 // N'afficher que si le joueur a joué des parties
@@ -2835,7 +3499,8 @@ function showPlayerDetail(playerName, forceAll = false) {
                 
                 match.playerMatches.forEach(partie => {
                     const joueurA = normalizePlayerName(partie.joueur_a);
-                    const isPlayerA = joueurA === playerName;
+                    const joueurAKey = getPlayerKey(partie.joueur_a, match.equipeAPlayers);
+                    const isPlayerA = joueurAKey === playerKey;
                     const isDouble = partie.type === 'double';
                     
                     // Calculer le score en sets depuis les sets
@@ -2853,11 +3518,8 @@ function showPlayerDetail(playerName, forceAll = false) {
                     let isPlayerInTeamA;
                     
                     if (isDouble) {
-                        const joueurA2 = partie.joueur_a.joueur2 ? normalizePlayerName({
-                            nom: partie.joueur_a.joueur2.nom,
-                            prenom: partie.joueur_a.joueur2.prenom
-                        }) : '';
-                        isPlayerInTeamA = joueurA === playerName || joueurA2 === playerName;
+                        const joueurA2Key = getSecondPlayerKey(partie.joueur_a, match.equipeAPlayers);
+                        isPlayerInTeamA = joueurAKey === playerKey || joueurA2Key === playerKey;
                         playerWon = (isPlayerInTeamA && scoreA > scoreX) || (!isPlayerInTeamA && scoreX > scoreA);
                     } else {
                         isPlayerInTeamA = isPlayerA;
@@ -2913,7 +3575,9 @@ function showPlayerDetail(playerName, forceAll = false) {
                 match.playerMatches.forEach(partie => {
                     const joueurA = normalizePlayerName(partie.joueur_a);
                     const joueurX = normalizePlayerName(partie.joueur_x);
-                    const isPlayerA = joueurA === playerName;
+                    const joueurAKey = getPlayerKey(partie.joueur_a, match.equipeAPlayers);
+                    const joueurXKey = getPlayerKey(partie.joueur_x, match.equipeXPlayers);
+                    const isPlayerA = joueurAKey === playerKey;
                     
                     // Gérer les simples et les doubles différemment
                     let partenaire = '';
@@ -2924,22 +3588,18 @@ function showPlayerDetail(playerName, forceAll = false) {
                     
                     if (isDouble) {
                         // Pour les doubles - la structure est joueur_a.joueur2 et joueur_x.joueur2
-                        const joueurA2 = partie.joueur_a.joueur2 ? normalizePlayerName({
-                            nom: partie.joueur_a.joueur2.nom,
-                            prenom: partie.joueur_a.joueur2.prenom
-                        }) : '';
-                        const joueurX2 = partie.joueur_x.joueur2 ? normalizePlayerName({
-                            nom: partie.joueur_x.joueur2.nom,
-                            prenom: partie.joueur_x.joueur2.prenom
-                        }) : '';
+                        const joueurA2 = partie.joueur_a.joueur2 ? normalizePlayerName(partie.joueur_a.joueur2) : '';
+                        const joueurX2 = partie.joueur_x.joueur2 ? normalizePlayerName(partie.joueur_x.joueur2) : '';
+                        const joueurA2Key = getSecondPlayerKey(partie.joueur_a, match.equipeAPlayers);
+                        const joueurX2Key = getSecondPlayerKey(partie.joueur_x, match.equipeXPlayers);
                         
-                        isPlayerInTeamA = joueurA === playerName || joueurA2 === playerName;
+                        isPlayerInTeamA = joueurAKey === playerKey || joueurA2Key === playerKey;
                         
                         if (isPlayerInTeamA) {
-                            partenaire = joueurA === playerName ? joueurA2 : joueurA;
+                            partenaire = joueurAKey === playerKey ? joueurA2 : joueurA;
                             adversaires = `${joueurX} / ${joueurX2}`;
                         } else {
-                            partenaire = joueurX === playerName ? joueurX2 : joueurX;
+                            partenaire = joueurXKey === playerKey ? joueurX2 : joueurX;
                             adversaires = `${joueurA} / ${joueurA2}`;
                         }
                     } else {
@@ -2978,7 +3638,7 @@ function showPlayerDetail(playerName, forceAll = false) {
                         : (won ? '#28a745' : '#dc3545'); // Vert / Rouge pour simples
                     
                     html += `
-                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: ${bgColor}; border-radius: 5px; border-left: 3px solid ${borderColor};">
+                        <div class="player-history-row" data-type="${isDouble ? 'double' : 'simple'}" data-outcome="${won ? 'win' : 'loss'}" style="display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: ${bgColor}; border-radius: 5px; border-left: 3px solid ${borderColor};">
                             <div style="display: flex; align-items: center; gap: 10px;">
                                 <span style="font-size: 18px;">${won ? '✓' : '✗'}</span>
                                 <div>
@@ -3011,6 +3671,7 @@ function showPlayerDetail(playerName, forceAll = false) {
     html += '</div>';
     
     modalBody.innerHTML = html;
+    bindPlayerHistoryFilters(modalBody);
     modal.classList.add('active');
 }
 
@@ -3033,4 +3694,4 @@ document.addEventListener('keydown', function(event) {
 });
 
 // Load data on page load
-loadData();
+initSeasons().then(loadData);

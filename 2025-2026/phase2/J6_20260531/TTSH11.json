@@ -1,0 +1,37 @@
+{
+  "division": "D44 P2MD4",
+  "equipe_ttsh": "TTSH11",
+  "equipes": {
+    "equipe_a": {
+      "joueurs": [
+        {
+          "lettre": "A",
+          "licence": "4460885",
+          "nom": "PELTIER",
+          "points": 500,
+          "prenom": "Joël"
+        },
+        {
+          "lettre": "B",
+          "licence": "4446392",
+          "nom": "MOKRANI",
+          "points": 500,
+          "prenom": "Mouloud"
+        }
+      ],
+      "nom": "ST HERBLAIN T.T"
+    },
+    "equipe_x": {
+      "joueurs": [],
+      "nom": "CARQUEFOU TT"
+    }
+  },
+  "expected_matches": 10,
+  "poule": "P2MD4 Poule 3",
+  "rencontres": [],
+  "resultat_global": {
+    "equipe_a": 10,
+    "equipe_x": 0,
+    "vainqueur": "A"
+  }
+}

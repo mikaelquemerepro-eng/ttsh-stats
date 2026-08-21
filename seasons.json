@@ -1,0 +1,45 @@
+{
+  "saison_courante": "2026-2027",
+  "saisons": [
+    {
+      "id": "2026-2027",
+      "libelle": "Saison 2026/2027",
+      "phases": {
+        "phase1": {
+          "disponible": true,
+          "libelle": "Phase 1",
+          "statut": "a_venir",
+          "statut_libelle": "à venir"
+        },
+        "phase2": {
+          "disponible": true,
+          "libelle": "Phase 2",
+          "statut": "a_venir",
+          "statut_libelle": "à venir"
+        }
+      },
+      "statut": "a_venir",
+      "statut_libelle": "à venir"
+    },
+    {
+      "id": "2025-2026",
+      "libelle": "Saison 2025/2026",
+      "phases": {
+        "phase1": {
+          "disponible": true,
+          "libelle": "Phase 1",
+          "statut": "bloquee",
+          "statut_libelle": "bloquée"
+        },
+        "phase2": {
+          "disponible": true,
+          "libelle": "Phase 2",
+          "statut": "bloquee",
+          "statut_libelle": "bloquée"
+        }
+      },
+      "statut": "bloquee",
+      "statut_libelle": "bloquée"
+    }
+  ]
+}
