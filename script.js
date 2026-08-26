@@ -87,6 +87,12 @@ function getJourneeDomKey(journeeId) {
     return journeeId.toLowerCase().replace(/[^a-z0-9]/g, '-');
 }
 
+// Ordre chronologique: le tri lexical placerait J10 avant J2
+function getJourneeSortKey(journeeId) {
+    const match = journeeId.match(/J(\d+)_(\d{8})/);
+    return match ? `${match[2]}_${match[1].padStart(3, '0')}` : journeeId;
+}
+
 function formatJourneeLabel(journeeId) {
     let phaseLabel = '';
     let rawJournee = journeeId;
@@ -133,7 +139,8 @@ function mergeStatsData(phase1Data, phase2Data) {
             const target = merged.joueurs[nom];
             target.licence ||= player.licence || '';
             target.nom_complet ||= player.nom_complet || nom;
-            target.points_officiels = Math.max(target.points_officiels, player.points_officiels || 0);
+            // Les points officiels changent entre phases: la phase la plus récente fait foi
+            if (player.points_officiels) target.points_officiels = player.points_officiels;
             target.matches.total += player.matches?.total || 0;
             target.matches.victoires += player.matches?.victoires || 0;
             target.matches.defaites += player.matches?.defaites || 0;
@@ -1053,6 +1060,7 @@ function displayStatistics(journeeFilter = 'all') {
 
         Object.keys(allData)
             .filter(k => k.startsWith(prefix))
+            .sort((a, b) => getJourneeSortKey(a).localeCompare(getJourneeSortKey(b)))
             .forEach(journeeId => {
                 const dayStats = calculateJourneeStats(journeeId, false);
                 dayStats.forEach(player => {
@@ -1069,7 +1077,8 @@ function displayStatistics(journeeFilter = 'all') {
                     }
 
                     const target = mergedPlayers[player.playerKey];
-                    target.points_officiels = Math.max(target.points_officiels, player.points_officiels || 0);
+                    // Journées triées chronologiquement: les derniers points connus font foi
+                    if (player.points_officiels) target.points_officiels = player.points_officiels;
                     target.matches.total += player.matches.total || 0;
                     target.matches.victoires += player.matches.victoires || 0;
                     target.matches.defaites += player.matches.defaites || 0;
@@ -3288,18 +3297,26 @@ function showPlayerDetail(playerName, playerLicence = '', forceAll = false) {
         // Calculer pour chaque journée chargée (sauf 'statistiques')
         Object.keys(allData)
             .filter(k => k !== 'statistiques' && (!phasePrefix || k.startsWith(phasePrefix)))
+            .sort((a, b) => getJourneeSortKey(a).localeCompare(getJourneeSortKey(b)))
             .forEach(journeeId => {
             if (allData[journeeId]) {
+                const journeePhase = journeeId.startsWith('P2::') ? 'phase2' : 'phase1';
                 const journeeStatsArray = calculateJourneeStats(journeeId);
                 journeeStatsArray.forEach(stats => {
                     if (!allJourneesStats[stats.playerKey]) {
                         allJourneesStats[stats.playerKey] = {
                             nom: stats.nom,
                             points_officiels: stats.points_officiels,
+                            points_par_phase: {},
                             matches: { total: 0, victoires: 0, defaites: 0, taux_victoire: 0 },
                             sets: { gagnes: 0, perdus: 0, total: 0, ratio: 0 },
                             performance_classement: { score: 0 }
                         };
+                    }
+                    // Journées triées chronologiquement: les derniers points connus font foi
+                    if (stats.points_officiels) {
+                        allJourneesStats[stats.playerKey].points_officiels = stats.points_officiels;
+                        allJourneesStats[stats.playerKey].points_par_phase[journeePhase] = stats.points_officiels;
                     }
                     allJourneesStats[stats.playerKey].matches.total += stats.matches.total;
                     allJourneesStats[stats.playerKey].matches.victoires += stats.matches.victoires;
@@ -3348,6 +3365,11 @@ function showPlayerDetail(playerName, playerLicence = '', forceAll = false) {
     const setsRatio = (joueur.sets.ratio * 100).toFixed(0);
     const perfScore = joueur.performance_classement?.score || 0;
     const perfSign = perfScore > 0 ? '+' : '';
+    const pointsP1 = joueur.points_par_phase?.phase1;
+    const pointsP2 = joueur.points_par_phase?.phase2;
+    const pointsDetail = (pointsP1 && pointsP2 && pointsP1 !== pointsP2)
+        ? `<div style="font-size: 13px; opacity: 0.9;">P1 ${pointsP1} → P2 ${pointsP2}</div>`
+        : '';
     
     let html = `
         <div style="margin-bottom: 25px; padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 10px; color: white;">
@@ -3355,6 +3377,7 @@ function showPlayerDetail(playerName, playerLicence = '', forceAll = false) {
                 <div>
                     <div style="font-size: 12px; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px;">Points</div>
                     <div style="font-size: 32px; font-weight: bold; margin: 5px 0;">${joueur.points_officiels}</div>
+                    ${pointsDetail}
                 </div>
                 <div>
                     <div style="font-size: 12px; opacity: 0.9; text-transform: uppercase; letter-spacing: 1px;">Matches</div>
