@@ -905,21 +905,11 @@ function calculateJourneeStats(journeeId, countDoublesAsOne = true) {
                 const joueurX = rencontre.joueur_x;
                 
                 const processPlayer = (joueur, isTeamA, isFromJoueur2 = false) => {
-                    // Pour les doubles, chercher avec la lettre composée (ex: "D/E")
                     let joueurData;
                     if (rencontre.type === 'double') {
-                        joueurData = isTeamA ? 
-                            equipeA.joueurs.find(j => rencontre.joueur_a.lettre.includes(j.lettre)) :
-                            equipeX.joueurs.find(j => rencontre.joueur_x.lettre.includes(j.lettre));
-                        // Pour le second joueur du double
-                        if (isFromJoueur2) {
-                            const lettre2 = isTeamA ? 
-                                rencontre.joueur_a.lettre.split('/')[1] :
-                                rencontre.joueur_x.lettre.split('/')[1];
-                            joueurData = isTeamA ?
-                                equipeA.joueurs.find(j => j.lettre === lettre2) :
-                                equipeX.joueurs.find(j => j.lettre === lettre2);
-                        }
+                        const lettres = (isTeamA ? rencontre.joueur_a.lettre : rencontre.joueur_x.lettre).split('/');
+                        const lettre = lettres[isFromJoueur2 ? 1 : 0];
+                        joueurData = (isTeamA ? equipeA.joueurs : equipeX.joueurs).find(j => j.lettre === lettre);
                     } else {
                         joueurData = isTeamA ? 
                             equipeA.joueurs.find(j => j.lettre === joueur.lettre) :
@@ -3263,8 +3253,8 @@ function normalizePlayerName(joueur) {
 }
 
 function getPlayerData(joueur, teamPlayers, letter = joueur.lettre) {
-    const letters = String(letter || '').split('/');
-    return teamPlayers.find(player => letters.includes(player.lettre)) ||
+    const firstLetter = String(letter || '').split('/')[0];
+    return teamPlayers.find(player => player.lettre === firstLetter) ||
         teamPlayers.find(player =>
             player.prenom === joueur.prenom && player.nom === joueur.nom
         );

@@ -1,0 +1,405 @@
+{
+  "division": "D44 D1 SENIORS Féminin",
+  "equipe_ttsh": "TTSHF02",
+  "equipes": {
+    "equipe_a": {
+      "joueurs": [
+        {
+          "lettre": "A",
+          "licence": "4451449",
+          "nom": "BRISTEAU",
+          "points": 514,
+          "prenom": "Patrice"
+        },
+        {
+          "lettre": "B",
+          "licence": "4443929",
+          "nom": "MARTIN",
+          "points": 513,
+          "prenom": "Amelie"
+        },
+        {
+          "lettre": "C",
+          "licence": "8512360",
+          "nom": "GIMZA",
+          "points": 595,
+          "prenom": "Sandrine"
+        }
+      ],
+      "nom": "REZE TT"
+    },
+    "equipe_x": {
+      "joueurs": [
+        {
+          "lettre": "X",
+          "licence": "4456516",
+          "nom": "LUCAS",
+          "points": 500,
+          "prenom": "Isabelle"
+        },
+        {
+          "lettre": "Y",
+          "licence": "4470304",
+          "nom": "CLÉMENT",
+          "points": 500,
+          "prenom": "Camille"
+        },
+        {
+          "lettre": "Z",
+          "licence": "4466886",
+          "nom": "CROGUENNEC",
+          "points": 524,
+          "prenom": "Delphine"
+        }
+      ],
+      "nom": "ST HERBLAIN T.T"
+    }
+  },
+  "expected_matches": 10,
+  "poule": null,
+  "rencontres": [
+    {
+      "joueur_a": {
+        "lettre": "A",
+        "nom": "BRISTEAU",
+        "prenom": "Patrice"
+      },
+      "joueur_x": {
+        "lettre": "X",
+        "nom": "LUCAS",
+        "prenom": "Isabelle"
+      },
+      "numero": 1,
+      "score_match": "1-0",
+      "sets": [
+        {
+          "equipe_a": 11,
+          "equipe_x": 6,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 5,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 6,
+          "gagnant": "A"
+        }
+      ],
+      "type": "simple",
+      "vainqueur": "A"
+    },
+    {
+      "joueur_a": {
+        "lettre": "B",
+        "nom": "MARTIN",
+        "prenom": "Amelie"
+      },
+      "joueur_x": {
+        "lettre": "Y",
+        "nom": "CLÉMENT",
+        "prenom": "Camille"
+      },
+      "numero": 2,
+      "score_match": "1-0",
+      "sets": [
+        {
+          "equipe_a": 11,
+          "equipe_x": 5,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 5,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 5,
+          "gagnant": "A"
+        }
+      ],
+      "type": "simple",
+      "vainqueur": "A"
+    },
+    {
+      "joueur_a": {
+        "lettre": "C",
+        "nom": "GIMZA",
+        "prenom": "Sandrine"
+      },
+      "joueur_x": {
+        "lettre": "Z",
+        "nom": "CROGUENNEC",
+        "prenom": "Delphine"
+      },
+      "numero": 3,
+      "score_match": "1-0",
+      "sets": [
+        {
+          "equipe_a": 11,
+          "equipe_x": 5,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 9,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 3,
+          "gagnant": "A"
+        }
+      ],
+      "type": "simple",
+      "vainqueur": "A"
+    },
+    {
+      "joueur_a": {
+        "lettre": "B",
+        "nom": "MARTIN",
+        "prenom": "Amelie"
+      },
+      "joueur_x": {
+        "lettre": "X",
+        "nom": "LUCAS",
+        "prenom": "Isabelle"
+      },
+      "numero": 4,
+      "score_match": "1-0",
+      "sets": [
+        {
+          "equipe_a": 11,
+          "equipe_x": 3,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 3,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 4,
+          "gagnant": "A"
+        }
+      ],
+      "type": "simple",
+      "vainqueur": "A"
+    },
+    {
+      "joueur_a": {
+        "joueur2": {
+          "nom": "GIMZA",
+          "prenom": "Sandrine"
+        },
+        "lettre": "B/C",
+        "nom": "MARTIN",
+        "prenom": "Amelie"
+      },
+      "joueur_x": {
+        "joueur2": {
+          "nom": "CROGUENNEC",
+          "prenom": "Delphine"
+        },
+        "lettre": "Y/Z",
+        "nom": "CLÉMENT",
+        "prenom": "Camille"
+      },
+      "numero": 5,
+      "score_match": "1-0",
+      "sets": [
+        {
+          "equipe_a": 11,
+          "equipe_x": 1,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 7,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 8,
+          "gagnant": "A"
+        }
+      ],
+      "type": "double",
+      "vainqueur": "A"
+    },
+    {
+      "joueur_a": {
+        "lettre": "A",
+        "nom": "BRISTEAU",
+        "prenom": "Patrice"
+      },
+      "joueur_x": {
+        "lettre": "Z",
+        "nom": "CROGUENNEC",
+        "prenom": "Delphine"
+      },
+      "numero": 6,
+      "score_match": "1-0",
+      "sets": [
+        {
+          "equipe_a": 11,
+          "equipe_x": 9,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 6,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 9,
+          "gagnant": "A"
+        }
+      ],
+      "type": "simple",
+      "vainqueur": "A"
+    },
+    {
+      "joueur_a": {
+        "lettre": "C",
+        "nom": "GIMZA",
+        "prenom": "Sandrine"
+      },
+      "joueur_x": {
+        "lettre": "Y",
+        "nom": "CLÉMENT",
+        "prenom": "Camille"
+      },
+      "numero": 7,
+      "score_match": "1-0",
+      "sets": [
+        {
+          "equipe_a": 11,
+          "equipe_x": 3,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 2,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 3,
+          "gagnant": "A"
+        }
+      ],
+      "type": "simple",
+      "vainqueur": "A"
+    },
+    {
+      "joueur_a": {
+        "lettre": "B",
+        "nom": "MARTIN",
+        "prenom": "Amelie"
+      },
+      "joueur_x": {
+        "lettre": "Z",
+        "nom": "CROGUENNEC",
+        "prenom": "Delphine"
+      },
+      "numero": 8,
+      "score_match": "1-0",
+      "sets": [
+        {
+          "equipe_a": 11,
+          "equipe_x": 9,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 12,
+          "equipe_x": 10,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 6,
+          "gagnant": "A"
+        }
+      ],
+      "type": "simple",
+      "vainqueur": "A"
+    },
+    {
+      "joueur_a": {
+        "lettre": "C",
+        "nom": "GIMZA",
+        "prenom": "Sandrine"
+      },
+      "joueur_x": {
+        "lettre": "X",
+        "nom": "LUCAS",
+        "prenom": "Isabelle"
+      },
+      "numero": 9,
+      "score_match": "1-0",
+      "sets": [
+        {
+          "equipe_a": 11,
+          "equipe_x": 3,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 6,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 5,
+          "gagnant": "A"
+        }
+      ],
+      "type": "simple",
+      "vainqueur": "A"
+    },
+    {
+      "joueur_a": {
+        "lettre": "A",
+        "nom": "BRISTEAU",
+        "prenom": "Patrice"
+      },
+      "joueur_x": {
+        "lettre": "Y",
+        "nom": "CLÉMENT",
+        "prenom": "Camille"
+      },
+      "numero": 10,
+      "score_match": "1-0",
+      "sets": [
+        {
+          "equipe_a": 11,
+          "equipe_x": 2,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 1,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 6,
+          "gagnant": "A"
+        }
+      ],
+      "type": "simple",
+      "vainqueur": "A"
+    }
+  ],
+  "resultat_global": {
+    "equipe_a": 10,
+    "equipe_x": 0,
+    "vainqueur": "A"
+  }
+}
