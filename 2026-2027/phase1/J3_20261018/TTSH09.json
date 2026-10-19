@@ -1,0 +1,895 @@
+{
+  "division": "D44 D3 SENIORS Mixte",
+  "equipe_ttsh": "TTSH09",
+  "equipes": {
+    "equipe_a": {
+      "joueurs": [
+        {
+          "lettre": "A",
+          "licence": "4464008",
+          "nom": "GODIN",
+          "points": 613,
+          "prenom": "Oscar"
+        },
+        {
+          "lettre": "B",
+          "licence": "4470127",
+          "nom": "RABOTEAU",
+          "points": 748,
+          "prenom": "Raphaël"
+        },
+        {
+          "lettre": "C",
+          "licence": "4456651",
+          "nom": "MICHEL",
+          "points": 730,
+          "prenom": "Jean-Pierre"
+        },
+        {
+          "lettre": "D",
+          "licence": "4463837",
+          "nom": "TALNEAU",
+          "points": 513,
+          "prenom": "Martin"
+        },
+        {
+          "lettre": "E",
+          "licence": "4465888",
+          "nom": "CONTI",
+          "points": 526,
+          "prenom": "Théodore"
+        },
+        {
+          "lettre": "F",
+          "licence": "4443848",
+          "nom": "DESTOUCHES",
+          "points": 597,
+          "prenom": "Franck"
+        }
+      ],
+      "nom": "ORVAULT SPORT"
+    },
+    "equipe_x": {
+      "joueurs": [
+        {
+          "lettre": "X",
+          "licence": "7874242",
+          "nom": "PELLIZZARI",
+          "points": 696,
+          "prenom": "Alban"
+        },
+        {
+          "lettre": "Y",
+          "licence": "4466478",
+          "nom": "GAVROY",
+          "points": 630,
+          "prenom": "Robin"
+        },
+        {
+          "lettre": "Z",
+          "licence": "4470316",
+          "nom": "DURAND",
+          "points": 587,
+          "prenom": "Simon"
+        },
+        {
+          "lettre": "R",
+          "licence": "4466833",
+          "nom": "QUEMERE",
+          "points": 572,
+          "prenom": "Mikaël"
+        },
+        {
+          "lettre": "S",
+          "licence": "4454373",
+          "nom": "PENEAU",
+          "points": 611,
+          "prenom": "Yvan"
+        },
+        {
+          "lettre": "T",
+          "licence": "4458540",
+          "nom": "GATTEAU",
+          "points": 527,
+          "prenom": "Guillaume"
+        }
+      ],
+      "nom": "ST HERBLAIN T.T"
+    }
+  },
+  "expected_matches": 20,
+  "poule": "P1MD3 Poule 3",
+  "rencontres": [
+    {
+      "joueur_a": {
+        "lettre": "A",
+        "nom": "GODIN",
+        "prenom": "Oscar"
+      },
+      "joueur_x": {
+        "lettre": "X",
+        "nom": "PELLIZZARI",
+        "prenom": "Alban"
+      },
+      "numero": 1,
+      "score_match": "0-1",
+      "sets": [
+        {
+          "equipe_a": 11,
+          "equipe_x": 4,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 10,
+          "equipe_x": 12,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 8,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 8,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 6,
+          "equipe_x": 11,
+          "gagnant": "X"
+        }
+      ],
+      "type": "simple",
+      "vainqueur": "X"
+    },
+    {
+      "joueur_a": {
+        "lettre": "D",
+        "nom": "TALNEAU",
+        "prenom": "Martin"
+      },
+      "joueur_x": {
+        "lettre": "R",
+        "nom": "QUEMERE",
+        "prenom": "Mikaël"
+      },
+      "numero": 2,
+      "score_match": "1-0",
+      "sets": [
+        {
+          "equipe_a": 11,
+          "equipe_x": 13,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 9,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 16,
+          "equipe_x": 14,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 12,
+          "equipe_x": 10,
+          "gagnant": "A"
+        }
+      ],
+      "type": "simple",
+      "vainqueur": "A"
+    },
+    {
+      "joueur_a": {
+        "lettre": "B",
+        "nom": "RABOTEAU",
+        "prenom": "Raphaël"
+      },
+      "joueur_x": {
+        "lettre": "Y",
+        "nom": "GAVROY",
+        "prenom": "Robin"
+      },
+      "numero": 3,
+      "score_match": "1-0",
+      "sets": [
+        {
+          "equipe_a": 11,
+          "equipe_x": 7,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 3,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 10,
+          "equipe_x": 12,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 15,
+          "equipe_x": 13,
+          "gagnant": "A"
+        }
+      ],
+      "type": "simple",
+      "vainqueur": "A"
+    },
+    {
+      "joueur_a": {
+        "lettre": "E",
+        "nom": "CONTI",
+        "prenom": "Théodore"
+      },
+      "joueur_x": {
+        "lettre": "S",
+        "nom": "PENEAU",
+        "prenom": "Yvan"
+      },
+      "numero": 4,
+      "score_match": "1-0",
+      "sets": [
+        {
+          "equipe_a": 11,
+          "equipe_x": 13,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 6,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 8,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 15,
+          "equipe_x": 13,
+          "gagnant": "A"
+        }
+      ],
+      "type": "simple",
+      "vainqueur": "A"
+    },
+    {
+      "joueur_a": {
+        "lettre": "C",
+        "nom": "MICHEL",
+        "prenom": "Jean-Pierre"
+      },
+      "joueur_x": {
+        "lettre": "Z",
+        "nom": "DURAND",
+        "prenom": "Simon"
+      },
+      "numero": 5,
+      "score_match": "1-0",
+      "sets": [
+        {
+          "equipe_a": 11,
+          "equipe_x": 7,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 13,
+          "equipe_x": 11,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 9,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 12,
+          "equipe_x": 10,
+          "gagnant": "A"
+        }
+      ],
+      "type": "simple",
+      "vainqueur": "A"
+    },
+    {
+      "joueur_a": {
+        "lettre": "F",
+        "nom": "DESTOUCHES",
+        "prenom": "Franck"
+      },
+      "joueur_x": {
+        "lettre": "T",
+        "nom": "GATTEAU",
+        "prenom": "Guillaume"
+      },
+      "numero": 6,
+      "score_match": "1-0",
+      "sets": [
+        {
+          "equipe_a": 11,
+          "equipe_x": 7,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 8,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 13,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 9,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 13,
+          "equipe_x": 11,
+          "gagnant": "A"
+        }
+      ],
+      "type": "simple",
+      "vainqueur": "A"
+    },
+    {
+      "joueur_a": {
+        "lettre": "B",
+        "nom": "RABOTEAU",
+        "prenom": "Raphaël"
+      },
+      "joueur_x": {
+        "lettre": "X",
+        "nom": "PELLIZZARI",
+        "prenom": "Alban"
+      },
+      "numero": 7,
+      "score_match": "1-0",
+      "sets": [
+        {
+          "equipe_a": 11,
+          "equipe_x": 9,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 3,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 7,
+          "gagnant": "A"
+        }
+      ],
+      "type": "simple",
+      "vainqueur": "A"
+    },
+    {
+      "joueur_a": {
+        "joueur2": {
+          "nom": "CONTI",
+          "prenom": "Théodore"
+        },
+        "lettre": "D/E",
+        "nom": "TALNEAU",
+        "prenom": "Martin"
+      },
+      "joueur_x": {
+        "joueur2": {
+          "nom": "QUEMERE",
+          "prenom": "Mikaël"
+        },
+        "lettre": "T/R",
+        "nom": "GATTEAU",
+        "prenom": "Guillaume"
+      },
+      "numero": 8,
+      "score_match": "0-1",
+      "sets": [
+        {
+          "equipe_a": 5,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 6,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 5,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 8,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 6,
+          "equipe_x": 11,
+          "gagnant": "X"
+        }
+      ],
+      "type": "double",
+      "vainqueur": "X"
+    },
+    {
+      "joueur_a": {
+        "lettre": "A",
+        "nom": "GODIN",
+        "prenom": "Oscar"
+      },
+      "joueur_x": {
+        "lettre": "Z",
+        "nom": "DURAND",
+        "prenom": "Simon"
+      },
+      "numero": 9,
+      "score_match": "0-1",
+      "sets": [
+        {
+          "equipe_a": 13,
+          "equipe_x": 11,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 7,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 8,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 3,
+          "equipe_x": 11,
+          "gagnant": "X"
+        }
+      ],
+      "type": "simple",
+      "vainqueur": "X"
+    },
+    {
+      "joueur_a": {
+        "lettre": "E",
+        "nom": "CONTI",
+        "prenom": "Théodore"
+      },
+      "joueur_x": {
+        "lettre": "R",
+        "nom": "QUEMERE",
+        "prenom": "Mikaël"
+      },
+      "numero": 10,
+      "score_match": "0-1",
+      "sets": [
+        {
+          "equipe_a": 7,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 1,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 6,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 8,
+          "equipe_x": 11,
+          "gagnant": "X"
+        }
+      ],
+      "type": "simple",
+      "vainqueur": "X"
+    },
+    {
+      "joueur_a": {
+        "lettre": "C",
+        "nom": "MICHEL",
+        "prenom": "Jean-Pierre"
+      },
+      "joueur_x": {
+        "lettre": "Y",
+        "nom": "GAVROY",
+        "prenom": "Robin"
+      },
+      "numero": 11,
+      "score_match": "0-1",
+      "sets": [
+        {
+          "equipe_a": 12,
+          "equipe_x": 10,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 5,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 10,
+          "equipe_x": 12,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 4,
+          "equipe_x": 11,
+          "gagnant": "X"
+        }
+      ],
+      "type": "simple",
+      "vainqueur": "X"
+    },
+    {
+      "joueur_a": {
+        "lettre": "D",
+        "nom": "TALNEAU",
+        "prenom": "Martin"
+      },
+      "joueur_x": {
+        "lettre": "T",
+        "nom": "GATTEAU",
+        "prenom": "Guillaume"
+      },
+      "numero": 12,
+      "score_match": "1-0",
+      "sets": [
+        {
+          "equipe_a": 11,
+          "equipe_x": 5,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 12,
+          "equipe_x": 10,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 9,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 8,
+          "gagnant": "A"
+        }
+      ],
+      "type": "simple",
+      "vainqueur": "A"
+    },
+    {
+      "joueur_a": {
+        "joueur2": {
+          "nom": "MICHEL",
+          "prenom": "Jean-Pierre"
+        },
+        "lettre": "B/C",
+        "nom": "RABOTEAU",
+        "prenom": "Raphaël"
+      },
+      "joueur_x": {
+        "joueur2": {
+          "nom": "DURAND",
+          "prenom": "Simon"
+        },
+        "lettre": "Y/Z",
+        "nom": "GAVROY",
+        "prenom": "Robin"
+      },
+      "numero": 13,
+      "score_match": "1-0",
+      "sets": [
+        {
+          "equipe_a": 11,
+          "equipe_x": 8,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 7,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 12,
+          "equipe_x": 10,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 9,
+          "gagnant": "A"
+        }
+      ],
+      "type": "double",
+      "vainqueur": "A"
+    },
+    {
+      "joueur_a": {
+        "lettre": "F",
+        "nom": "DESTOUCHES",
+        "prenom": "Franck"
+      },
+      "joueur_x": {
+        "lettre": "S",
+        "nom": "PENEAU",
+        "prenom": "Yvan"
+      },
+      "numero": 14,
+      "score_match": "0-1",
+      "sets": [
+        {
+          "equipe_a": 12,
+          "equipe_x": 10,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 3,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 7,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 7,
+          "equipe_x": 11,
+          "gagnant": "X"
+        }
+      ],
+      "type": "simple",
+      "vainqueur": "X"
+    },
+    {
+      "joueur_a": {
+        "lettre": "B",
+        "nom": "RABOTEAU",
+        "prenom": "Raphaël"
+      },
+      "joueur_x": {
+        "lettre": "Z",
+        "nom": "DURAND",
+        "prenom": "Simon"
+      },
+      "numero": 15,
+      "score_match": "1-0",
+      "sets": [
+        {
+          "equipe_a": 11,
+          "equipe_x": 9,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 7,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 9,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 9,
+          "gagnant": "A"
+        }
+      ],
+      "type": "simple",
+      "vainqueur": "A"
+    },
+    {
+      "joueur_a": {
+        "lettre": "E",
+        "nom": "CONTI",
+        "prenom": "Théodore"
+      },
+      "joueur_x": {
+        "lettre": "T",
+        "nom": "GATTEAU",
+        "prenom": "Guillaume"
+      },
+      "numero": 16,
+      "score_match": "1-0",
+      "sets": [
+        {
+          "equipe_a": 11,
+          "equipe_x": 8,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 13,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 14,
+          "equipe_x": 12,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 7,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 7,
+          "gagnant": "A"
+        }
+      ],
+      "type": "simple",
+      "vainqueur": "A"
+    },
+    {
+      "joueur_a": {
+        "lettre": "C",
+        "nom": "MICHEL",
+        "prenom": "Jean-Pierre"
+      },
+      "joueur_x": {
+        "lettre": "X",
+        "nom": "PELLIZZARI",
+        "prenom": "Alban"
+      },
+      "numero": 17,
+      "score_match": "1-0",
+      "sets": [
+        {
+          "equipe_a": 11,
+          "equipe_x": 5,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 2,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 7,
+          "gagnant": "A"
+        }
+      ],
+      "type": "simple",
+      "vainqueur": "A"
+    },
+    {
+      "joueur_a": {
+        "lettre": "F",
+        "nom": "DESTOUCHES",
+        "prenom": "Franck"
+      },
+      "joueur_x": {
+        "lettre": "R",
+        "nom": "QUEMERE",
+        "prenom": "Mikaël"
+      },
+      "numero": 18,
+      "score_match": "1-0",
+      "sets": [
+        {
+          "equipe_a": 9,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 8,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 6,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 7,
+          "gagnant": "A"
+        }
+      ],
+      "type": "simple",
+      "vainqueur": "A"
+    },
+    {
+      "joueur_a": {
+        "lettre": "A",
+        "nom": "GODIN",
+        "prenom": "Oscar"
+      },
+      "joueur_x": {
+        "lettre": "Y",
+        "nom": "GAVROY",
+        "prenom": "Robin"
+      },
+      "numero": 19,
+      "score_match": "0-1",
+      "sets": [
+        {
+          "equipe_a": 4,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 6,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 8,
+          "equipe_x": 11,
+          "gagnant": "X"
+        }
+      ],
+      "type": "simple",
+      "vainqueur": "X"
+    },
+    {
+      "joueur_a": {
+        "lettre": "D",
+        "nom": "TALNEAU",
+        "prenom": "Martin"
+      },
+      "joueur_x": {
+        "lettre": "S",
+        "nom": "PENEAU",
+        "prenom": "Yvan"
+      },
+      "numero": 20,
+      "score_match": "0-1",
+      "sets": [
+        {
+          "equipe_a": 10,
+          "equipe_x": 12,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 9,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 8,
+          "equipe_x": 11,
+          "gagnant": "X"
+        },
+        {
+          "equipe_a": 11,
+          "equipe_x": 6,
+          "gagnant": "A"
+        },
+        {
+          "equipe_a": 8,
+          "equipe_x": 11,
+          "gagnant": "X"
+        }
+      ],
+      "type": "simple",
+      "vainqueur": "X"
+    }
+  ],
+  "resultat_global": {
+    "equipe_a": 12,
+    "equipe_x": 8,
+    "vainqueur": "A"
+  }
+}
